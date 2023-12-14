@@ -21,8 +21,20 @@ export const createReview = async function (
   const usersID = checkId(userId);
   const guardiansID = checkId(guardianID);
 
+  review = review.trim();
+  rating = rating.trim();
+
+  if (!review || review === " ")
+  throw "Review Cannot Be Empty";
+
+  if (!rating || rating === " ")
+  throw "Rating Cannot Be Empty";
+  
   const isRating = typeof rating === "number" && rating >= 0 && rating <= 5;
   if (!isRating) throw "Rating should be a number between 0 and 5.";
+
+  const isReview = typeof review === "string" && review.length <= 3;
+  if (!isReview) throw "Review should be a string and not less than 3 characters";
 
   const collection = await reviews();
   const addReview = await collection.insertOne({
