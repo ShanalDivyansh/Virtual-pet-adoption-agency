@@ -1,0 +1,28 @@
+{
+  "name": "virtual-pet-adoption-agency",
+  "version": "1.0.0",
+  "description": "Virtual Pet Adoption Agency",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShanalDivyansh/Virtual-pet-adoption-agency.git"
+  },
+  "author": "Shanal Divyansh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShanalDivyansh/Virtual-pet-adoption-agency/issues"
+  },
+  "homepage": "https://github.com/ShanalDivyansh/Virtual-pet-adoption-agency#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "mongodb": "^6.3.0",
+    "password-validator": "^5.3.0",
+    "validator": "^13.11.0"
+  }
+}
