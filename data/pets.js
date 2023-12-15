@@ -8,7 +8,8 @@ export const createPets = async function (
   description,
   needs,
   pictures,
-  availability
+  availability,
+  agencyName
 ) {
   if (
     !(
@@ -17,7 +18,8 @@ export const createPets = async function (
       typeof description !== "undefined" &&
       typeof needs !== "undefined" &&
       typeof pictures !== "undefined" &&
-      typeof availability !== "undefined"
+      typeof availability !== "undefined" &&
+      typeof agencyName !== "undefined"
     )
   ) {
     throw "All fields must be given";
@@ -25,6 +27,8 @@ export const createPets = async function (
   name = name.trim();
   breed = breed.trim();
   description = description.trim();
+  agencyName = agencyName.trim();
+  if (!isValidName(agencyName)) throw "Error: Invalid agency name";
   if (typeof availability !== "boolean")
     throw "Availability needs to be a boolean";
   if (!Array.isArray(needs)) throw "Needs should be an array";
@@ -50,6 +54,7 @@ export const createPets = async function (
     pictures,
     availability,
     adoptedBy: null,
+    agencyName: agencyName.trim().toLowerCase(),
   });
   if (!addPet.insertedId) throw "Insert failed!";
   return { insertedUser: true };
@@ -88,6 +93,13 @@ export const getAvailablePets = async function () {
   const availablePets = await collection
     .find({ availability: { $eq: true } })
     .toArray();
+  if (!availablePets) throw "No pets failed!";
+  return availablePets;
+};
+export const getAvailablePetsByAgency = async function (agencyName) {
+  if (!isValidName(agencyName)) throw "Error agency name is invalid";
+  const collection = await pets();
+  const availablePets = await collection.find({ agencyName }).toArray();
   if (!availablePets) throw "No pets failed!";
   return availablePets;
 };

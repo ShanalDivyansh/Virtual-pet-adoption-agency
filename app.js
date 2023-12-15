@@ -134,7 +134,7 @@ import { dirname } from "path";
 import exphbs from "express-handlebars";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
+import session from "express-session";
 // const staticDir = express.static(__dirname + '/public');
 
 const rewriteUnsupportedBrowserMethods = (req, res, next) => {

@@ -257,12 +257,14 @@ export const loginUser = async (email, password) => {
   if (!userInfo) throw "Either the email address or password is invalid";
   const comparePass = await bcrypt.compare(password, userInfo.password);
   if (!comparePass) throw "Either the email address or password is invalid";
-  if (comparePass)
-    return {
-      firstName: userInfo.firstName,
-      lastName: userInfo.lastName,
-      email: userInfo.email,
-    };
+  if (comparePass) {
+  }
+  return {
+    firstName: userInfo.firstName,
+    lastName: userInfo.lastName,
+    email: userInfo.email,
+    role,
+  };
 };
 
 export const getUserDetails = async function (userID) {

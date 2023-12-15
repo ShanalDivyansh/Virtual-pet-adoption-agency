@@ -3,7 +3,7 @@ import { Router } from "express";
 const router = Router();
 import { array1ContainsAllElementsOfArray2 } from "../helpers.js";
 import { addUserQuizAns } from "../data/users.js";
-
+import { loginUser } from "../data/users.js";
 router.route("/").get(async (req, res) => {
   return res.json({ error: "YOU SHOULD NOT BE HERE!" });
 });
@@ -131,6 +131,14 @@ router
   })
   .post(async (req, res) => {
     //code here for POST
+    const email = req.body["login-email-input"];
+    const password = req.body["login-password-input"];
+    try {
+      const result = await loginUser(email, password);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
   });
 
 router.route("/protected").get(async (req, res) => {
