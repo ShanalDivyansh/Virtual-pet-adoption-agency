@@ -48,3 +48,7 @@ export function checkZip(zip) {
 
   return zipFormat.test(zip);
 }
+
+export function array1ContainsAllElementsOfArray2(array1, array2) {
+  return array1.every(element => array2.includes(element));
+}

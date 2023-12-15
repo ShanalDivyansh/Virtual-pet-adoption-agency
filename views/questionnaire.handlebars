@@ -1,0 +1,122 @@
+{{!--
+
+If the user is logged in , and 'GET /protected' endpoint is called, you will render this view based on the specs.
+
+--}}
+<form id="questionnaire-form" method="post" action="/register">
+    <div class="question1">
+        <p>1. What type of pet are you looking for?</p>
+        <div class="options1">
+            <label for="dog">
+                <input type="radio" name="petType" id="dog" value="dog"> Dog : a furry comedian
+            </label>
+            <label for="cat">
+                <input type="radio" name="petType" id="cat" value="cat"> Cat : a purr-fect stand-up artist
+            </label>
+            <label for="none">
+                <input type="radio" name="petType" id="none" value="none"> No preference : like surprises
+            </label>
+        </div>
+    </div>
+    <div class="question2">
+        <p>2. Which age group are you looking for?</p>
+        <div class="option2">
+            <label for="puppy">
+                <input type="checkbox" name="petAgeGroup" id="puppy" value="puppy"> Puppy : bouncing bundle of joy.
+            </label>
+            <label for="young adult">
+                <input type="checkbox" name="petAgeGroup" id="young adult" value="young adult"> Young Adult : cool and
+                collected
+            </label>
+            <label for="adult">
+                <input type="checkbox" name="petAgeGroup" id="adult" value="adult"> Adult : experienced
+            </label>
+            <label for="senior">
+                <input type="checkbox" name="petAgeGroup" id="senior" value="senior"> Senior : a wise senior pet with a
+                Ph.D. in napping
+            </label>
+        </div>
+    </div>
+    <div class="question3">
+        <p>3. Gender Preference</p>
+        <div class="options3">
+            <label for="male">
+                <input type="radio" name="petGender" id="male" value="male"> Male : a furry gentleman
+            </label>
+            <label for="female">
+                <input type="radio" name="petGender" id="female" value="female"> Female : a fabulous lady
+            </label>
+            <label for="none">
+                <input type="radio" name="petGender" id="none" value="none"> No preference : you're open to the
+                mysteries of the
+                pet universe
+            </label>
+        </div>
+    </div>
+    <div class="question4">
+        <p>4. Prefered Size?</p>
+        <div class="option4">
+            <label for="small">
+                <input type="checkbox" name="petSize" id="small" value="small"> Small : compact and cute
+            </label>
+            <label for="medium">
+                <input type="checkbox" name="petSize" id="medium" value="medium"> Medium : middle-of-the-road and
+                magnificent
+            </label>
+            <label for="large">
+                <input type="checkbox" name="petSize" id="large" value="large"> Large : larger than life
+            </label>
+            <label for="giant">
+                <input type="checkbox" name="petSize" id="giant" value="giant"> Giant : dreaming of your very own furry
+                giant
+            </label>
+        </div>
+    </div>
+    <div class="question5">
+        <p>5. Do you prefer your companion to be House Trained?</p>
+        <div class="options5">
+            <label for"yes">
+                <input type="radio" name="houseTrained" id="yes" value="yes"> Yes
+            </label>
+            <label for="none">
+                <input type="radio" name="houseTrained" id="none" value="none"> No
+            </label>
+        </div>
+    </div>
+    <div class="question6">
+        <p>6. How energetic do you want them to be?</p>
+        <div class="options6">
+            <label for="low">
+                <input type="checkbox" name="energyLevel" id="low" value="low"> Low : a laid-back companion
+            </label>
+            <label for="medium">
+                <input type="checkbox" name="energyLevel" id="medium" value="medium"> Medium : a moderately playful pal
+            </label>
+            <label for="high">
+                <input type="checkbox" name="energyLevel" id="high" value="high"> High : a perpetual motion machine
+            </label>
+            <label for="very-high">
+                <input type="checkbox" name="energyLevel" id="very-high" value="very-high"> Very-High : a four-legged tornado of energy
+            </label>
+        </div>
+    </div>
+    <div class="question7">
+        <p>7. Are you open to adopt pets with special needs?</p>
+        <div class="options7">
+            <label for="yes">
+                <input type="radio" name="specialNeeds" id="yes" value="yes"> Yes
+            </label>
+            <label for="no">
+                <input type="radio" name="specialNeeds" id="no" value="no"> Not there yet
+            </label>
+        </div>
+    </div>
+    <button>Submit</button>
+</form>
+{{#if errors}}
+  <ul class="error-list">
+    {{#each errors}}
+      <li class="error">{{this}}</li>
+    {{/each}}
+  </ul>
+{{/if}}
