@@ -21,4 +21,5 @@ NOTE: YOU WILL NEED TO CHANGE THE CODE BELOW AND UNCOMMENT IT TO HAVE THE COLLEC
 export const users = getCollectionFn("users");
 export const reviews = getCollectionFn("reviews");
 export const guardian = getCollectionFn("guardian");
+export const pets = getCollectionFn("pets");
 //export const posts = getCollectionFn('posts');

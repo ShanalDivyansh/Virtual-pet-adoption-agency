@@ -3,7 +3,7 @@ import validator from "validator";
 import { ObjectId } from "mongodb";
 import PasswordValidator from "password-validator";
 import bcrypt, { hash } from "bcrypt";
-import { users } from "../config/mongoCollections.js";
+import { pets, users } from "../config/mongoCollections.js";
 
 //import mongo collections, bcrypt and implement the following data functions
 export const registerUser = async (
@@ -92,9 +92,9 @@ export const addUserShortListedPets = async (userID, shortlistedPetsID) => {
   const collection = await users();
   const existingInfo = await collection.findOne({ _id: new ObjectId(usersID) });
   if (!existingInfo) throw "User not found";
-  console.log(existingInfo);
-  const isPetExisting = existingInfo.shortlistedPets.every((pet) => {
-    return pet === petID;
+  // console.log(existingInfo);
+  const isPetExisting = existingInfo.shortlistedPets.every((p) => {
+    return p.toString() === petID;
   });
   if (isPetExisting && existingInfo.shortlistedPets.length > 0)
     throw "Pet already exists in your short listed pets.";
@@ -102,7 +102,7 @@ export const addUserShortListedPets = async (userID, shortlistedPetsID) => {
     { _id: new ObjectId(usersID) },
     {
       $set: {
-        shortlistedPets: [...existingInfo.shortlistedPets, petID],
+        shortlistedPets: [...existingInfo.shortlistedPets, new ObjectId(petID)],
       },
     },
     { returnDocument: "after" }
@@ -112,7 +112,6 @@ export const addUserShortListedPets = async (userID, shortlistedPetsID) => {
   return await updateInfo;
 };
 
-// to-do mark adopted to true in dog rpofile as well
 export const addUserAdoptedPets = async (userId, adoptedPets) => {
   if (typeof adoptedPets === "undefined" && typeof userId === "undefined") {
     throw "Error All fields need to have valid values";
@@ -129,12 +128,23 @@ export const addUserAdoptedPets = async (userId, adoptedPets) => {
     { _id: new ObjectId(usersID) },
     {
       $set: {
-        adoptedPets: [...existingInfo.adoptedPets, petID],
+        adoptedPets: [...existingInfo.adoptedPets, new ObjectId(petID)],
       },
     },
     { returnDocument: "after" }
   );
   if (!updateInfo) throw "Error: Update failed";
+
+  const petCollection = await pets();
+  const markAdopted = await petCollection.findOneAndUpdate(
+    { _id: new ObjectId(petID) },
+    {
+      $set: {
+        availability: false,
+      },
+    }
+  );
+  if (!markAdopted) throw "Error: Update failed";
 
   return await updateInfo;
 };
@@ -203,7 +213,7 @@ export const updateUserReviews = async (userdId, reviews) => {
     { _id: new ObjectId(usersID) },
     {
       $set: {
-        reviews: [...existingInfo.reviews, reviewsID],
+        reviews: [...existingInfo.reviews, new ObjectId(reviewsID)],
       },
     },
     { returnDocument: "after" }
@@ -252,4 +262,40 @@ export const loginUser = async (email, password) => {
       lastName: userInfo.lastName,
       email: userInfo.email,
     };
+};
+
+export const getUserDetails = async function (userID) {
+  const id = checkId(userID);
+  const collection = await users();
+  const details = await collection
+    .aggregate([
+      { $match: { _id: new ObjectId(id) } },
+      {
+        $lookup: {
+          from: "pets",
+          localField: "shortlistedPets",
+          foreignField: "_id",
+          as: "shortListedPetsInfo",
+        },
+      },
+      {
+        $lookup: {
+          from: "pets",
+          localField: "adoptedPets",
+          foreignField: "_id",
+          as: "AdoptedPetsInfo",
+        },
+      },
+      {
+        $lookup: {
+          from: "reviews",
+          localField: "reviews",
+          foreignField: "_id",
+          as: "ReviewsInfo",
+        },
+      },
+    ])
+    .toArray();
+  if (!details) throw "Error: user not found";
+  return details;
 };
