@@ -153,7 +153,7 @@ export const addUserAdoptedPets = async (userId, adoptedPets) => {
 export const addUserQuizAns = async (
   userID,
   Type,
-  Breed,
+  // Breed,
   Age_Group,
   Gender,
   Breed_Size,
@@ -164,7 +164,7 @@ export const addUserQuizAns = async (
   if (
     typeof Type === "undefined" &&
     typeof userID === "undefined" &&
-    typeof Breed === "undefined" &&
+    // typeof Breed === "undefined" &&
     typeof Age_Group === "undefined" &&
     typeof Gender === "undefined" &&
     typeof Breed_Size === "undefined" &&
@@ -178,13 +178,14 @@ export const addUserQuizAns = async (
   const collection = await users();
   const existingInfo = await collection.findOne({ _id: new ObjectId(usersID) });
   if (!existingInfo) throw "User not found";
+  console.log(existingInfo);
   const updateInfo = await collection.findOneAndUpdate(
     { _id: new ObjectId(usersID) },
     {
       $set: {
         quizAnswers: {
           Type,
-          Breed,
+          // Breed,
           Age_Group,
           Gender,
           Breed_Size,

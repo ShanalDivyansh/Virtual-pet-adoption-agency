@@ -28,3 +28,27 @@ export function checkId(id) {
   if (!ObjectId.isValid(id)) throw "Error: invalid object ID";
   return id;
 }
+
+export function checkState(state) {
+
+  const statesUS = [
+      'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
+      'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
+      'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
+      'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
+      'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'
+    ];
+
+  return statesUS.includes(state);
+}
+
+export function checkZip(zip) {
+
+  const zipFormat = /^\d{5}$/;
+
+  return zipFormat.test(zip);
+}
+
+export function array1ContainsAllElementsOfArray2(array1, array2) {
+  return array1.every(element => array2.includes(element));
+}
