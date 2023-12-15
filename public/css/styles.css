@@ -1,1 +1,112 @@
 /* You will create a CSS stylesheet in /public/css/styles.css; this file should have at least 5 rulesets.  You will need to utilize all 5 rulesets on each of the pages (not every page has to use all 5 rulesets each but all 5 rulesets must be utilized by the various pages in your application).  So you can have some rulesets for one page, some for another page but there needs to be at least 5 total rulesets that are used between all the pages.  */
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.nav {
+  display: flex;
+  height: 50px;
+  background-color: white;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  height: 100%;
+}
+
+.login-button {
+  margin-right: 50px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+}
+
+.nav {
+  grid-column-start: 1;
+  grid-column-end: 13;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  z-index: 2;
+}
+
+.background {
+  width: 100%;
+  height: 100vh;
+  grid-column-start: 1;
+  grid-column-end: 13;
+  grid-row-start: 1;
+  grid-row-end: 13;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.login-popup {
+  grid-row-start: 4;
+  grid-row-end: 10;
+  grid-column-start: 5;
+  grid-column-end: 9;
+  background-color: white;
+  border-radius: 25px;
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.overlay-bg {
+  width: 100%;
+  height: 100vh;
+  grid-column-start: 1;
+  grid-column-end: 13;
+  grid-row-start: 1;
+  grid-row-end: 13;
+  padding: 0;
+  margin: 0;
+  background: rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s ease-in-out;
+  display: none;
+  z-index: -1;
+}
+.show-overlay {
+  z-index: 1;
+  display: block;
+}
+.show-login {
+  opacity: 1;
+}
+
+#login-form {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  /* width: 300px;  */
+  /* justify-content: center; */
+  /* align-content: center; */
+}
+.submit-btm-login {
+  margin-top: 10px;
+}
+#login-form img {
+  height: 250px;
+}
+.login-popup header {
+}
+#login-form label {
+  margin: 10px;
+}
