@@ -69,7 +69,7 @@ router
       if (!['male', 'female', 'none'].includes(petGender))
         errors.push("Question 3 NOT answered correctly! - server");
 
-      if (!array1ContainsAllElementsOfArray2(petSize, ['smalee', 'medium', 'large', 'giant']))
+      if (!array1ContainsAllElementsOfArray2(petSize, ['small', 'medium', 'large', 'giant']))
         errors.push("Question 4 NOT answered correctly! - server");
 
       if (!['yes', 'none'].includes(houseTrained))

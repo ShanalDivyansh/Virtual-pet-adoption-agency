@@ -115,16 +115,16 @@ import {
 // }
 
 //
-try {
-  await updateReview(
-    "657c7bf23f89ba9b60fca181",
-    "657c7ceec8ddfc78feb1212f",
-    "this is an updated review",
-    3
-  );
-} catch (error) {
-  console.log(error);
-}
+// try {
+//   await updateReview(
+//     "657c7bf23f89ba9b60fca181",
+//     "657c7ceec8ddfc78feb1212f",
+//     "this is an updated review",
+//     3
+//   );
+// } catch (error) {
+//   console.log(error);
+// }
 
 import express from "express";
 const app = express();
