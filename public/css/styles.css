@@ -151,8 +151,6 @@ body {
   border: 2px solid white;
 }
 
-/* Add your general styles here */
-
 #educentre {
   text-align: center;
   margin-top: 50px;
@@ -211,7 +209,7 @@ body {
   display: none;
 }
 
-#addpet-form {
+/* #addpet-form {
   max-width: 600px;
   margin: 20px auto;
   background-color: white;
@@ -236,7 +234,7 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-
+*/
 button {
   background-color: #4caf50;
   color: white;
@@ -249,7 +247,7 @@ button {
 
 button:hover {
   background-color: #45a049;
-}
+} 
 
 
 

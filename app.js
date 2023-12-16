@@ -189,6 +189,8 @@ app.use("/", (req, res, next) => {
 });
 app.use("/login", (req, res, next) => {
   if (req.session.user && req.session.user.userType === "user") {
+    // console.log(req.session.user.id)
+
     return res.redirect("/home");
   } else if (req.session.user && req.session.user.userType === "guardian") {
     return res.redirect("/guardian");
@@ -209,7 +211,18 @@ app.use("/register", (req, res, next) => {
   }
   next();
 });
-app.use("/home", (req, res, next) => {
+app.use("/home", async (req, res, next) => {
+  if (!req.session.user) {
+    return res.redirect("/login");
+  }
+  if(req.session.user.userType === 'user'){
+    const user = await getUserDetails(req.session.user.id)
+    console.error(user[0])
+    if(!user[0].quizAnswers.Type) return res.redirect('/questionnaire')
+  }
+  next();
+});
+app.use("/questionnaire", async (req, res, next) => {
   if (!req.session.user) {
     return res.redirect("/login");
   }

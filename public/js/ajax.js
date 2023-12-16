@@ -46,57 +46,57 @@
 //   })(window.jQuery);
 
 // Add this block to your existing login-signup.js file
-$(document).ready(function () {
-    const registerForm = $('#registerForm');
+// $(document).ready(function () {
+//     const registerForm = $('#registerForm');
   
-    registerForm.submit(function (event) {
-      event.preventDefault();
+//     registerForm.submit(function (event) {
+//       event.preventDefault();
   
-      let firstName = $('#firstName').val();
-      let lastName = $('#lastName').val();
-      let email = $('#email').val();
-      let password = $('#password').val();
-      let userType = $('#userType').val();
+//       let firstName = $('#firstName').val();
+//       let lastName = $('#lastName').val();
+//       let email = $('#email').val();
+//       let password = $('#password').val();
+//       let userType = $('#userType').val();
   
-      // Perform client-side validation if needed
+//       // Perform client-side validation if needed
   
-      // Set up AJAX request config
-      let requestConfig = {
-        method: 'POST',
-        url: '/login', // Replace with your server endpoint for registration
-        contentType: 'application/json',
-        data: JSON.stringify({
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          password: password,
-          userType: userType
-        })
-      };
+//       // Set up AJAX request config
+//       let requestConfig = {
+//         method: 'POST',
+//         url: '/login', // Replace with your server endpoint for registration
+//         contentType: 'application/json',
+//         data: JSON.stringify({
+//           firstName: firstName,
+//           lastName: lastName,
+//           email: email,
+//           password: password,
+//           userType: userType
+//         })
+//       };
   
-      // AJAX Call
-      $.ajax(requestConfig).then(function (response) {
-        // Handle the response from the server (e.g., display a success message, redirect, etc.)
-        console.log(response);
+//       // AJAX Call
+//       $.ajax(requestConfig).then(function (response) {
+//         // Handle the response from the server (e.g., display a success message, redirect, etc.)
+//         console.log(response);
   
-        // Clear the form fields if registration is successful
-        if (response.success) {
-          $('#firstName').val('');
-          $('#lastName').val('');
-          $('#email').val('');
-          $('#password').val('');
-          $('#userType').val('');
+//         // Clear the form fields if registration is successful
+//         if (response.success) {
+//           $('#firstName').val('');
+//           $('#lastName').val('');
+//           $('#email').val('');
+//           $('#password').val('');
+//           $('#userType').val('');
   
-          // Optionally, close the registration popup
-          registerPopup.removeClass('show-register');
-          overlay.removeClass('show-overlay');
+//           // Optionally, close the registration popup
+//           registerPopup.removeClass('show-register');
+//           overlay.removeClass('show-overlay');
   
-          // Add any additional handling you need here
-        } else {
-          // Handle registration failure (e.g., display error messages)
-          console.error(response.message);
-        }
-      });
-    });
-  });
+//           // Add any additional handling you need here
+//         } else {
+//           // Handle registration failure (e.g., display error messages)
+//           console.error(response.message);
+//         }
+//       });
+//     });
+//   });
   
