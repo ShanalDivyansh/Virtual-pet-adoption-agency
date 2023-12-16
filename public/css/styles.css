@@ -32,6 +32,7 @@ body {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(12, 1fr);
+  overflow: hidden;
 }
 
 .nav {
@@ -61,8 +62,6 @@ body {
   grid-column-end: 9;
   background-color: white;
   border-radius: 25px;
-  /* transition: opacity 0.3s ease-in-out; */
-  /* opacity: 0; */
   z-index: 2;
   display: flex;
   flex-direction: column;
@@ -89,17 +88,12 @@ body {
   display: block;
 }
 .show-login {
-  /* opacity: 1; */
   display: block;
 }
 
 #login-form {
   display: flex;
   flex-direction: column;
-  /* height: 300px; */
-  /* width: 300px;  */
-  /* justify-content: center; */
-  /* align-content: center; */
 }
 .submit-btm-login {
   margin-top: 10px;
@@ -107,37 +101,65 @@ body {
 #login-form img {
   height: 250px;
 }
-.login-popup header {
-}
 #login-form label {
   margin: 10px;
 }
 
-
-.register-popup{
-  grid-row-start: 3;
-  grid-row-end: 5;
+.register-popup {
+  grid-row-start: 4;
+  grid-row-end: 10;
   grid-column-start: 5;
   grid-column-end: 9;
+  z-index: 2;
   background-color: white;
   border-radius: 25px;
-  /* transition: opacity 0.3s ease-in-out; */
-  /* opacity: 0; */
-  z-index: 2;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   display: none;
 }
 
-.show-register{
+.show-register {
   display: block;
 }
-.register-tagline{
-  grid-column-start: 5;
+/* .register-tagline {
+  grid-column-start: 4;
   grid-column-end: 10;
-  grid-row-start: 5;
-  grid-row-end:5;
-  color:white;
-  font-size: 2em;
+  grid-row-start: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  grid-row-end: 10;
+} */
+/* .register-tagline p {
+  text-align: center;
+} */
+
+.register-blurb {
+  /* display: none; */
+  grid-row-start: 4;
+  grid-row-end: 11;
+  grid-column-start: 4;
+  grid-column-end: 10;
+  z-index: 2;
+  align-self: end;
+  text-align: center;
+  color: white;
+  font-size: xx-large;
+}
+
+.register-button {
+  background-color: #ff6036;
+  padding-right: 25px;
+  padding-left: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 25px;
+  color: white;
+  font-size: large;
+  border: 2px solid white;
 }
