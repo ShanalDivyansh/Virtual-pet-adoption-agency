@@ -4,6 +4,10 @@ const router = Router();
 import { array1ContainsAllElementsOfArray2 } from "../helpers.js";
 import { addUserQuizAns } from "../data/users.js";
 import { loginUser } from "../data/users.js";
+import validator from "validator";
+import { pets, users } from "../config/mongoCollections.js";
+import PasswordValidator from "password-validator";
+import bcrypt, { hash } from "bcrypt";
 router.route("/").get(async (req, res) => {
   return res.json({ error: "YOU SHOULD NOT BE HERE!" });
 });
@@ -131,9 +135,9 @@ router
   })
   .post(async (req, res) => {
     //code here for POST
-    const email = req.body["login-email-input"];
-    const password = req.body["login-password-input"];
-    const userType = req.body["userType"];
+    let email = req.body["login-email-input"];
+    let password = req.body["login-password-input"];
+    let userType = req.body["userType"];
 
     if (!(typeof email !== "undefined" && typeof password !== "undefined")) {
       return res.status(400).render('login', { error: 'Invalid Email and/or Password' });
@@ -169,11 +173,11 @@ router
     const collection = await users();
     const userInfo = await collection.findOne({ email });
     if (!userInfo) {
-      return res.status(400).render('login', { error: "Either the email address or password is invalid" });
+      return res.status(400).render('login', { error: "Either the Email, Password or UserType is invalid" });
     } 
     const comparePass = await bcrypt.compare(password, userInfo.password);
     if (!comparePass) {
-      return res.status(400).render('login', { error: "Either the email address or password is invalid" });
+      return res.status(400).render('login', { error: "Either the Email, Password or UserType is invalid" });
     }
     if (userInfo.userType !== role.trim().toLowerCase()){
       return res.status(400).render('login', { error: "User type not matching" });
@@ -195,7 +199,7 @@ router
         res.redirect("/guardian");
       }
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   });
 
@@ -213,6 +217,7 @@ router.route("/error").get(async (req, res) => {
 
 router.route("/logout").get(async (req, res) => {
   //code here for GET
+  res.render("logout",{title: 'Logged out'});
 });
 
 router.route("/agencyHome").get(async (req, res) => {
