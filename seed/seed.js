@@ -18,6 +18,7 @@ for(let i=0;i<petDetails.length;i++)
             petDetails[i].gender,
             petDetails[i].breedSize,
             petDetails[i].characteristics,
+            petDetails[i].energyLevel,
             petDetails[i].health,
             petDetails[i].description,
             petDetails[i].needs,

@@ -11,6 +11,7 @@ export const createPets = async function (
   gender,
   breedSize,
   characteristics,
+  energyLevel,
   health,
   description,
   needs,
@@ -25,6 +26,7 @@ export const createPets = async function (
       typeof gender !== "undefined" &&
       typeof breedSize !== "undefined" &&
       typeof characteristics !== "undefined" &&
+      typeof energyLevel !== "undefined" &&
       typeof health !== "undefined" &&
       typeof houseTrained !== "undefined" &&
       typeof name !== "undefined" &&
@@ -42,6 +44,7 @@ export const createPets = async function (
   breed = breed.trim();
   description = description.trim();
   agencyName = agencyName.trim();
+  energyLevel = energyLevel.trim();
   if (!isValidName(agencyName)) throw "Error: Invalid agency name";
   if (typeof availability !== "boolean")
     throw "Availability needs to be a boolean";
@@ -72,6 +75,7 @@ export const createPets = async function (
     gender,
     breedSize,
     characteristics,
+    energyLevel,
     health,
     description,
     needs,
