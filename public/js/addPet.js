@@ -36,20 +36,6 @@ if (addPet_form) {
         let petVaccination = document.getElementById("petVaccination").value;
         let spayedNeutered = document.getElementById("spayedNeutered").value;
         let specialNeeds = document.getElementById("specialNeeds").value;
-        // console.log(petName);
-        // console.log(petType);
-        // console.log(petGender);
-        // console.log(dogBreed);
-        // console.log(catBreed);
-        // console.log(ageGroup);
-        // console.log(petSize);
-        // console.log(energyLevel);
-        // console.log(houseTrain);
-        // console.log(characteristics);
-        // console.log(bio);
-        // console.log(petVaccination);
-        // console.log(spayedNeutered);
-        // console.log(specialNeeds);
         if (
             petName.trim() === "" ||
             petType.trim() === "" ||
@@ -70,21 +56,29 @@ if (addPet_form) {
 
             if (!isValidName(petName.trim().toLowerCase()))
                 errorMessages.push("Pet Name not provided correctly");
+
             if (!['dog', 'cat'].includes(petType.trim().toLowerCase()))
                 errorMessages.push("Pet Type not provided correctly");
+
             if (!['male', 'female'].includes(petGender.trim().toLowerCase()))
                 errorMessages.push("Pet Gender not provided correctly");
+
             // if (!['male', 'female'].includes(dogBreed.trim().toLowerCase()))
             //     errorMessages.push("Pet Gender not provided correctly");
             // if (!['male', 'female'].includes(catBreed.trim().toLowerCase()))
             //     errorMessages.push("Pet Gender not provided correctly");
+            // if (!['low','mediumEnergy','high','very-high'].includes(energyLevel.trim().toLowerCase()))
+            //     errorMessages.push("Pet Energy Level not provided correctly");
+            // if (!['notDone','done'].includes(spayedNeutered.trim().toLowerCase()))
+            //     errorMessages.push("Spayed or Neutered status not provided correctly");
+
             if (!['puppy', 'young adult', "adult", "senior"].includes(ageGroup.trim().toLowerCase()))
                 errorMessages.push("Pet Age group not provided correctly");
-            if (!['small', 'medium', "large", "giant"].includes(petSize.trim().toLowerCase()))
+
+            if (!['small', 'medium', 'large', 'giant'].includes(petSize.trim().toLowerCase()))
                 errorMessages.push("Pet Size not provided correctly");
-            if (!['low', 'mediumEnergy', 'high', 'very high'].includes(energyLevel.trim().toLowerCase()))
-                errorMessages.push("Pet Energy Level not provided correctly");
-            if (!['yes', "no"].includes(houseTrain.trim().toLowerCase()))
+
+            if (!['yes', 'no'].includes(houseTrain.trim().toLowerCase()))
                 errorMessages.push("House Trained field not provided correctly");
 
             let characteristicsList = characteristics.trim().toLowerCase().split(',')
@@ -101,9 +95,6 @@ if (addPet_form) {
             }
             if (!["complete", "pending"].includes(petVaccination.trim().toLowerCase()))
                 errorMessages.push("Vaccination status not provided correctly");
-
-            if (!['done', 'noSpayedNeutered'].includes(spayedNeutered.trim().toLowerCase()))
-                errorMessages.push("Spayed or Neutered status not provided correctly");
 
             let specialNeedsList = specialNeeds.trim().toLowerCase().split(',')
             if (specialNeeds.length !== 0 ) {
@@ -129,7 +120,7 @@ if (errorMessages.length > 0) {
     displayError(errorMessages);
     return;
 }
-console.log("all good")
+// console.log("all good")
 addPet_form.submit();
     });
 }
