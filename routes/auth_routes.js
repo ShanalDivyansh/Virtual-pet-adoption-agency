@@ -145,7 +145,7 @@ router
         res.redirect("/home");
       }
       if (userLoginAttempt.userType.trim().toLowerCase() === "agency") {
-        res.redirect("/agency");
+        res.redirect("/agencyhome");
       }
       if (userLoginAttempt.userType.trim().toLowerCase() === "guardian") {
         res.redirect("/guardian");
@@ -169,6 +169,15 @@ router.route("/error").get(async (req, res) => {
 
 router.route("/logout").get(async (req, res) => {
   //code here for GET
+});
+
+router.route("/agencyHome").get(async (req, res) => {
+  //code here for GET
+  res.render("agencyHome",{title: 'Agency Home'});
+});
+router.route("/addpet").get(async (req, res) => {
+  //code here for GET
+  res.render("addpet",{title: 'Add Pet'});
 });
 
 export default router;
