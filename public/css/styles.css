@@ -99,7 +99,8 @@ body {
   margin-top: 10px;
 }
 #login-form img {
-  height: 250px;
+  max-height: 200px;
+  object-fit: contain;
 }
 #login-form label {
   margin: 10px;
@@ -124,25 +125,11 @@ body {
 .show-register {
   display: block;
 }
-/* .register-tagline {
-  grid-column-start: 4;
-  grid-column-end: 10;
-  grid-row-start: 10;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  grid-row-end: 10;
-} */
-/* .register-tagline p {
-  text-align: center;
-} */
 
 .register-blurb {
   /* display: none; */
   grid-row-start: 4;
-  grid-row-end: 11;
+  grid-row-end: 12;
   grid-column-start: 4;
   grid-column-end: 10;
   z-index: 2;
