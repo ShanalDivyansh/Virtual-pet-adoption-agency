@@ -133,9 +133,23 @@ router
     //code here for POST
     const email = req.body["login-email-input"];
     const password = req.body["login-password-input"];
+    const userType = req.body["userType"];
     try {
-      const result = await loginUser(email, password);
-      console.log(result);
+      const userLoginAttempt = await loginUser(email, password, userType);
+      if (userLoginAttempt) {
+        req.session.user = {
+          ...userLoginAttempt,
+        };
+      }
+      if (userLoginAttempt.userType.trim().toLowerCase() === "user") {
+        res.redirect("/home");
+      }
+      if (userLoginAttempt.userType.trim().toLowerCase() === "agency") {
+        res.redirect("/agency");
+      }
+      if (userLoginAttempt.userType.trim().toLowerCase() === "guardian") {
+        res.redirect("/guardian");
+      }
     } catch (error) {
       console.log(error);
     }

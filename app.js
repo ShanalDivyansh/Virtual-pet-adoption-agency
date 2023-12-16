@@ -13,6 +13,7 @@ import {
   registerUser,
   addUserShortListedPets,
   getUserDetails,
+  loginUser,
 } from "./data/users.js";
 
 // User;
@@ -25,6 +26,13 @@ import {
 //       "12345678S#",
 //       "user"
 //     )
+//   );
+// } catch (error) {
+//   console.log(error);
+// }
+// try {
+//   console.log(
+//     await loginUser("shanalDivyansh@gmail.com", "12345678S#", "admin")
 //   );
 // } catch (error) {
 //   console.log(error);
@@ -149,6 +157,22 @@ const rewriteUnsupportedBrowserMethods = (req, res, next) => {
   // let the next middleware run:
   next();
 };
+
+app.use(
+  session({
+    name: "AuthState",
+    secret: "This is a secret.. shhh don't tell anyone",
+    saveUninitialized: false,
+    resave: false,
+    cookie: { maxAge: 60000 },
+  })
+);
+
+app.use("/home", (req, res, next) => {
+  const reqRoute = req.originalUrl;
+  console.log(reqRoute);
+  next();
+});
 
 // app.use('/public', staticDir);
 app.use("/public", express.static("public"));

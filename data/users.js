@@ -224,7 +224,7 @@ export const updateUserReviews = async (userdId, reviews) => {
   return await updateInfo;
 };
 
-export const loginUser = async (email, password) => {
+export const loginUser = async (email, password, role) => {
   if (!(typeof email !== "undefined" && typeof password !== "undefined")) {
     throw "Error All fields need to have valid values";
   }
@@ -257,13 +257,15 @@ export const loginUser = async (email, password) => {
   if (!userInfo) throw "Either the email address or password is invalid";
   const comparePass = await bcrypt.compare(password, userInfo.password);
   if (!comparePass) throw "Either the email address or password is invalid";
+  if (userInfo.userType !== role.trim().toLowerCase())
+    throw "Error: User type not matching.";
   if (comparePass) {
   }
   return {
     firstName: userInfo.firstName,
     lastName: userInfo.lastName,
     email: userInfo.email,
-    role,
+    userType: role,
   };
 };
 
