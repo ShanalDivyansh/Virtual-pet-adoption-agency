@@ -124,7 +124,7 @@ router
     return res.render("logout", { title: "done" });
   });
 
-router
+  router
   .route("/login")
   .get(async (req, res) => {
     res.render("login");
@@ -134,6 +134,50 @@ router
     const email = req.body["login-email-input"];
     const password = req.body["login-password-input"];
     const userType = req.body["userType"];
+
+    if (!(typeof email !== "undefined" && typeof password !== "undefined")) {
+      return res.status(400).render('login', { error: 'Invalid Email and/or Password' });
+    }
+    email = email.trim().toLowerCase();
+    password = password.trim();
+    if (!validator.isEmail(email)){
+      return res.status(400).render('login', { error: 'Invalid Email Format' });
+    }
+    const isPassSpaces = [...password].every((char) => {
+      return char.trim() !== "";
+    });
+  if (!isPassSpaces) {
+    return res.status(400).render('login', { error: 'Password Contains Spaces' });
+  }
+    var passSchema = new PasswordValidator();
+    passSchema
+      .is()
+      .min(8)
+      .has()
+      .uppercase()
+      .has()
+      .digits()
+      .has()
+      .not()
+      .spaces()
+      .has()
+      .symbols();
+    const validPass = passSchema.validate(password);
+    if (!validPass){
+      return res.status(400).render('login', { error: "Password needs to be at least one uppercase character, there has to be at least one number and there has to be at least one special character" });
+    }
+    const collection = await users();
+    const userInfo = await collection.findOne({ email });
+    if (!userInfo) {
+      return res.status(400).render('login', { error: "Either the email address or password is invalid" });
+    } 
+    const comparePass = await bcrypt.compare(password, userInfo.password);
+    if (!comparePass) {
+      return res.status(400).render('login', { error: "Either the email address or password is invalid" });
+    }
+    if (userInfo.userType !== role.trim().toLowerCase()){
+      return res.status(400).render('login', { error: "User type not matching" });
+    }
     try {
       const userLoginAttempt = await loginUser(email, password, userType);
       if (userLoginAttempt) {
@@ -145,13 +189,13 @@ router
         res.redirect("/home");
       }
       if (userLoginAttempt.userType.trim().toLowerCase() === "agency") {
-        res.redirect("/agencyhome");
+        res.redirect("/agency");
       }
       if (userLoginAttempt.userType.trim().toLowerCase() === "guardian") {
         res.redirect("/guardian");
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   });
 

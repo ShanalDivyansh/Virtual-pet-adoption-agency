@@ -73,6 +73,9 @@ login form handlebar template
     <p>Swipe Right for Your Purrfect Match: Connecting Hearts and Homes, One Paw
       at a Time!</p>
     <button class="register-button">Open Registeration Form</button>
+    {{#if error}}
+    <p class="error-message">{{error}}</p>
+    {{/if}}
   </div>
 
 </div>
