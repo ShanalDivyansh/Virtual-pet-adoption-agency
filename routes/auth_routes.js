@@ -1,7 +1,7 @@
 //import express, express router as shown in lecture code
 import { Router } from "express";
 const router = Router();
-import { array1ContainsAllElementsOfArray2 } from "../helpers.js";
+import { isValidName, array1ContainsAllElementsOfArray2 } from "../helpers.js";
 import validator from "validator";
 import { pets, users } from "../config/mongoCollections.js";
 import PasswordValidator from "password-validator";
@@ -9,6 +9,7 @@ import bcrypt, { hash } from "bcrypt";
 import { readFile } from "fs/promises";
 
 import fileUpload from 'express-fileupload';
+import {createPets} from '../data/pets.js';
 
 router.use(
   fileUpload({
@@ -127,7 +128,7 @@ router
         res.redirect("/home");
       }
       if (userLoginAttempt.userType.trim().toLowerCase() === "agency") {
-        res.redirect("/agency");
+        res.redirect("/agencyHome");
       }
       if (userLoginAttempt.userType.trim().toLowerCase() === "guardian") {
         res.redirect("/guardian");
@@ -237,30 +238,181 @@ router.route("/addpet").get(async (req, res) => {
 })
   .post(async (req, res) => {
     const image = req.files.image; // Access the uploaded image through req.files.image
-    const {petName,petGender, petType,dogBreed,catBreed,ageGroup,size,energyLevel,houseTrain,petVaccination,spayedNeutered,characteristics,bio,specialNeeds} = req.body;
-    console.log(petName);
-    // If no image submitted, exit
-    if (!image) return res.status(400).send("No image uploaded");
-    console.log(petType);
-    // If the file type is not an image, prevent from uploading
-    if (!/^image/.test(image.mimetype)) return res.status(400).send("Invalid file type");
-    let imgName = petName;
-    if(petType==='dog')
-      imgName = imgName+dogBreed;
-    else
-      imgName = imgName+catBreed;
-    // Move the uploaded image to a specific folder
-    const uploadPath = '/Users/pranjalapoorva/Desktop/College/3Fall_2023/CS-546(Web)/Another copy/Virtual-pet-adoption-agency/public/Images/Pets' + imgName;
-    image.mv(uploadPath, (err) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).send("Error uploading image");
+    const { petName, petGender, animalType, dogBreed, catBreed, ageGroup, size, energyLevel, houseTrain, petVaccination, spayedNeutered, characteristics, bio, specialNeeds } = req.body;
+    // console.log(req.body);
+    let characteristicsList = [];
+    let errorMessages = [];
+    let imgPath = [];
+    let specialNeedsList = [];
+    let uploadPath = '/Users/pranjalapoorva/Desktop/College/3Fall_2023/CS-546(Web)/Another copy/Virtual-pet-adoption-agency/public/Images/Pets';
+
+    if (petName === undefined ||
+      petGender === undefined ||
+      animalType === undefined ||
+      dogBreed === undefined ||
+      catBreed === undefined ||
+      ageGroup === undefined ||
+      size === undefined ||
+      energyLevel === undefined ||
+      houseTrain === undefined ||
+      petVaccination === undefined ||
+      spayedNeutered === undefined ||
+      characteristics === undefined ||
+      bio === undefined ||
+      specialNeeds === undefined)
+      errorMessages.push("All fields are must be supplied");
+
+    else {
+      if (!image)
+        return res.status(400).send("No image uploaded");
+      if (!/^image/.test(image.mimetype))
+        return res.status(400).send("Invalid file type");
+
+      let imgName = petName;
+      if (animalType === 'dog')
+        imgName = imgName + dogBreed + '.jpg';
+      else
+        imgName = imgName + catBreed + '.jpg';
+      uploadPath = uploadPath+ imgName;
+      imgPath[0] = "public/Images/Pets/" + imgName;
+
+      if (!isValidName(petName.trim().toLowerCase()))
+        errorMessages.push("Pet Name not provided correctly");
+
+      if (!['dog', 'cat'].includes(animalType.trim().toLowerCase()))
+        errorMessages.push("Pet Type not provided correctly");
+
+      if (!['male', 'female'].includes(petGender.trim().toLowerCase()))
+        errorMessages.push("Pet Gender not provided correctly");
+
+      if (animalType === 'dog'){
+        const allowedDogBreedsList = await readFile("data/allowedDogBreeds.json", "utf8");
+        const allowedDogBreeds = JSON.parse(allowedDogBreedsList);
+        if(!allowedDogBreeds.includes(dogBreed))
+          errorMessages.push("Dog Breed not provided correctly");
+      }
+      else if(animalType === 'cat'){
+        const allowedCatBreedsList = await readFile("data/allowedCatBreeds.json", "utf8");
+        const allowedCogBreeds = JSON.parse(allowedCatBreedsList);
+        if(!allowedCogBreeds.includes(catBreed))
+          errorMessages.push("Cat Breed not provided correctly");
       }
 
-      // You can now use the uploadPath or image.name as needed
-      // For example, you can save the path to the database or perform other actions
+      if (!['puppy', 'young adult', 'adult', 'senior'].includes(ageGroup.trim().toLowerCase()))
+        errorMessages.push("Pet Age group not provided correctly");
+
+      if (!['small', 'medium', 'large', 'giant'].includes(size.trim().toLowerCase()))
+        errorMessages.push("Pet Size not provided correctly");
+
+      if (!['low','mediumEnergy','high','very-high'].includes(energyLevel.trim().toLowerCase()))
+        errorMessages.push("Pet Energy Level not provided correctly");
+
+      if (!['yes', 'no'].includes(houseTrain.trim().toLowerCase()))
+        errorMessages.push("House Trained field not provided correctly");
+
+      if (!["complete", "pending"].includes(petVaccination.trim().toLowerCase()))
+        errorMessages.push("Vaccination status not provided correctly");
+
+      if (!['notDone','done'].includes(spayedNeutered.trim().toLowerCase()))
+        errorMessages.push("Spayed or Neutered status not provided correctly");
+
+      characteristicsList = characteristics.trim().toLowerCase().split(',')
+      for (var i = 0; i < characteristicsList.length; i++) {
+        var char1 = characteristicsList[i];
+        if (/\d/.test(char1)) {
+          errorMessages.push("Characterstics can only be comma seperated strings");
+          break;
+        }
+        if (char1.trim().length < 4) {
+          errorMessages.push("Characterstics can not be BLANK");
+          break;
+        }
+      }
+      // if(! Array.isArray(characteristicsList))
+      //   characteristicsList = Array(characteristicsList);
+
+      if (bio.trim().length < 5 || bio.trim().length > 100)
+        errorMessages.push("Bio can only be 5 to 100 words long");
+
+      specialNeedsList = specialNeeds.trim().toLowerCase().split(',')
+      if (specialNeeds.length !== 0) {
+        for (var i = 0; i < specialNeedsList.length; i++) {
+          var char1 = specialNeedsList[i];
+          if (/\d/.test(char1)) {
+            errorMessages.push("Special Needs can only be comma seperated strings");
+            break;
+          }
+          if (char1.trim().length < 4) {
+            errorMessages.push("Special Needs can not be BLANK");
+            break;
+          }
+        }
+      }
+    }
+    if (errorMessages.length === 0) {
+      let finalBreed=null;
+      if(animalType==='dog')
+        finalBreed=dogBreed;
+      else
+        finalBreed=catBreed;
+      let health = [];
+      if(petVaccination==='complete')
+        health.push('Vaccination Up-To-Date');
+      else
+        health.push('Vaccination Pending');
+      if(spayedNeutered==='done')
+        health.push('Spayed/Neutered');
+      else
+        health.push('Not Spayed/Neutered');
+      let ht = false;
+      if(houseTrain === 'yes')
+        ht = true;
+      let aname=req.session.user.firstName+" "+ req.session.user.lastName;
+
+      try {
+        let user = await createPets(
+          imgPath,
+          petName,
+          animalType,
+          finalBreed,
+          ageGroup,
+          petGender,
+          size,
+          characteristicsList,
+          energyLevel,
+          health,
+          bio,
+          specialNeedsList,
+          ht,
+          true,
+          aname
+          // "abcd"
+        );
+      } catch (error) {
+        errorMessages.push(error);
+      }
+    }
+
+    if (errorMessages.length === 0){
+      try {
+        image.mv(uploadPath, (err) => {
+          if (err) {
+            console.error(err);
+            return res.status(500).send("Error uploading image");
+          }
+        });
+      } catch (error) {
+        errorMessages.push(error);
+      }
+    }
+    if (errorMessages.length > 0)
+      return res
+        .status(404)
+        .render("addpet", { title: "error", errors: errorMessages });
+    else {
       res.render("addPetComplete", { title: 'Pet Added' });
-    });
+    }
+    
   });
 export default router;
 
