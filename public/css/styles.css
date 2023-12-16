@@ -250,3 +250,256 @@ button {
 button:hover {
   background-color: #45a049;
 }
+
+
+
+.tinder-container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  justify-items: center;
+}
+
+.pet-img {
+  height: 450px;
+  border: 5px solid rgb(253, 83, 83);
+  grid-column-start: 5;
+  grid-column-end: 9;
+  width: 85%;
+  margin-left: 40%;
+}
+.pet-img img {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+.pet-bio {
+  grid-column-start: 5;
+  grid-column-end: 9;
+  border-left: 5px solid #007bff;
+  border-right: 5px solid #007bff;
+  width: 85%;
+  margin-left: 40%;
+}
+.pet-desc {
+  grid-column-start: 5;
+  grid-column-end: 9;
+  border-left: 5px solid #007bff;
+  border-right: 5px solid #007bff;
+  border-bottom: 5px solid #007bff;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  width: 85%;
+  margin-left: 40%;
+}
+
+.tinder-logo {
+  height: 50px;
+  grid-column-start: 5;
+  grid-column-end: 9;
+  border: 5px solid rgb(253, 83, 83);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(253, 83, 83);
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  width: 85%;
+  margin-left: 40%;
+}
+.tinder-logo img {
+  object-fit: contain;
+}
+
+.pet-bio {
+  display: flex;
+  justify-content: space-evenly;
+  /* font-size: xx-large; */
+}
+
+/* .pet-bio p:last-child {
+  text-align: right;
+  font-size: xx-large;
+  margin-top: 0;
+  margin-bottom: 0;
+} */
+
+.shortlist {
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: inherit;
+  padding: 0;
+  margin: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: xx-large;
+  text-align: right;
+}
+
+.pets-list-header {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  width: 85%;
+  text-align: center;
+  border: 2px solid black;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+}
+
+.pets-list {
+  border: 2px solid red;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 2;
+  grid-row-end: 8;
+  height: 80vh;
+  width: 85%;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.pet-shotlist-logo {
+  height: 50px;
+  border-radius: 50%;
+  width: 50px;
+}
+.pets-list li {
+  border-bottom: 2px solid black;
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+.pets-list li:hover {
+  background-color: #51a4fc;
+}
+
+.pets-list li img {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+.click-me {
+  margin-left: 25%;
+}
+
+.hide-tinder {
+  display: none;
+}
+
+.pet-details-container {
+  grid-column-start: 6;
+  grid-column-end: 11;
+  grid-row-start: 2;
+  border: 2px solid red;
+  width: 100%;
+  height: 600px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+}
+
+.pet-details-container img {
+  border: 2px solid black;
+  grid-column-start: 2;
+  grid-column-end: 6;
+  grid-row-start: 2;
+  grid-row-end: 6;
+  width: 100%;
+  height: 100%;
+}
+
+.details-pet-name {
+  grid-column-start: 8;
+  grid-column-end: 12;
+  grid-row-start: 2;
+  /* border: 2px solid black; */
+}
+
+.details-pet-type {
+  /* border: 2px solid blue; */
+  grid-row-start: 3;
+  grid-column-start: 8;
+}
+.details-pet-age {
+  /* border: 2px solid blue; */
+  grid-row-start: 3;
+  grid-column-start: 10;
+  grid-column-end: 12;
+}
+.details-pet-breed {
+  /* border: 2px solid pink; */
+  grid-row-start: 5;
+  grid-column-start: 8;
+}
+.details-pet-breedSize {
+  /* border: 2px solid black; */
+  grid-row-start: 5;
+  grid-column-start: 10;
+}
+
+.details-pet-gender {
+  /* border: 2px solid blue; */
+  grid-row-start: 4;
+  grid-column-start: 8;
+  grid-column-end: 10;
+}
+
+.details-pet-charecterstics {
+  /* border: 2px solid red; */
+  grid-column-start: 2;
+  grid-column-end: 9;
+  grid-row-start: 6;
+}
+
+.details-pet-health {
+  /* border: 2px solid red; */
+  grid-column-start: 3;
+  grid-column-end: 11;
+  grid-row-start: 11;
+}
+.details-pet-needs {
+  /* border: 2px solid yellow; */
+  grid-column-start: 3;
+  grid-column-end: 11;
+  grid-row-start: 10;
+}
+.details-pet-houseTrained {
+  /* border: 2px solid yellowgreen; */
+  grid-column-start: 10;
+  grid-column-end: 12;
+  grid-row-start: 6;
+}
+
+.details-pet-description-placeHolder {
+  /* border: 2px solid cyan; */
+  grid-column-start: 2;
+  grid-column-end: 12;
+  grid-row-start: 8;
+}
+.details-pet-description {
+  /* border: 2px solid cyan; */
+  grid-column-start: 2;
+  grid-row-start: 7;
+}
+.details-back-btn {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+}
+
+.details-show {
+  display: none;
+}
+
+.adopt-pet {
+  grid-row-start: 11;
+  grid-column-start: 9;
+  grid-column-end: 13;
+}

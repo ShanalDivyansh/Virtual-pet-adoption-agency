@@ -1,8 +1,76 @@
-{{!--
+{{!
 
 If the user is logged in and they are an admin user, and 'GET /admin' endpoint is called, you will render this view
 based on the specs.
 
 
 
---}}
+}}
+<ul style="display: none;" class="pets-available">
+  {{#each pets}}
+    <li
+    >{{_id}}%%{{name}}%%{{type}}%%{{breed}}%%{{age}}%%{{gender}}%%{{breedSize}}%%{{characteristics}}%%{{pictures}}%%{{description}}</li>
+  {{/each}}
+</ul>
+<p style="display: none;" class="user-logged">
+  {{userId}}
+</p>
+
+<nav class="nav tinder-nav">
+  <img src="public/Images/logo.jpg" alt="dog logo" class="logo" />
+  <div>
+    <button class="login-button">Guardians</button>
+    <button class="login-button">Logout</button>
+  </div>
+
+</nav>
+
+<div class="tinder-container">
+  <div class="tinder-logo">
+    <span>Purr</span>
+    <img
+      src="public/Images/logo-removebg-preview.png"
+      alt="dog logo"
+      class="logo"
+    />
+    <span>Fect</span>
+  </div>
+
+  <div class="pet-img">
+
+  </div>
+  <div class="pet-bio">
+    <p>&#10084;&#65039;</p>
+  </div>
+  <div class="pet-desc">
+
+  </div>
+  <div class="pets-list-header">
+    <p>You short listed pets</p>
+  </div>
+  <ul class="pets-list">
+  </ul>
+
+  <div class="pet-details-container details-show">
+    <button class="details-back-btn">Back to scrolling!</button>
+    <img src="" alt="pet" class="details-img" />
+    <p class="details-pet-name"></p>
+    <p class="details-pet-type"></p>
+    <p class="details-pet-breed"></p>
+    <p class="details-pet-breedSize"></p>
+    <p class="details-pet-age"></p>
+    <p class="details-pet-gender"></p>
+    <p class="details-pet-charecterstics"></p>
+    <p class="details-pet-health"></p>
+    <p class="details-pet-needs"></p>
+    <p class="details-pet-houseTrained"></p>
+    <p class="details-pet-description">Description:</p>
+    <p class="details-pet-description-placeHolder"></p>
+    <a href="/adopt" class="adopt-pet">Start the adoption process</a>
+  </div>
+</div>
+
+<script
+  src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"
+></script>
+<script src="public/js/home.js"></script>

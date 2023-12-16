@@ -164,15 +164,9 @@ app.use(
     secret: "This is a secret.. shhh don't tell anyone",
     saveUninitialized: false,
     resave: false,
-    cookie: { maxAge: 60000 },
+    cookie: { maxAge: 6000000 },
   })
 );
-
-app.use("/home", (req, res, next) => {
-  const reqRoute = req.originalUrl;
-  console.log(reqRoute);
-  next();
-});
 
 // app.use('/public', staticDir);
 app.use("/public", express.static("public"));
@@ -183,8 +177,43 @@ app.use(rewriteUnsupportedBrowserMethods);
 app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-app.get('/education', (req, res) => {
-  res.render('education', { title: 'Education Center' });
+// app.get('/education', (req, res) => {
+//   res.render('education', { title: 'Education Center' });
+// });
+app.use("/", (req, res, next) => {
+  const reqRoute = req.originalUrl;
+  if (reqRoute === "/") {
+    return res.redirect("/login");
+  }
+  next();
+});
+app.use("/login", (req, res, next) => {
+  if (req.session.user && req.session.user.userType === "user") {
+    return res.redirect("/home");
+  } else if (req.session.user && req.session.user.userType === "guardian") {
+    return res.redirect("/guardian");
+  } else if (req.session.user && req.session.user.userType === "agency") {
+    return res.redirect("/agency");
+  } else if (!req.session.user && req.originalUrl !== "/login") {
+    return res.redirect("/login");
+  }
+  next();
+});
+app.use("/register", (req, res, next) => {
+  if (req.session.user && req.session.user.userType === "user") {
+    return res.redirect("/home");
+  } else if (req.session.user && req.session.user.userType === "guardian") {
+    return res.redirect("/guardian");
+  } else if (req.session.user && req.session.user.userType === "agency") {
+    return res.redirect("/agency");
+  }
+  next();
+});
+app.use("/home", (req, res, next) => {
+  if (!req.session.user) {
+    return res.redirect("/login");
+  }
+  next();
 });
 
 configRoutes(app);

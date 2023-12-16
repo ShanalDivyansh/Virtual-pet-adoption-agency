@@ -84,7 +84,10 @@ export const registerUser = async (
 };
 
 export const addUserShortListedPets = async (userID, shortlistedPetsID) => {
-  if (typeof shortlistedPets === "undefined" && typeof userID === "undefined") {
+  if (
+    typeof shortlistedPetsID === "undefined" &&
+    typeof userID === "undefined"
+  ) {
     throw "Error All fields need to have valid values";
   }
   const petID = checkId(shortlistedPetsID);
@@ -93,7 +96,7 @@ export const addUserShortListedPets = async (userID, shortlistedPetsID) => {
   const existingInfo = await collection.findOne({ _id: new ObjectId(usersID) });
   if (!existingInfo) throw "User not found";
   // console.log(existingInfo);
-  const isPetExisting = existingInfo.shortlistedPets.every((p) => {
+  const isPetExisting = existingInfo.shortlistedPets.find((p) => {
     return p.toString() === petID;
   });
   if (isPetExisting && existingInfo.shortlistedPets.length > 0)
@@ -112,6 +115,7 @@ export const addUserShortListedPets = async (userID, shortlistedPetsID) => {
   return await updateInfo;
 };
 
+
 export const addUserAdoptedPets = async (userId, adoptedPets) => {
   if (typeof adoptedPets === "undefined" && typeof userId === "undefined") {
     throw "Error All fields need to have valid values";
@@ -121,7 +125,7 @@ export const addUserAdoptedPets = async (userId, adoptedPets) => {
   const collection = await users();
   const existingInfo = await collection.findOne({ _id: new ObjectId(usersID) });
   if (!existingInfo) throw "User not found";
-  const isPetExisting = existingInfo.adoptedPets.every((pet) => pet === petID);
+  const isPetExisting = existingInfo.adoptedPets.find((pet) => pet === petID);
   if (isPetExisting && existingInfo.adoptedPets.length > 0)
     throw "Pet already adopted.";
   const updateInfo = await collection.findOneAndUpdate(
@@ -148,6 +152,7 @@ export const addUserAdoptedPets = async (userId, adoptedPets) => {
 
   return await updateInfo;
 };
+
 
 // to do check the validation for quiz ans
 export const addUserQuizAns = async (
@@ -262,6 +267,7 @@ export const loginUser = async (email, password, role) => {
   if (comparePass) {
   }
   return {
+    id: userInfo._id,
     firstName: userInfo.firstName,
     lastName: userInfo.lastName,
     email: userInfo.email,
