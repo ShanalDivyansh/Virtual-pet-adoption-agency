@@ -3,16 +3,30 @@ import { readFile } from "fs/promises";
 import { checkId, isValidName } from "../helpers.js";
 import { ObjectId } from "mongodb";
 export const createPets = async function (
+  pictures,
   name,
+  type,
   breed,
+  age,
+  gender,
+  breedSize,
+  characteristics,
+  health,
   description,
   needs,
-  pictures,
+  houseTrained,
   availability,
   agencyName
 ) {
   if (
     !(
+      typeof type !== "undefined" &&
+      typeof age !== "undefined" &&
+      typeof gender !== "undefined" &&
+      typeof breedSize !== "undefined" &&
+      typeof characteristics !== "undefined" &&
+      typeof health !== "undefined" &&
+      typeof houseTrained !== "undefined" &&
       typeof name !== "undefined" &&
       typeof breed !== "undefined" &&
       typeof description !== "undefined" &&
@@ -31,8 +45,12 @@ export const createPets = async function (
   if (!isValidName(agencyName)) throw "Error: Invalid agency name";
   if (typeof availability !== "boolean")
     throw "Availability needs to be a boolean";
+  if (typeof houseTrained !== "boolean")
+  throw "House Trained needs to be a boolean";
   if (!Array.isArray(needs)) throw "Needs should be an array";
   if (!Array.isArray(pictures)) throw "Pictures should be an array";
+  if (!Array.isArray(characteristics)) throw "Characteristics should be an array";
+  if (!Array.isArray(health)) throw "Health should be an array";
 
   if (!(isValidName(name) && isValidName(breed))) {
     throw "Name and brred should be a valid string and should be at least 2 characters long with a max of 25 characters";
@@ -48,9 +66,16 @@ export const createPets = async function (
   const addPet = await collection.insertOne({
     _id: new ObjectId(),
     name,
+    type,
     breed,
+    age,
+    gender,
+    breedSize,
+    characteristics,
+    health,
     description,
     needs,
+    houseTrained,
     pictures,
     availability,
     adoptedBy: null,
