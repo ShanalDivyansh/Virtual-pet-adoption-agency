@@ -527,6 +527,13 @@ router.route("/addpet").get(async (req, res) => {
     }
     
   });
+
+  router.route("/education")
+  .get(async (req, res) => {
+    return res.render("education", { title: "Education Centre" });
+  })
+
+export 
 export default router;
 
 

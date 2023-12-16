@@ -272,7 +272,7 @@
         "agency":"ABCD"
     },
     {
-       "pictures":["public/Images/Pets/FelixSiamese.jpeg"],
+       "pictures":["public/Images/Pets/FelixSiamese.png"],
         "name":"Felix",
         "type":"Cat",
         "breed":"Siamese",
@@ -629,7 +629,7 @@
         "agency":"ABCD"
     },
     {
-       "pictures":["public/Images/Pets/OlivePersian.jpeg"],
+       "pictures":["public/Images/Pets/OlivePersian.png"],
         "name":"Olive",
         "type":"Cat",
         "breed":"Persian",
