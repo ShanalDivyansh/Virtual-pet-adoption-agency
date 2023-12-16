@@ -2,7 +2,7 @@
     <a href="/agencyHome"><img src="public/Images/logo.jpg" alt="dog logo" class="logo" /></a>
     <a href="/logout"><button class="login-button">Logout</button></a>
 </nav>
-<form id='addpet-form' action="/addPet" method="post">
+<form id='addpet-form' action="/addPet" method="post" enctype="multipart/form-data">
     <label for="image">Image:</label>
     <input type="file" name="image" accept="image/*" required>
 
@@ -67,10 +67,10 @@
         <option value="pending">Vaccination Pending</option>
     </select>
 
-    <label for="spayed/neutered">Spayed or Neutered:</label>    
-    <select name="spayed/neutered" id="spayed/neutered">
+    <label for="spayedNeutered">Spayed or Neutered:</label>    
+    <select name="spayedNeutered" id="spayedNeutered">
         <option value="done">Yes</option>
-        <option value="notDone">No</option>
+        <option value="noSpayedNeutered">No</option>
     </select>
 
     <label for="characteristics">Characteristics:</label>

@@ -34,7 +34,7 @@ if (addPet_form) {
         let characteristics = document.getElementById("characteristics").value;
         let bio = document.getElementById("bio").value;
         let petVaccination = document.getElementById("petVaccination").value;
-        let spayedNeutered = document.getElementById("spayed/neutered").value;
+        let spayedNeutered = document.getElementById("spayedNeutered").value;
         let specialNeeds = document.getElementById("specialNeeds").value;
         // console.log(petName);
         // console.log(petType);
@@ -82,7 +82,7 @@ if (addPet_form) {
                 errorMessages.push("Pet Age group not provided correctly");
             if (!['small', 'medium', "large", "giant"].includes(petSize.trim().toLowerCase()))
                 errorMessages.push("Pet Size not provided correctly");
-            if (!['low', 'mediumEnergy', "high", "very high"].includes(energyLevel.trim().toLowerCase()))
+            if (!['low', 'mediumEnergy', 'high', 'very high'].includes(energyLevel.trim().toLowerCase()))
                 errorMessages.push("Pet Energy Level not provided correctly");
             if (!['yes', "no"].includes(houseTrain.trim().toLowerCase()))
                 errorMessages.push("House Trained field not provided correctly");
@@ -102,32 +102,35 @@ if (addPet_form) {
             if (!["complete", "pending"].includes(petVaccination.trim().toLowerCase()))
                 errorMessages.push("Vaccination status not provided correctly");
 
-            if (!['done', "notDone"].includes(spayedNeutered.trim().toLowerCase()))
+            if (!['done', 'noSpayedNeutered'].includes(spayedNeutered.trim().toLowerCase()))
                 errorMessages.push("Spayed or Neutered status not provided correctly");
 
             let specialNeedsList = specialNeeds.trim().toLowerCase().split(',')
-            for (var i = 0; i < specialNeedsList.length; i++) {
-                var char1 = specialNeedsList[i];
-                if (/\d/.test(char1)) {
-                    errorMessages.push("Special Needs can only be comma seperated strings");
-                    break;
-                }
-                if (char1.trim().length < 4) {
-                    errorMessages.push("Special Needs can not be BLANK");
-                    break;
+            if (specialNeeds.length !== 0 ) {
+                for (var i = 0; i < specialNeedsList.length; i++) {
+                    var char1 = specialNeedsList[i];
+                    if (/\d/.test(char1)) {
+                        errorMessages.push("Special Needs can only be comma seperated strings");
+                        break;
+                    }
+                    if (char1.trim().length < 4) {
+                        errorMessages.push("Special Needs can not be BLANK");
+                        break;
+                    }
                 }
             }
+
             if (bio.trim().length < 5 || bio.trim().length > 100)
                 errorMessages.push("Bio can only be 5 to 100 words long");
         }
 
-        if (errorMessages.length > 0) {
-            //console.log('----------->CSV logs');
-            displayError(errorMessages);
-            return;
-        }
-        console.log("all good")
-        addPet_form.submit();
+if (errorMessages.length > 0) {
+    //console.log('----------->CSV logs');
+    displayError(errorMessages);
+    return;
+}
+console.log("all good")
+addPet_form.submit();
     });
 }
 function displayError(errorMessages) {

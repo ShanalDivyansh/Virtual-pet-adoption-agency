@@ -10,6 +10,17 @@ import PasswordValidator from "password-validator";
 import bcrypt, { hash } from "bcrypt";
 import { readFile } from "fs/promises";
 
+import fileUpload from 'express-fileupload';
+
+router.use(
+  fileUpload({
+    limits: {
+      fileSize: 10000000, // 10 MB
+    },
+    abortOnLimit: true,
+  })
+);
+
 router.route("/").get(async (req, res) => {
   return res.json({ error: "YOU SHOULD NOT BE HERE!" });
 });
@@ -130,7 +141,7 @@ router
     return res.render("logout", { title: "done" });
   });
 
-  router
+router
   .route("/login")
   .get(async (req, res) => {
     res.render("login");
@@ -146,15 +157,15 @@ router
     }
     email = email.trim().toLowerCase();
     password = password.trim();
-    if (!validator.isEmail(email)){
+    if (!validator.isEmail(email)) {
       return res.status(400).render('login', { error: 'Invalid Email Format' });
     }
     const isPassSpaces = [...password].every((char) => {
       return char.trim() !== "";
     });
-  if (!isPassSpaces) {
-    return res.status(400).render('login', { error: 'Password Contains Spaces' });
-  }
+    if (!isPassSpaces) {
+      return res.status(400).render('login', { error: 'Password Contains Spaces' });
+    }
     var passSchema = new PasswordValidator();
     passSchema
       .is()
@@ -169,19 +180,19 @@ router
       .has()
       .symbols();
     const validPass = passSchema.validate(password);
-    if (!validPass){
+    if (!validPass) {
       return res.status(400).render('login', { error: "Password needs to be at least one uppercase character, there has to be at least one number and there has to be at least one special character" });
     }
     const collection = await users();
     const userInfo = await collection.findOne({ email });
     if (!userInfo) {
       return res.status(400).render('login', { error: "Either the Email, Password or UserType is invalid" });
-    } 
+    }
     const comparePass = await bcrypt.compare(password, userInfo.password);
     if (!comparePass) {
       return res.status(400).render('login', { error: "Either the Email, Password or UserType is invalid" });
     }
-    if (userInfo.userType !== role.trim().toLowerCase()){
+    if (userInfo.userType !== role.trim().toLowerCase()) {
       return res.status(400).render('login', { error: "User type not matching" });
     }
     try {
@@ -219,7 +230,7 @@ router.route("/error").get(async (req, res) => {
 
 router.route("/logout").get(async (req, res) => {
   //code here for GET
-  res.render("logout",{title: 'Logged out'});
+  res.render("logout", { title: 'Logged out' });
 });
 
 router.route("/agencyHome").get(async (req, res) => {
@@ -230,11 +241,33 @@ router.route("/addpet").get(async (req, res) => {
   const dogBreeds = JSON.parse(dogBreedsList);
   const catBreedsList = await readFile("data/allowedCatBreeds.json", "utf8");
   const catBreeds = JSON.parse(catBreedsList);
-  res.render("addpet", { title: 'Add Pet', dogBreeds: dogBreeds, catBreeds: catBreeds});
+  res.render("addpet", { title: 'Add Pet', dogBreeds: dogBreeds, catBreeds: catBreeds });
 })
-.post(async (req, res) => {
-  res.render("petAddComplete", { title: 'Pet Added' });
-  // res.redirect("/agencyHome");
-});
+  .post(async (req, res) => {
+    const image = req.files.image; // Access the uploaded image through req.files.image
+    const {petName,petGender, petType,dogBreed,catBreed,ageGroup,size,energyLevel,houseTrain,petVaccination,spayedNeutered,characteristics,bio,specialNeeds} = req.body;
+    console.log(petName);
+    // If no image submitted, exit
+    if (!image) return res.status(400).send("No image uploaded");
+    console.log(petType);
+    // If the file type is not an image, prevent from uploading
+    if (!/^image/.test(image.mimetype)) return res.status(400).send("Invalid file type");
+    let imgName = petName;
+    if(petType==='dog')
+      imgName = imgName+dogBreed;
+    else
+      imgName = imgName+catBreed;
+    // Move the uploaded image to a specific folder
+    const uploadPath = '/Users/pranjalapoorva/Desktop/College/3Fall_2023/CS-546(Web)/Another copy/Virtual-pet-adoption-agency/public/Images/Pets' + imgName;
+    image.mv(uploadPath, (err) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send("Error uploading image");
+      }
 
+      // You can now use the uploadPath or image.name as needed
+      // For example, you can save the path to the database or perform other actions
+      res.render("addPetComplete", { title: 'Pet Added' });
+    });
+  });
 export default router;
