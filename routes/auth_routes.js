@@ -397,8 +397,8 @@ router.route("/addpet").get(async (req, res) => {
       try {
         image.mv(uploadPath, (err) => {
           if (err) {
-            console.error(err);
-            return res.status(500).send("Error uploading image");
+            errorMessages.push(err);
+            //return res.status(500).send("Error uploading image");
           }
         });
       } catch (error) {
