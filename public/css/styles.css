@@ -150,3 +150,53 @@ body {
   font-size: large;
   border: 2px solid white;
 }
+
+/* Add your general styles here */
+
+#educentre {
+  text-align: center;
+  margin-top: 50px;
+}
+
+#edubackground {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#educentre h1 {
+  color: #333;
+}
+
+/* Styles for each section */
+
+#educentre section {
+  margin-top: 30px;
+}
+
+.pet-care, .adoption, .responsible-ownership {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pet-care h2, .adoption h2, .responsible-ownership h2 {
+  color: #007bff;
+}
+
+.pet-care p, .adoption p, .responsible-ownership p {
+  color: #555;
+}
+
+.pet-care ul, .adoption ul, .responsible-ownership ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.pet-care li, .adoption li, .responsible-ownership li {
+  margin-bottom: 10px;
+}
+
+/* Add more styles as needed */

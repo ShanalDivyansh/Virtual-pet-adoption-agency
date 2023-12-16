@@ -183,6 +183,10 @@ app.use(rewriteUnsupportedBrowserMethods);
 app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
+app.get('/education', (req, res) => {
+  res.render('education', { title: 'Education Center' });
+});
+
 configRoutes(app);
 
 app.listen(3000, () => {
