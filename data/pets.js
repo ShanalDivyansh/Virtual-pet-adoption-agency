@@ -58,7 +58,7 @@ export const createPets = async function (
   const breedsList = await readFile("data/allowedBreeds.json", "utf8");
   const breedsData = JSON.parse(breedsList);
   const breedExists = breedsData.find(
-    (b) => b.name.trim().toLowerCase() === breed.trim().toLowerCase()
+    (b) => b.trim().toLowerCase() === breed.trim().toLowerCase()
   );
   if (!breedExists) throw "Enter a valid breed.";
 
