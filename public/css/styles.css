@@ -61,12 +61,13 @@ body {
   grid-column-end: 9;
   background-color: white;
   border-radius: 25px;
-  transition: opacity 0.3s ease-in-out;
-  opacity: 0;
+  /* transition: opacity 0.3s ease-in-out; */
+  /* opacity: 0; */
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
+  display: none;
 }
 
 .overlay-bg {
@@ -88,12 +89,14 @@ body {
   display: block;
 }
 .show-login {
-  opacity: 1;
+  /* opacity: 1; */
+  display: block;
 }
 
 #login-form {
   display: flex;
   flex-direction: column;
+  /* height: 300px; */
   /* width: 300px;  */
   /* justify-content: center; */
   /* align-content: center; */
@@ -104,7 +107,37 @@ body {
 #login-form img {
   height: 250px;
 }
-
+.login-popup header {
+}
 #login-form label {
   margin: 10px;
+}
+
+
+.register-popup{
+  grid-row-start: 3;
+  grid-row-end: 5;
+  grid-column-start: 5;
+  grid-column-end: 9;
+  background-color: white;
+  border-radius: 25px;
+  /* transition: opacity 0.3s ease-in-out; */
+  /* opacity: 0; */
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  display: none;
+}
+
+.show-register{
+  display: block;
+}
+.register-tagline{
+  grid-column-start: 5;
+  grid-column-end: 10;
+  grid-row-start: 5;
+  grid-row-end:5;
+  color:white;
+  font-size: 2em;
 }
