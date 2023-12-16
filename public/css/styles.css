@@ -199,4 +199,8 @@ body {
   margin-bottom: 10px;
 }
 
-/* Add more styles as needed */
+.error-message{
+  color:rgb(255, 0, 0);
+  background: rgb(255, 246, 246);
+}
+
