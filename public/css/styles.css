@@ -204,3 +204,9 @@ body {
   background: rgb(255, 246, 246);
 }
 
+.selector-dogShow{
+  display: none;
+}
+.selector-catShow{
+  display: none;
+}

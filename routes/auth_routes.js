@@ -8,6 +8,8 @@ import validator from "validator";
 import { pets, users } from "../config/mongoCollections.js";
 import PasswordValidator from "password-validator";
 import bcrypt, { hash } from "bcrypt";
+import { readFile } from "fs/promises";
+
 router.route("/").get(async (req, res) => {
   return res.json({ error: "YOU SHOULD NOT BE HERE!" });
 });
@@ -221,12 +223,18 @@ router.route("/logout").get(async (req, res) => {
 });
 
 router.route("/agencyHome").get(async (req, res) => {
-  //code here for GET
-  res.render("agencyHome",{title: 'Agency Home'});
+  res.render("agencyHome", { title: 'Agency Home' });
 });
 router.route("/addpet").get(async (req, res) => {
-  //code here for GET
-  res.render("addpet",{title: 'Add Pet'});
+  const dogBreedsList = await readFile("data/allowedDogBreeds.json", "utf8");
+  const dogBreeds = JSON.parse(dogBreedsList);
+  const catBreedsList = await readFile("data/allowedCatBreeds.json", "utf8");
+  const catBreeds = JSON.parse(catBreedsList);
+  res.render("addpet", { title: 'Add Pet', dogBreeds: dogBreeds, catBreeds: catBreeds});
+})
+.post(async (req, res) => {
+  res.render("petAddComplete", { title: 'Pet Added' });
+  // res.redirect("/agencyHome");
 });
 
 export default router;

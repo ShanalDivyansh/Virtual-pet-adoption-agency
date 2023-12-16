@@ -1,43 +1,91 @@
 <nav class="nav">
-   <a href="/agencyHome"><img src="public/Images/logo.jpg" alt="dog logo" class="logo" /></a> 
+    <a href="/agencyHome"><img src="public/Images/logo.jpg" alt="dog logo" class="logo" /></a>
     <a href="/logout"><button class="login-button">Logout</button></a>
 </nav>
 <form id='addpet-form' action="/addPet" method="post">
-        <label for="image">Image:</label>
-        <input type="file" name="image" accept="image/*" required>
-        
-        <label for="name">Name:</label>
-        <input type="text" name="name" required>
-        
-        <label for="animalType">Animal Type:</label>
-        <select name="animalType" required>
-            <option value="dog">Dog</option>
-            <option value="cat">Cat</option>
-            <!-- Add more options as needed -->
-        </select>
-        
-        <label for="breed">Breed:</label>
-        <select name="breed" required>
-            <!-- Add options dynamically based on selected animalType using JavaScript -->
-        </select>
-        
-        <label for="ageGroup">Age Group:</label>
-        <select name="ageGroup" required>
-            <option value="puppy">Puppy</option>
-            <option value="adult">Adult</option>
-            <!-- Add more options as needed -->
-        </select>
-        
-        <label for="characteristics">Characteristics:</label>
-        <textarea name="characteristics" rows="4" required></textarea>
-        
-        <label for="size">Size:</label>
-        <select name="size" required>
-            <option value="small">Small</option>
-            <option value="medium">Medium</option>
-            <option value="large">Large</option>
-            <!-- Add more options as needed -->
-        </select>
-        
-        <button type="submit">Submit</button>
-    </form>
+    <label for="image">Image:</label>
+    <input type="file" name="image" accept="image/*" required>
+
+    <label for="petName">Name:</label>
+    <input type="text" id="petName" name="petName">
+
+    <label for="petGender">Gender:</label>
+    <select name="petGender" id="petGender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+    </select>
+
+    <label for="animalType">Animal Type:</label>
+    <select name="animalType" id="animalType" class="type-selector">
+        <option value="dog">Dog</option>
+        <option value="cat">Cat</option>
+    </select>
+
+    <label for="breed">Breed:</label>
+    <select name="dogBreed" id="dogBreed" class="dog-selector">
+        {{#each dogBreeds}}
+        <option value="{{this}}" selected>{{this}}</option>
+        {{/each}}
+    </select>
+    <select name="catBreed" id="catBreed" class="cat-selector selector-catShow">
+        {{#each catBreeds}}
+        <option value="{{this}}" selected>{{this}}</option>
+        {{/each}}
+    </select>
+
+    <label for="ageGroup">Age Group:</label>
+    <select name="ageGroup" id="ageGroup">
+        <option value="puppy">Puppy</option>
+        <option value="young adult">Young Adult</option>
+        <option value="adult">Adult</option>
+        <option value="senior">Senior</option>
+    </select>
+
+    <label for="size">Size:</label>
+    <select name="size" id="size">
+        <option value="small">Small</option>
+        <option value="medium">Medium</option>
+        <option value="large">Large</option>
+        <option value="giant">Giant</option>
+    </select>
+    <label for="energyLevel">Energy level:</label>
+    <select name="energyLevel" id="energyLevel">
+        <option value="low">Low</option>
+        <option value="mediumEnergy">Medium</option>
+        <option value="high">High</option>
+        <option value="very-high">Very High</option>
+    </select>
+    <label for="houseTrain">House Trained:</label>
+    <select name="houseTrain" id="houseTrain">
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+    </select>
+
+    <label for="petVaccination">Pet Vaccination:</label>
+    <select name="petVaccination" id="petVaccination">
+        <option value="complete">Vaccination Up to date</option>
+        <option value="pending">Vaccination Pending</option>
+    </select>
+
+    <label for="spayed/neutered">Spayed or Neutered:</label>    
+    <select name="spayed/neutered" id="spayed/neutered">
+        <option value="done">Yes</option>
+        <option value="notDone">No</option>
+    </select>
+
+    <label for="characteristics">Characteristics:</label>
+    <textarea name="characteristics" id="characteristics" rows="2"></textarea>
+
+    <label for="bio">Bio:</label>
+    <textarea name="bio" id="bio" rows="2"></textarea>
+
+    {{!-- <label for="health">Health details:</label>
+    <textarea name="health" id="health" rows="4"></textarea> --}}
+
+    <label for="specialNeeds">Special Needs(Optional):</label>
+    <textarea name="specialNeeds" id="specialNeeds" rows="2"></textarea>
+
+    <button type="submit">Submit</button>
+</form>
+
+<script src="public/js/addPet.js"></script>
