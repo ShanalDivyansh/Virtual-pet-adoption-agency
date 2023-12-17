@@ -4,6 +4,7 @@ import { ObjectId } from "mongodb";
 import PasswordValidator from "password-validator";
 import bcrypt, { hash } from "bcrypt";
 import { pets, users } from "../config/mongoCollections.js";
+import {getAvailablePets} from "../data/pets.js"
 
 //import mongo collections, bcrypt and implement the following data functions
 export const registerUser = async (
@@ -310,3 +311,95 @@ export const getUserDetails = async function (userID) {
   if (!details) throw "Error: user not found";
   return details;
 };
+
+export const getUserPetRecommendation = async function (userID) {
+  const userCollection = await users();
+  const userInfo = await userCollection.findOne({ _id: new ObjectId(userID) });
+  let userQuizAnswer = userInfo.quizAnswers;
+  let allPetDetails = 0;
+  // console.log(userQuizAnswer);
+  try {
+    allPetDetails = await getAvailablePets();
+    // console.log(allPetDetails.length);
+    // for(let i =0 ;i<allPetDetails.length ;i++)
+    for (let i = 0; i < allPetDetails.length; i++) {
+      let matchScore = 0;
+      if (userQuizAnswer.Type.toLowerCase() === allPetDetails[i].type.toLowerCase()) {
+        matchScore += 2;
+        // console.log("type match")  
+      }
+      // // console.log(userInfo.quizAnswers.Age_Group);
+      if (userQuizAnswer.Age_Group.length > 1) {
+        for (let x = 0; x < userQuizAnswer.Age_Group.length; x++) {
+          if (userQuizAnswer.Age_Group[x].toLowerCase() === allPetDetails[i].age.toLowerCase()) {
+            matchScore += 1;
+            // console.log("age match")  
+          }
+        }
+      }
+      else if (userQuizAnswer.Age_Group === allPetDetails[i].age) {
+        matchScore += 1;
+        // console.log("age match")  
+      }
+      if (userQuizAnswer.Gender.toLowerCase() === allPetDetails[i].gender.toLowerCase()) {
+        matchScore += 1;
+        // console.log("gender match")  
+      }
+      if (userQuizAnswer.Breed_Size.length > 1) {
+        for (let x = 0; x < userQuizAnswer.Breed_Size.length; x++) {
+          if (userQuizAnswer.Breed_Size[x].toLowerCase() === allPetDetails[i].breedSize.toLowerCase()) {
+            matchScore += 1;
+            // console.log("breed match")  
+          }
+        }
+      }
+      else if (userQuizAnswer.Breed_Size === allPetDetails[i].breedSize) {
+        matchScore += 1;
+        // console.log("breed match")  
+      }
+
+      if (userQuizAnswer.activity_level.length > 1) {
+        for (let x = 0; x < userQuizAnswer.activity_level.length; x++) {
+          if (userQuizAnswer.activity_level[x].toLowerCase() === allPetDetails[i].energyLevel.toLowerCase()) {
+            matchScore += 1;
+            // console.log("activity match")  
+          }
+        }
+      }
+      else if (userQuizAnswer.activity_level === allPetDetails[i].energyLevel) {
+        matchScore += 1;
+        // console.log("activity match")  
+      }
+
+      let tempNeeds = allPetDetails[i].needs;
+      for (let aa = 0; aa < allPetDetails[i].needs.length; aa++) {
+        tempNeeds[aa] = tempNeeds[aa].toLowerCase();
+      }
+      if (userQuizAnswer.Needs.toLowerCase() === 'yes' && tempNeeds.length !== 0 && !tempNeeds.includes('none')) {
+        matchScore += 1;
+        // console.log("yes needs match")
+      }
+      if (userQuizAnswer.Needs.toLowerCase() === 'no' && (tempNeeds.length === 0 || tempNeeds.includes('none'))) {
+        matchScore += 1;
+        // console.log("no needs match")  
+      }
+
+      if (userQuizAnswer.House_Trained === allPetDetails[i].houseTrained) {
+        matchScore += 1;
+        // console.log("HT match")  
+      }
+
+      allPetDetails[i].matchingScore = matchScore;
+      // // console.log(`score for ${allPetDetails[i].name} is ${matchScore}`);
+    }
+  } catch (error) {
+    // console.log(error);
+  }
+  // let temp1= [allPetDetails[0],allPetDetails[1],allPetDetails[2],allPetDetails[3]];
+  allPetDetails.sort((a, b) => b.matchingScore - a.matchingScore);
+  // // console.log(temp1);
+  return allPetDetails;
+  // // console.log(userInfo.quizAnswers.Type);
+  // // console.log(allPetDetails);
+
+}
