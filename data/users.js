@@ -324,6 +324,8 @@ export const getUserPetRecommendation = async function (userID) {
     // for(let i =0 ;i<allPetDetails.length ;i++)
     for (let i = 0; i < allPetDetails.length; i++) {
       let matchScore = 0;
+      if(userQuizAnswer.Type.toLowerCase() === 'none')
+        matchScore += 2;
       if (userQuizAnswer.Type.toLowerCase() === allPetDetails[i].type.toLowerCase()) {
         matchScore += 2;
         // console.log("type match")  
@@ -341,6 +343,8 @@ export const getUserPetRecommendation = async function (userID) {
         matchScore += 1;
         // console.log("age match")  
       }
+      if(userQuizAnswer.Gender.toLowerCase() === 'none')
+        matchScore += 1;
       if (userQuizAnswer.Gender.toLowerCase() === allPetDetails[i].gender.toLowerCase()) {
         matchScore += 1;
         // console.log("gender match")  
@@ -383,8 +387,9 @@ export const getUserPetRecommendation = async function (userID) {
         matchScore += 1;
         // console.log("no needs match")  
       }
-
-      if (userQuizAnswer.House_Trained === allPetDetails[i].houseTrained) {
+      if(userQuizAnswer.House_Trained.toLowerCase() === 'no')
+        matchScore += 1;
+      else if (userQuizAnswer.House_Trained === allPetDetails[i].houseTrained) {
         matchScore += 1;
         // console.log("HT match")  
       }
