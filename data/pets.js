@@ -49,10 +49,11 @@ export const createPets = async function (
   if (typeof availability !== "boolean")
     throw "Availability needs to be a boolean";
   if (typeof houseTrained !== "boolean")
-  throw "House Trained needs to be a boolean";
+    throw "House Trained needs to be a boolean";
   if (!Array.isArray(needs)) throw "Needs should be an array";
   if (!Array.isArray(pictures)) throw "Pictures should be an array";
-  if (!Array.isArray(characteristics)) throw "Characteristics should be an array";
+  if (!Array.isArray(characteristics))
+    throw "Characteristics should be an array";
   if (!Array.isArray(health)) throw "Health should be an array";
 
   if (!(isValidName(name) && isValidName(breed))) {
@@ -84,6 +85,7 @@ export const createPets = async function (
     availability,
     adoptedBy: null,
     agencyName: agencyName.trim().toLowerCase(),
+    intrestedUsers: [],
   });
   if (!addPet.insertedId) throw "Insert failed!";
   return { insertedUser: true };
@@ -98,7 +100,7 @@ export const getPet = async function (petId) {
       {
         $lookup: {
           from: "users",
-          localField: "adoptedBy",
+          localField: "intrestedUsers",
           foreignField: "_id",
           as: "usersInfo",
         },

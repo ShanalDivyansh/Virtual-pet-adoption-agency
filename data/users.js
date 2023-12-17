@@ -115,6 +115,24 @@ export const addUserShortListedPets = async (userID, shortlistedPetsID) => {
   );
   if (!updateInfo) throw "Error: Update failed";
 
+  const petsCollection = await pets();
+  const existingPetsInfo = await petsCollection.findOne({
+    _id: new ObjectId(petID),
+  });
+  console.log(existingPetsInfo);
+  const addUser = petsCollection.findOneAndUpdate(
+    { _id: new ObjectId(petID) },
+    {
+      $set: {
+        intrestedUsers: [
+          ...existingPetsInfo.intrestedUsers,
+          new ObjectId(usersID),
+        ],
+      },
+    },
+    { returnDocument: "after" }
+  );
+
   return await updateInfo;
 };
 

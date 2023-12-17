@@ -1,0 +1,13 @@
+<p class="pets-view-header">Your Short Listed Pets</p>
+<div class="pets-view">
+  {{#each pets}}
+    <div class="pets-view-container">
+      <p>{{name}}</p>
+      <p>{{type}}</p>
+    </div>
+
+  {{/each}}
+  {{#each img}}
+    <img src="{{this}}" />
+  {{/each}}
+</div>

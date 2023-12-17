@@ -8,8 +8,8 @@ import PasswordValidator from "password-validator";
 import bcrypt, { hash } from "bcrypt";
 import { readFile } from "fs/promises";
 
-import fileUpload from 'express-fileupload';
-import {createPets} from '../data/pets.js';
+import fileUpload from "express-fileupload";
+import { createPets } from "../data/pets.js";
 
 router.use(
   fileUpload({
@@ -32,7 +32,6 @@ router.route("/").get(async (req, res) => {
   return res.json({ error: "YOU SHOULD NOT BE HERE!" });
 });
 
-
 router
   .route("/register")
   .get(async (req, res) => {
@@ -41,7 +40,7 @@ router
   })
   .post(async (req, res) => {
     //code here for POST
-    console.log(req.body);
+    // console.log(req.body);
     const { firstName, lastName, email, password, userTypeRegister } = req.body;
     try {
       const result = await registerUser(
@@ -58,7 +57,6 @@ router
     } catch (error) {
       console.log(error);
     }
-    
   });
 
 router
@@ -77,18 +75,22 @@ router
     let userType = req.body["userType"];
 
     if (!(typeof email !== "undefined" && typeof password !== "undefined")) {
-      return res.status(400).render('login', { error: 'Invalid Email and/or Password' });
+      return res
+        .status(400)
+        .render("login", { error: "Invalid Email and/or Password" });
     }
     email = email.trim().toLowerCase();
     password = password.trim();
     if (!validator.isEmail(email)) {
-      return res.status(400).render('login', { error: 'Invalid Email Format' });
+      return res.status(400).render("login", { error: "Invalid Email Format" });
     }
     const isPassSpaces = [...password].every((char) => {
       return char.trim() !== "";
     });
     if (!isPassSpaces) {
-      return res.status(400).render('login', { error: 'Password Contains Spaces' });
+      return res
+        .status(400)
+        .render("login", { error: "Password Contains Spaces" });
     }
     var passSchema = new PasswordValidator();
     passSchema
@@ -105,20 +107,27 @@ router
       .symbols();
     const validPass = passSchema.validate(password);
     if (!validPass) {
-      return res.status(400).render('login', { error: "Password needs to be at least one uppercase character, there has to be at least one number and there has to be at least one special character" });
+      return res.status(400).render("login", {
+        error:
+          "Password needs to be at least one uppercase character, there has to be at least one number and there has to be at least one special character",
+      });
     }
     const collection = await users();
     const userInfo = await collection.findOne({ email });
     if (!userInfo) {
-      return res.status(400).render('login', { error: "Either the Email, Password or UserType is invalid" });
+      return res.status(400).render("login", {
+        error: "Either the Email, Password or UserType is invalid",
+      });
     }
     const comparePass = await bcrypt.compare(password, userInfo.password);
     if (!comparePass) {
-      return res.status(400).render('login', { error: "Either the Email, Password or UserType is invalid" });
+      return res.status(400).render("login", {
+        error: "Either the Email, Password or UserType is invalid",
+      });
     }
     try {
       const userLoginAttempt = await loginUser(email, password, userType);
-      console.log(userLoginAttempt);
+      // console.log(userLoginAttempt);
       if (userLoginAttempt) {
         req.session.user = {
           ...userLoginAttempt,
@@ -139,12 +148,12 @@ router
     }
   });
 
-  router.route("/home").get(async (req, res) => {
-    //code here for GET
-    console.log(req.session.user.id);
-    const pets = await getAvailablePets();
-    res.render("home", { pets, userId: req.session.user.id });
-  });
+router.route("/home").get(async (req, res) => {
+  //code here for GET
+  console.log(req.session.user.id);
+  const pets = await getAvailablePets();
+  res.render("home", { pets, userId: req.session.user.id });
+});
 router.route("/addToShortList").post(async (req, res) => {
   try {
     console.log(req.session.user.id);
@@ -181,7 +190,6 @@ router.route("/getPetDetails").post(async (req, res) => {
   }
 });
 
-
 router.route("/addToShortList").post(async (req, res) => {
   try {
     console.log(req.session.user.id);
@@ -198,7 +206,7 @@ router.route("/addToShortList").post(async (req, res) => {
 });
 router.route("/getUserDetails").post(async (req, res) => {
   try {
-    console.log(req.session.user.id);
+    console.log(req.session.user);
     const result = await getUserDetails(req.session.user.id);
     if (result) {
       return res.status(200).json({ status: "success", data: result });
@@ -219,147 +227,184 @@ router.route("/getPetDetails").post(async (req, res) => {
 });
 
 router.route("/questionnaire").get(async (req, res) => {
- 
-    return res.render("questionnaire", { title: "done" });
+  return res.render("questionnaire", { title: "done" });
+});
+router.route("/viewPets").get(async (req, res) => {
+  if (!req.session.user) {
+    res.redirect("/login");
+  }
+  const getDetails = await getUserDetails(req.session.user.id);
+  // console.log(getDetails[0].shortListedPetsInfo);
+  const pics = getDetails[0].shortListedPetsInfo.map((p) => {
+    return p.pictures[0];
+  });
+
+  console.log(getDetails[0].shortListedPetsInfo);
+  return res.render("viewPets", {
+    title: "shortListedPets",
+    pets: getDetails[0].shortListedPetsInfo,
+    img: pics,
+  });
 });
 
-
 router.route("/questionnaire").post(async (req, res) => {
- console.log("Works");
-    let petType = req.body.petType;
-    let petAgeGroup = req.body.petAgeGroup;
-    let petGender = req.body.petGender;
-    let petSize = req.body.petSize;
-    let houseTrained = req.body.houseTrained;
-    let energyLevel = req.body.energyLevel;
-    let specialNeeds = req.body.specialNeeds;
-    let errors = [];
+  // console.log("Works");
+  let petType = req.body.petType;
+  let petAgeGroup = req.body.petAgeGroup;
+  let petGender = req.body.petGender;
+  let petSize = req.body.petSize;
+  let houseTrained = req.body.houseTrained;
+  let energyLevel = req.body.energyLevel;
+  let specialNeeds = req.body.specialNeeds;
+  let errors = [];
+
+  if (
+    petType === undefined ||
+    petAgeGroup === undefined ||
+    petGender === undefined ||
+    petSize === undefined ||
+    houseTrained === undefined ||
+    energyLevel === undefined ||
+    specialNeeds === undefined
+  )
+    errors.push("All questions are mandatory - Server");
+  else {
+    // answer 1
+    petType = petType.trim().toLowerCase();
+    // answer 2
+    if (Array.isArray(petAgeGroup))
+      petAgeGroup = petAgeGroup.map((value) => value.trim().toLowerCase());
+    else petAgeGroup = [petAgeGroup.trim().toLowerCase()];
+    // answer 3
+    petGender = petGender.trim().toLowerCase();
+    // answer 4
+    if (Array.isArray(petSize))
+      petSize = petSize.map((value) => value.trim().toLowerCase());
+    else petSize = [petSize.trim().toLowerCase()];
+    // answer 5
+    houseTrained = houseTrained.trim().toLowerCase();
+    // answer 6
+    if (Array.isArray(energyLevel))
+      energyLevel = energyLevel.map((value) => value.trim().toLowerCase());
+    else energyLevel = [energyLevel.trim().toLowerCase()];
+    // answer 7
+    specialNeeds = specialNeeds.trim().toLowerCase();
+
+    if (!["dog", "cat", "none"].includes(petType))
+      errors.push("Question 1 NOT answered correctly! - server");
 
     if (
-      petType === undefined ||
-      petAgeGroup === undefined ||
-      petGender === undefined ||
-      petSize === undefined ||
-      houseTrained === undefined ||
-      energyLevel === undefined ||
-      specialNeeds === undefined
+      !array1ContainsAllElementsOfArray2(petAgeGroup, [
+        "puppy",
+        "young adult",
+        "adult",
+        "senior",
+      ])
     )
-      errors.push("All questions are mandatory - Server");
-    else {
-      // answer 1
-      petType = petType.trim().toLowerCase();
-      // answer 2
-      if (Array.isArray(petAgeGroup))
-        petAgeGroup = petAgeGroup.map((value) => value.trim().toLowerCase());
-      else petAgeGroup = [petAgeGroup.trim().toLowerCase()];
-      // answer 3
-      petGender = petGender.trim().toLowerCase();
-      // answer 4
-      if (Array.isArray(petSize))
-        petSize = petSize.map((value) => value.trim().toLowerCase());
-      else petSize = [petSize.trim().toLowerCase()];
-      // answer 5
-      houseTrained = houseTrained.trim().toLowerCase();
-      // answer 6
-      if (Array.isArray(energyLevel))
-        energyLevel = energyLevel.map((value) => value.trim().toLowerCase());
-      else energyLevel = [energyLevel.trim().toLowerCase()];
-      // answer 7
-      specialNeeds = specialNeeds.trim().toLowerCase();
+      errors.push("Question 2 NOT answered correctly! - server");
 
-      if (!["dog", "cat", "none"].includes(petType))
-        errors.push("Question 1 NOT answered correctly! - server");
+    if (!["male", "female", "none"].includes(petGender))
+      errors.push("Question 3 NOT answered correctly! - server");
 
-      if (
-        !array1ContainsAllElementsOfArray2(petAgeGroup, [
-          "puppy",
-          "young adult",
-          "adult",
-          "senior",
-        ])
-      )
-        errors.push("Question 2 NOT answered correctly! - server");
+    if (
+      !array1ContainsAllElementsOfArray2(petSize, [
+        "small",
+        "medium",
+        "large",
+        "giant",
+      ])
+    )
+      errors.push("Question 4 NOT answered correctly! - server");
 
-      if (!["male", "female", "none"].includes(petGender))
-        errors.push("Question 3 NOT answered correctly! - server");
+    if (!["yes", "none"].includes(houseTrained))
+      errors.push("Question 5 NOT answered correctly! - server");
 
-      if (
-        !array1ContainsAllElementsOfArray2(petSize, [
-          "small",
-          "medium",
-          "large",
-          "giant",
-        ])
-      )
-        errors.push("Question 4 NOT answered correctly! - server");
+    if (
+      !array1ContainsAllElementsOfArray2(energyLevel, [
+        "low",
+        "medium",
+        "high",
+        "very-high",
+      ])
+    )
+      errors.push("Question 6 NOT answered correctly! - server");
 
-      if (!["yes", "none"].includes(houseTrained))
-        errors.push("Question 5 NOT answered correctly! - server");
+    if (!["yes", "no"].includes(specialNeeds))
+      errors.push("Question 5 NOT answered correctly! - server");
+  }
 
-      if (
-        !array1ContainsAllElementsOfArray2(energyLevel, [
-          "low",
-          "medium",
-          "high",
-          "very-high",
-        ])
-      )
-        errors.push("Question 6 NOT answered correctly! - server");
-
-      if (!["yes", "no"].includes(specialNeeds))
-        errors.push("Question 5 NOT answered correctly! - server");
+  if (errors.length > 0)
+    return res
+      .status(404)
+      .render("questionnaire", { title: "error", errors: errors });
+  else {
+    try {
+      let user = await addUserQuizAns(
+        req.session.user.id,
+        petType,
+        petAgeGroup,
+        petGender,
+        petSize,
+        energyLevel,
+        specialNeeds,
+        houseTrained
+      );
+      // console.log("ran");
+      return res.redirect("login");
+    } catch (error) {
+      // errors.push(error);
     }
-
-    if (errors.length > 0)
-      return res
-        .status(404)
-        .render("questionnaire", { title: "error", errors: errors });
-    else {
-      try {
-        let user = await addUserQuizAns(
-          req.session.user.id,
-          petType,
-          petAgeGroup,
-          petGender,
-          petSize,
-          energyLevel,
-          specialNeeds,
-          houseTrained
-        );
-        console.log("ran")
-        return res.redirect("login")
-      } catch (error) {
-        // errors.push(error);
-      }
-    }
-}
-)
+  }
+});
 
 router.route("/logout").get(async (req, res) => {
   //code here for GET
 });
 
 router.route("/agencyHome").get(async (req, res) => {
-  res.render("agencyHome", { title: 'Agency Home' });
+  res.render("agencyHome", { title: "Agency Home" });
 });
-router.route("/addpet").get(async (req, res) => {
-  const dogBreedsList = await readFile("data/allowedDogBreeds.json", "utf8");
-  const dogBreeds = JSON.parse(dogBreedsList);
-  const catBreedsList = await readFile("data/allowedCatBreeds.json", "utf8");
-  const catBreeds = JSON.parse(catBreedsList);
-  res.render("addpet", { title: 'Add Pet', dogBreeds: dogBreeds, catBreeds: catBreeds });
-})
+router
+  .route("/addpet")
+  .get(async (req, res) => {
+    const dogBreedsList = await readFile("data/allowedDogBreeds.json", "utf8");
+    const dogBreeds = JSON.parse(dogBreedsList);
+    const catBreedsList = await readFile("data/allowedCatBreeds.json", "utf8");
+    const catBreeds = JSON.parse(catBreedsList);
+    res.render("addpet", {
+      title: "Add Pet",
+      dogBreeds: dogBreeds,
+      catBreeds: catBreeds,
+    });
+  })
   .post(async (req, res) => {
     const image = req.files.image; // Access the uploaded image through req.files.image
-    const { petName, petGender, animalType, dogBreed, catBreed, ageGroup, size, energyLevel, houseTrain, petVaccination, spayedNeutered, characteristics, bio, specialNeeds } = req.body;
+    const {
+      petName,
+      petGender,
+      animalType,
+      dogBreed,
+      catBreed,
+      ageGroup,
+      size,
+      energyLevel,
+      houseTrain,
+      petVaccination,
+      spayedNeutered,
+      characteristics,
+      bio,
+      specialNeeds,
+    } = req.body;
     // console.log(req.body);
     let characteristicsList = [];
     let errorMessages = [];
     let imgPath = [];
     let specialNeedsList = [];
-    let uploadPath = '/Users/pranjalapoorva/Desktop/College/3Fall_2023/CS-546(Web)/Another copy/Virtual-pet-adoption-agency/public/Images/Pets';
+    let uploadPath =
+      "/Users/pranjalapoorva/Desktop/College/3Fall_2023/CS-546(Web)/Another copy/Virtual-pet-adoption-agency/public/Images/Pets";
 
-    if (petName === undefined ||
+    if (
+      petName === undefined ||
       petGender === undefined ||
       animalType === undefined ||
       dogBreed === undefined ||
@@ -372,68 +417,86 @@ router.route("/addpet").get(async (req, res) => {
       spayedNeutered === undefined ||
       characteristics === undefined ||
       bio === undefined ||
-      specialNeeds === undefined)
+      specialNeeds === undefined
+    )
       errorMessages.push("All fields are must be supplied");
-
     else {
-      if (!image)
-        return res.status(400).send("No image uploaded");
+      if (!image) return res.status(400).send("No image uploaded");
       if (!/^image/.test(image.mimetype))
         return res.status(400).send("Invalid file type");
 
       let imgName = petName;
-      if (animalType === 'dog')
-        imgName = imgName + dogBreed + '.jpg';
-      else
-        imgName = imgName + catBreed + '.jpg';
-      uploadPath = uploadPath+ imgName;
+      if (animalType === "dog") imgName = imgName + dogBreed + ".jpg";
+      else imgName = imgName + catBreed + ".jpg";
+      uploadPath = uploadPath + imgName;
       imgPath[0] = "public/Images/Pets/" + imgName;
 
       if (!isValidName(petName.trim().toLowerCase()))
         errorMessages.push("Pet Name not provided correctly");
 
-      if (!['dog', 'cat'].includes(animalType.trim().toLowerCase()))
+      if (!["dog", "cat"].includes(animalType.trim().toLowerCase()))
         errorMessages.push("Pet Type not provided correctly");
 
-      if (!['male', 'female'].includes(petGender.trim().toLowerCase()))
+      if (!["male", "female"].includes(petGender.trim().toLowerCase()))
         errorMessages.push("Pet Gender not provided correctly");
 
-      if (animalType === 'dog'){
-        const allowedDogBreedsList = await readFile("data/allowedDogBreeds.json", "utf8");
+      if (animalType === "dog") {
+        const allowedDogBreedsList = await readFile(
+          "data/allowedDogBreeds.json",
+          "utf8"
+        );
         const allowedDogBreeds = JSON.parse(allowedDogBreedsList);
-        if(!allowedDogBreeds.includes(dogBreed))
+        if (!allowedDogBreeds.includes(dogBreed))
           errorMessages.push("Dog Breed not provided correctly");
-      }
-      else if(animalType === 'cat'){
-        const allowedCatBreedsList = await readFile("data/allowedCatBreeds.json", "utf8");
+      } else if (animalType === "cat") {
+        const allowedCatBreedsList = await readFile(
+          "data/allowedCatBreeds.json",
+          "utf8"
+        );
         const allowedCogBreeds = JSON.parse(allowedCatBreedsList);
-        if(!allowedCogBreeds.includes(catBreed))
+        if (!allowedCogBreeds.includes(catBreed))
           errorMessages.push("Cat Breed not provided correctly");
       }
 
-      if (!['puppy', 'young adult', 'adult', 'senior'].includes(ageGroup.trim().toLowerCase()))
+      if (
+        !["puppy", "young adult", "adult", "senior"].includes(
+          ageGroup.trim().toLowerCase()
+        )
+      )
         errorMessages.push("Pet Age group not provided correctly");
 
-      if (!['small', 'medium', 'large', 'giant'].includes(size.trim().toLowerCase()))
+      if (
+        !["small", "medium", "large", "giant"].includes(
+          size.trim().toLowerCase()
+        )
+      )
         errorMessages.push("Pet Size not provided correctly");
 
-      if (!['low','mediumEnergy','high','very-high'].includes(energyLevel.trim().toLowerCase()))
+      if (
+        !["low", "mediumEnergy", "high", "very-high"].includes(
+          energyLevel.trim().toLowerCase()
+        )
+      )
         errorMessages.push("Pet Energy Level not provided correctly");
 
-      if (!['yes', 'no'].includes(houseTrain.trim().toLowerCase()))
+      if (!["yes", "no"].includes(houseTrain.trim().toLowerCase()))
         errorMessages.push("House Trained field not provided correctly");
 
-      if (!["complete", "pending"].includes(petVaccination.trim().toLowerCase()))
+      if (
+        !["complete", "pending"].includes(petVaccination.trim().toLowerCase())
+      )
         errorMessages.push("Vaccination status not provided correctly");
 
-      if (!['notDone','done'].includes(spayedNeutered.trim().toLowerCase()))
+      if (!["notDone", "done"].includes(spayedNeutered.trim().toLowerCase()))
         errorMessages.push("Spayed or Neutered status not provided correctly");
 
-      characteristicsList = characteristics.trim().toLowerCase().split(',')
+      characteristicsList = characteristics.trim().toLowerCase().split(",");
       for (var i = 0; i < characteristicsList.length; i++) {
         var char1 = characteristicsList[i];
         if (/\d/.test(char1)) {
-          errorMessages.push("Characterstics can only be comma seperated strings");
+          errorMessages.push(
+            "Characterstics can only be comma seperated strings"
+          );
           break;
         }
         if (char1.trim().length < 4) {
@@ -447,12 +510,14 @@ router.route("/addpet").get(async (req, res) => {
       if (bio.trim().length < 5 || bio.trim().length > 100)
         errorMessages.push("Bio can only be 5 to 100 words long");
 
-      specialNeedsList = specialNeeds.trim().toLowerCase().split(',')
+      specialNeedsList = specialNeeds.trim().toLowerCase().split(",");
       if (specialNeeds.length !== 0) {
         for (var i = 0; i < specialNeedsList.length; i++) {
           var char1 = specialNeedsList[i];
           if (/\d/.test(char1)) {
-            errorMessages.push("Special Needs can only be comma seperated strings");
+            errorMessages.push(
+              "Special Needs can only be comma seperated strings"
+            );
             break;
           }
           if (char1.trim().length < 4) {
@@ -463,24 +528,17 @@ router.route("/addpet").get(async (req, res) => {
       }
     }
     if (errorMessages.length === 0) {
-      let finalBreed=null;
-      if(animalType==='dog')
-        finalBreed=dogBreed;
-      else
-        finalBreed=catBreed;
+      let finalBreed = null;
+      if (animalType === "dog") finalBreed = dogBreed;
+      else finalBreed = catBreed;
       let health = [];
-      if(petVaccination==='complete')
-        health.push('Vaccination Up-To-Date');
-      else
-        health.push('Vaccination Pending');
-      if(spayedNeutered==='done')
-        health.push('Spayed/Neutered');
-      else
-        health.push('Not Spayed/Neutered');
+      if (petVaccination === "complete") health.push("Vaccination Up-To-Date");
+      else health.push("Vaccination Pending");
+      if (spayedNeutered === "done") health.push("Spayed/Neutered");
+      else health.push("Not Spayed/Neutered");
       let ht = false;
-      if(houseTrain === 'yes')
-        ht = true;
-      let aname=req.session.user.firstName+" "+ req.session.user.lastName;
+      if (houseTrain === "yes") ht = true;
+      let aname = req.session.user.firstName + " " + req.session.user.lastName;
 
       try {
         let user = await createPets(
@@ -506,7 +564,7 @@ router.route("/addpet").get(async (req, res) => {
       }
     }
 
-    if (errorMessages.length === 0){
+    if (errorMessages.length === 0) {
       try {
         image.mv(uploadPath, (err) => {
           if (err) {
@@ -523,12 +581,7 @@ router.route("/addpet").get(async (req, res) => {
         .status(404)
         .render("addpet", { title: "error", errors: errorMessages });
     else {
-      res.render("addPetComplete", { title: 'Pet Added' });
+      res.render("addPetComplete", { title: "Pet Added" });
     }
-    
   });
 export default router;
-
-
-
-

@@ -170,7 +170,23 @@ fetch("/getUserDetails", {
     console.log("Error:", error);
   });
 
+let lastClickedPet = null;
+let controller = new AbortController();
+
 shortListedListContainer.addEventListener("click", async (e) => {
+  if (controller) {
+    controller.abort(); // Cancel the previous fetch request
+  }
+
+  controller = new AbortController(); // Create a new controller for the current request
+  const signal = controller.signal;
+
+  lastClickedPet = e.target.id;
+
+  if (detailsContainer.classList.contains("details-show")) {
+    shortListedListContainer.classList.add("details-show");
+  }
+
   const img = document.querySelector(".details-img");
   const name = document.querySelector(".details-pet-name");
   const type = document.querySelector(".details-pet-type");
@@ -196,6 +212,7 @@ shortListedListContainer.addEventListener("click", async (e) => {
     petBio.classList.remove("hide-tinder");
     petDesc.classList.remove("hide-tinder");
     detailsContainer.classList.add("details-show");
+    shortListedListContainer.classList.remove("details-show");
   });
   try {
     const response = await fetch("/getPetDetails", {
@@ -203,13 +220,17 @@ shortListedListContainer.addEventListener("click", async (e) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ petId: clickedPet }),
+      signal, // Pass the signal to the fetch options
+      body: JSON.stringify({ petId: lastClickedPet }),
     });
+
     if (!response.ok) {
       throw new Error("Error");
     }
+
     const data = await response.json();
     console.log(data);
+
     const petsData = data.data[0];
     img.src = `${petsData.pictures[0]}`;
     name.innerText = `Name: ${petsData.name}`;
@@ -224,6 +245,10 @@ shortListedListContainer.addEventListener("click", async (e) => {
     trained.innerText = `House Trained: ${petsData.houseTrained}`;
     descr.innerText = `${petsData.description}`;
   } catch (error) {
-    console.log("Error:", error);
+    if (error.name === "AbortError") {
+      console.log("Fetch aborted");
+    } else {
+      console.log("Error:", error);
+    }
   }
 });
