@@ -4,7 +4,7 @@ import { ObjectId } from "mongodb";
 import PasswordValidator from "password-validator";
 import bcrypt, { hash } from "bcrypt";
 import { pets, users } from "../config/mongoCollections.js";
-import {getAvailablePets} from "../data/pets.js"
+import { getAvailablePets } from "../data/pets.js";
 
 //import mongo collections, bcrypt and implement the following data functions
 export const registerUser = async (
@@ -12,10 +12,7 @@ export const registerUser = async (
   lastName,
   email,
   password,
-  userType,
-  location,
-  servicesOffered,
-  agencyName
+  userType
 ) => {
   if (
     !(
@@ -345,72 +342,92 @@ export const getUserPetRecommendation = async function (userID) {
       let matchScore = 0;
       // if(userQuizAnswer.Type.toLowerCase() === 'none')
       //   matchScore += 2;
-      if (userQuizAnswer.Type.toLowerCase() === allPetDetails[i].type.toLowerCase()) {
+      if (
+        userQuizAnswer.Type.toLowerCase() ===
+        allPetDetails[i].type.toLowerCase()
+      ) {
         matchScore += 2;
-        // console.log("type match")  
+        // console.log("type match")
       }
       // // console.log(userInfo.quizAnswers.Age_Group);
       if (userQuizAnswer.Age_Group.length > 1) {
         for (let x = 0; x < userQuizAnswer.Age_Group.length; x++) {
-          if (userQuizAnswer.Age_Group[x].toLowerCase() === allPetDetails[i].age.toLowerCase()) {
+          if (
+            userQuizAnswer.Age_Group[x].toLowerCase() ===
+            allPetDetails[i].age.toLowerCase()
+          ) {
             matchScore += 1;
-            // console.log("age match")  
+            // console.log("age match")
           }
         }
+      } else if (userQuizAnswer.Age_Group === allPetDetails[i].age) {
+        matchScore += 1;
+        // console.log("age match")
       }
-      else if (userQuizAnswer.Age_Group === allPetDetails[i].age) {
+      if (userQuizAnswer.Gender.toLowerCase() === "none") matchScore += 1;
+      if (
+        userQuizAnswer.Gender.toLowerCase() ===
+        allPetDetails[i].gender.toLowerCase()
+      ) {
         matchScore += 1;
-        // console.log("age match")  
-      }
-      if(userQuizAnswer.Gender.toLowerCase() === 'none')
-        matchScore += 1;
-      if (userQuizAnswer.Gender.toLowerCase() === allPetDetails[i].gender.toLowerCase()) {
-        matchScore += 1;
-        // console.log("gender match")  
+        // console.log("gender match")
       }
       if (userQuizAnswer.Breed_Size.length > 1) {
         for (let x = 0; x < userQuizAnswer.Breed_Size.length; x++) {
-          if (userQuizAnswer.Breed_Size[x].toLowerCase() === allPetDetails[i].breedSize.toLowerCase()) {
+          if (
+            userQuizAnswer.Breed_Size[x].toLowerCase() ===
+            allPetDetails[i].breedSize.toLowerCase()
+          ) {
             matchScore += 1;
-            // console.log("breed match")  
+            // console.log("breed match")
           }
         }
-      }
-      else if (userQuizAnswer.Breed_Size === allPetDetails[i].breedSize) {
+      } else if (userQuizAnswer.Breed_Size === allPetDetails[i].breedSize) {
         matchScore += 1;
-        // console.log("breed match")  
+        // console.log("breed match")
       }
 
       if (userQuizAnswer.activity_level.length > 1) {
         for (let x = 0; x < userQuizAnswer.activity_level.length; x++) {
-          if (userQuizAnswer.activity_level[x].toLowerCase() === allPetDetails[i].energyLevel.toLowerCase()) {
+          if (
+            userQuizAnswer.activity_level[x].toLowerCase() ===
+            allPetDetails[i].energyLevel.toLowerCase()
+          ) {
             matchScore += 1;
-            // console.log("activity match")  
+            // console.log("activity match")
           }
         }
-      }
-      else if (userQuizAnswer.activity_level === allPetDetails[i].energyLevel) {
+      } else if (
+        userQuizAnswer.activity_level === allPetDetails[i].energyLevel
+      ) {
         matchScore += 1;
-        // console.log("activity match")  
+        // console.log("activity match")
       }
 
       let tempNeeds = allPetDetails[i].needs;
       for (let aa = 0; aa < allPetDetails[i].needs.length; aa++) {
         tempNeeds[aa] = tempNeeds[aa].toLowerCase();
       }
-      if (userQuizAnswer.Needs.toLowerCase() === 'yes' && tempNeeds.length !== 0 && !tempNeeds.includes('none')) {
+      if (
+        userQuizAnswer.Needs.toLowerCase() === "yes" &&
+        tempNeeds.length !== 0 &&
+        !tempNeeds.includes("none")
+      ) {
         matchScore += 1;
         // console.log("yes needs match")
       }
-      if (userQuizAnswer.Needs.toLowerCase() === 'no' && (tempNeeds.length === 0 || tempNeeds.includes('none'))) {
+      if (
+        userQuizAnswer.Needs.toLowerCase() === "no" &&
+        (tempNeeds.length === 0 || tempNeeds.includes("none"))
+      ) {
         matchScore += 1;
-        // console.log("no needs match")  
+        // console.log("no needs match")
       }
       if (userQuizAnswer.House_Trained === allPetDetails[i].houseTrained) {
         matchScore += 1;
-        // console.log("HT match")  
+        // console.log("HT match")
       }
-      
+
       allPetDetails[i].matchingScore = matchScore;
       // // console.log(`score for ${allPetDetails[i].name} is ${matchScore}`);
     }
@@ -423,5 +440,4 @@ export const getUserPetRecommendation = async function (userID) {
   return allPetDetails;
   // // console.log(userInfo.quizAnswers.Type);
   // // console.log(allPetDetails);
-
-}
+};

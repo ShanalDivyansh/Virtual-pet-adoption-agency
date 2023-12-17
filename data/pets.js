@@ -128,7 +128,7 @@ export const getAvailablePets = async function () {
   return availablePets;
 };
 export const getAvailablePetsByAgency = async function (agencyName) {
-  if (!isValidName(agencyName)) throw "Error agency name is invalid";
+  if (!validator.isEmail(agencyName)) throw "Error agency name is invalid";
   const collection = await pets();
   const availablePets = await collection.find({ agencyName }).toArray();
   if (!availablePets) throw "No pets failed!";

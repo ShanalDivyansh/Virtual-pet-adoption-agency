@@ -9,7 +9,7 @@ import bcrypt, { hash } from "bcrypt";
 import { readFile } from "fs/promises";
 
 import fileUpload from "express-fileupload";
-import { createPets } from "../data/pets.js";
+import { createPets, getAvailablePetsByAgency } from "../data/pets.js";
 
 router.use(
   fileUpload({
@@ -599,6 +599,10 @@ router.route("/education").get(async (req, res) => {
 
 router.route("/guardian").get(async (req, res) => {
   return res.render("guardian", { title: "Pet Guardians" });
+});
+router.route("/petUpdate").get(async (req, res) => {
+  const collection = await getAvailablePetsByAgency(req.session.user.email);
+  return res.render("petUpdate", { title: "Pet Guardians", collection });
 });
 
 export default router;
