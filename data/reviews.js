@@ -22,7 +22,7 @@ export const createReview = async function (
   const guardiansID = checkId(guardianID);
 
   review = review.trim();
-  rating = rating.trim();
+  // rating = rating.trim();
 
   if (!review || review === " ") throw "Review Cannot Be Empty";
 
