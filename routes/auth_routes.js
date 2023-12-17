@@ -316,6 +316,9 @@ router.route("/questionnaire").post(async (req, res) => {
         .render("questionnaire", { title: "error", errors: errors });
     else {
       try {
+        let ht = false;
+        if(houseTrained === 'yes')
+          ht = true;
         let user = await addUserQuizAns(
           req.session.user.id,
           petType,
@@ -324,7 +327,7 @@ router.route("/questionnaire").post(async (req, res) => {
           petSize,
           energyLevel,
           specialNeeds,
-          houseTrained
+          ht
         );
         console.log("ran")
         return res.redirect("login")
@@ -533,7 +536,7 @@ router.route("/addpet").get(async (req, res) => {
     return res.render("education", { title: "Education Centre" });
   })
 
-export 
+// export 
 export default router;
 
 
