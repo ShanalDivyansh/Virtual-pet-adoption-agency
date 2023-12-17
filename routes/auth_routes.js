@@ -3,7 +3,7 @@ import { Router } from "express";
 const router = Router();
 import { isValidName, array1ContainsAllElementsOfArray2 } from "../helpers.js";
 import validator from "validator";
-import { pets, users } from "../config/mongoCollections.js";
+import { guardian, pets, users } from "../config/mongoCollections.js";
 import PasswordValidator from "password-validator";
 import bcrypt, { hash } from "bcrypt";
 import { readFile } from "fs/promises";
@@ -33,6 +33,13 @@ import {
 } from "../data/users.js";
 import { loginUser } from "../data/users.js";
 import { getAvailablePets, getPet } from "../data/pets.js";
+import { getGuardian } from "../data/guardian.js";
+import {
+  createReview,
+  getGuardianReviews,
+  getUsersReviews,
+  updateReview,
+} from "../data/reviews.js";
 router.route("/").get(async (req, res) => {
   return res.json({ error: "YOU SHOULD NOT BE HERE!" });
 });
@@ -162,7 +169,7 @@ router.route("/home").get(async (req, res) => {
 });
 router.route("/addToShortList").post(async (req, res) => {
   try {
-    console.log(req.session.user.id);
+    // console.log(req.session.user.id);
     const result = await addUserShortListedPets(
       req.session.user.id,
       req.body.petId
@@ -176,7 +183,7 @@ router.route("/addToShortList").post(async (req, res) => {
 });
 router.route("/getUserDetails").post(async (req, res) => {
   try {
-    console.log(req.session.user.id);
+    // console.log(req.session.user.id);
     const result = await getUserDetails(req.session.user.id);
     if (result) {
       return res.status(200).json({ status: "success", data: result });
@@ -198,7 +205,7 @@ router.route("/getPetDetails").post(async (req, res) => {
 
 router.route("/addToShortList").post(async (req, res) => {
   try {
-    console.log(req.session.user.id);
+    // console.log(req.session.user.id);
     const result = await addUserShortListedPets(
       req.session.user.id,
       req.body.petId
@@ -212,7 +219,7 @@ router.route("/addToShortList").post(async (req, res) => {
 });
 router.route("/getUserDetails").post(async (req, res) => {
   try {
-    console.log(req.session.user);
+    // console.log(req.session.user);
     const result = await getUserDetails(req.session.user.id);
     if (result) {
       return res.status(200).json({ status: "success", data: result });
@@ -245,7 +252,7 @@ router.route("/viewPets").get(async (req, res) => {
     return p.pictures[0];
   });
 
-  console.log(getDetails[0]);
+  // console.log(getDetails[0]);
   return res.render("viewPets", {
     title: "shortListedPets",
     pets: getDetails[0].shortListedPetsInfo,
@@ -361,7 +368,7 @@ router.route("/questionnaire").post(async (req, res) => {
         specialNeeds,
         ht
       );
-      console.log("ran");
+      // console.log("ran");
       return res.redirect("login");
     } catch (error) {
       // errors.push(error);
@@ -373,7 +380,6 @@ router.route("/logout").get(async (req, res) => {
   req.session.destroy();
   res.redirect("/login");
 });
-
 
 router.route("/agencyHome").get(async (req, res) => {
   res.render("agencyHome", { title: "Agency Home" });
@@ -604,10 +610,61 @@ router.route("/education").get(async (req, res) => {
 });
 
 router.route("/guardian").get(async (req, res) => {
-  return res.render("guardian", { title: "Pet Guardians" });
+  const guardian = await getGuardian();
+
+  return res.render("guardian", { title: "Pet Guardians", guardian });
+});
+router.route("/select-guardian").get(async (req, res) => {
+  res.redirect("/guardian");
+});
+router.route("/userReviews").get(async (req, res) => {
+  const userReviews = await getUsersReviews(req.session.user.id);
+  const guardian = userReviews.map((u) => {
+    return u.guardianInfo;
+  });
+
+  res.render("userReviews", { userReviews, gInfo: guardian.flat(Infinity) });
+});
+router.route("/userReviews").post(async (req, res) => {
+  // console.log("ran 1");
+  try {
+    const postReview = await createReview(
+      req.session.user.id,
+      req.body.review,
+      req.body.guardianId,
+      parseFloat(req.body.rating)
+    );
+  } catch (error) {
+    // return req.redirect("/error");
+  }
+  return res.render("userReviews");
+});
+router.route("/error", (req, res) => {
+  res.render("error");
+});
+router.route("/select-guardian").post(async (req, res) => {
+  // console.log(req.body);
+  const reviews = await getGuardianReviews(req.body.selectedGuardian);
+  const userDetails = reviews.map((r) => {
+    return r.usersInfo;
+  });
+  console.log("=======================================");
+  console.log(reviews);
+  // const userReviews = await getUsersReviews(req.session.user.id);
+  // console.log(reviews);
+  // console.log(reviews);
+  return res.render("selectedGuardian", {
+    title: "Pet Guardians",
+    reviews: reviews.length === 0 ? "" : reviews,
+    userDetails: userDetails.flat(Infinity),
+    guardian: reviews.length === 0 ? "" : reviews[0].guardianInfo[0],
+    message: reviews.length === 0 ? "No reviews for this guardian" : "",
+    guardianID: req.body.selectedGuardian,
+    zeroReviews: reviews.length === 0 ? true : false,
+  });
 });
 router.route("/petUpdate").get(async (req, res) => {
-  console.log(req.session.user.email);
+  // console.log(req.session.user.email);
   const collection = await getAvailablePetsByAgency(req.session.user.email);
   return res.render("petUpdate", { title: "Pet Update", collection });
 });
@@ -625,6 +682,33 @@ router.route("/petUpdate").post(async (req, res) => {
       .status(500)
       .json({ success: false, error: "Internal Server Error" });
   }
+});
+
+// router.route("/updateReview").get(async (req, res) => {
+//   // try {
+//   //   const update = await updateReview(
+//   //     req.session.user.id,
+//   //     req.body.guardianId,
+//   //     req.body.review,
+//   //     parseFloat(req.body.rating)
+//   //   );
+//   // } catch (error) {
+//   //   console.log(error);
+//   // }
+// });
+
+router.route("/updateReview").post(async (req, res) => {
+  try {
+    const update = await updateReview(
+      req.session.user.id,
+      req.body.guardianId,
+      req.body.review,
+      parseFloat(req.body.rating)
+    );
+  } catch (error) {
+    console.log(error);
+  }
+  return res.redirect("/guardian");
 });
 
 export default router;

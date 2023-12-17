@@ -134,7 +134,7 @@ export const getAvailablePetsByAgency = async function (agencyName) {
   const availablePets = await collection
     .find({ agencyName, availability: { $eq: false } })
     .toArray();
-  console.log(availablePets);
+  // console.log(availablePets);
   if (!availablePets) throw "No pets failed!";
   return availablePets;
 };

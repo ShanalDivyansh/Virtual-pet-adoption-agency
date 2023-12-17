@@ -1,36 +1,54 @@
 <nav class="nav">
-    <a href="/home"><img src="public/Images/logo.jpg" alt="dog logo" class="logo" /></a>
-    <a href="/logout"><button class="login-button">Logout</button></a>
+  <a href="/home"><img
+      src="public/Images/logo.jpg"
+      alt="dog logo"
+      class="logo"
+    /></a>
+  <a href="/logout"><button class="login-button">Logout</button></a>
 </nav>
 
- <div class="container" id="guardiancentre">
-    <div class="background" id="guardianbg">
-<h1>Pet Guardians</h1>
+<div class="container" id="guardiancentre">
+  <div class="background" id="guardianbg">
+    <h1>Pet Guardians</h1>
+    {{!-- {{#if selectedGuardian}}
+      <div class="selected-guardian" id="myguardian">
+        <h2>Your Selected Guardian Is:</h2>
+        <p><strong>Name:</strong>
+          {{selectedGuardian.firstName}}
+          {{selectedGuardian.lastName}}</p>
+        <p><strong>Email:</strong> {{selectedGuardian.email}}</p>
+        <p><strong>Location:</strong> {{selectedGuardian.location}}</p>
+        <p><strong>Service Offered:</strong>
+          {{selectedGuardian.servicesOffered}}</p>
+      </div>
+    {{/if}} --}}
 
-{{#if selectedGuardian}}
-  <div class="selected-guardian" id="myguardian">
-    <h2>Your Selected Guardian Is:</h2>
-    <p><strong>Name:</strong> {{selectedGuardian.firstName}} {{selectedGuardian.lastName}}</p>
-    <p><strong>Email:</strong> {{selectedGuardian.email}}</p>
-    <p><strong>Location:</strong> {{selectedGuardian.location}}</p>
-    <p><strong>Service Offered:</strong> {{selectedGuardian.servicesOffered}}</p>
+    <form action="/select-guardian" method="post">
+      <ul>
+        {{#each guardian}}
+          <li>
+            <p style="display: none;" id="guardian-id">{{_id}}</p>
+            <input type="radio" name="selectedGuardian" value="{{_id}}" />
+            <strong>Name:</strong>
+            {{firstName}}
+            {{lastName}}<br />
+            <strong>Email:</strong>
+            {{email}}<br />
+            <strong>Location:</strong>
+            {{location.streetAddress}}
+            {{location.city}}
+            {{location.state}}
+            {{location.zip}}<br />
+            <strong>Services Offered:</strong>
+            {{servicesOffered}}<br />
+          </li>
+          <br />
+        {{/each}}
+      </ul>
+      <button type="submit" id="submitBtn" style="display: none;">Select
+        Guardian</button>
+    </form>
   </div>
-{{/if}}
+</div>
 
-  <form action="/select-guardian" method="post">
-    <ul>
-      {{#each guardians}}
-        <li>
-          <input type="radio" name="selectedGuardian" value="{{email}}">
-          <strong>Name:</strong> {{firstName}} {{lastName}}<br>
-          <strong>Email:</strong> {{email}}<br>
-          <strong>Location:</strong> {{location}}<br>
-          <strong>Services Offered:</strong> {{servicesOffered}}<br>
-        </li>
-        <br>
-      {{/each}}
-    </ul>
-    <button type="submit">Select Guardian</button>
-  </form>
-  </div>
-  </div>
+<script src="public/js/guardian.js"></script>

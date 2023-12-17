@@ -1,26 +1,76 @@
 <nav class="nav">
-    <a href="/home"><img src="public/Images/logo.jpg" alt="dog logo" class="logo" /></a>
-    <a href="/guardian"><button class="login-button">Guardians</button></a>
-    <a href="/logout"><button class="login-button">Logout</button></a>
+  <a href="/home"><img
+      src="public/Images/logo.jpg"
+      alt="dog logo"
+      class="logo"
+    /></a>
+  <a href="/guardian"><button class="login-button">Guardians</button></a>
+  <a href="/logout"><button class="login-button">Logout</button></a>
 </nav>
 
 <div class="container" id="guardiancentre">
-    <div class="background" id="guardianbg">
-        <h1>{{title}}</h1>
+  <div class="background" id="guardianbg">
+    <h1>{{title}}</h1>
 
-        {{#if guardian}}
-          <h2>Your Selected Guardian Details Are:</h2>
-          <ul>
-            <li><strong>Name:</strong> {{guardian.firstName}} {{guardian.lastName}}</li>
-            <li><strong>Email:</strong> {{guardian.email}}</li>
-            <li><strong>Location:</strong> {{guardian.location}}</li>
-            <li><strong>Services Offered:</strong> {{guardian.servicesOffered}}</li>
-          </ul>
+    {{#if guardian}}
+      <h2>Your Selected Guardian Details Are:</h2>
+      <ul>
+        <li><strong>Name:</strong>
+          {{guardian.firstName}}
+          {{guardian.lastName}}</li>
+        <li><strong>Email:</strong> {{guardian.email}}</li>
+        <li><strong>Location:</strong>
+          {{guardian.location.streetAddress}}
+          {{guardian.location.city}}{{guardian.location.state}}{{guardian.location.zip}}</li>
+        <li><strong>Services Offered:</strong> {{guardian.servicesOffered}}</li>
+      </ul>
+      {{#each userDetails}}
+        <span>review By: {{firstName}}</span>
+        {{#with (lookup ../reviews @index)}}
+          <p>Rated:{{rating}} | Review:{{review}}</p>
+       {{/with}}
+      {{/each}} 
 
-          {{#if message}}
-          <p class="message">{{message}}</p>
-        {{/if}}
-        
-        {{/if}}
-    </div>
+      <a href="/userReviews"><button>Edit your Review</button></a>
+     
+
+    {{/if}}
+     {{#if message}}
+        <p class="message">{{message}}</p>
+      {{/if}}
+      {{#if zeroReviews}}
+
+
+      <form action="/userReviews" method="post" id="review-form">
+        <label for="guardian-rating">Rating (out of 5):</label>
+        <input
+          type="number"
+          id="guardian-rating"
+          name="guardian-rating"
+          min="1"
+          max="5"
+          required
+        />
+        <p style="display: none;" id="guardian-review-id"> {{guardianID}}</p>
+        <br />
+
+        <label for="guardian-review">Review:</label>
+        <textarea
+          id="guardian-review"
+          name="guardian-review"
+          rows="4"
+          cols="50"
+          required
+        ></textarea>
+
+        <br />
+
+        <input type="submit" value="Submit Review" />
+      </form>
+      {{/if}}
+
+
+  </div>
 </div>
+
+<script src="public/js/submitReview.js"></script>

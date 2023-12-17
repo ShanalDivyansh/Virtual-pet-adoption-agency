@@ -112,3 +112,10 @@ export const createGuardian = async function (
   if (!addUser.insertedId) throw "Insert failed!";
   return { insertedUser: true };
 };
+
+export const getGuardian = async function () {
+  const collection = await guardian();
+  const allGuardians = await collection.find({}).toArray();
+  if (!allGuardians) throw "Error: Guardians not found";
+  return allGuardians;
+};

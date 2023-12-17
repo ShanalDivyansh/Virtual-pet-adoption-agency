@@ -61,7 +61,7 @@ export const createReview = async function (
         r.guardianID.toString() === guardiansID.toString()
       );
     });
-    console.log(reviewExists);
+    // console.log(reviewExists);
     if (reviewExists) throw "Review exists.";
     addReview = await reviewsCollection.insertOne({
       _id: new ObjectId(),
@@ -100,7 +100,7 @@ export const getGuardianReviews = async function (guardianID) {
       },
     ])
     .toArray();
-  console.log(getReviews);
+  return getReviews;
 };
 export const getUsersReviews = async function (usersID) {
   if (typeof usersID === "undefined")
@@ -128,7 +128,7 @@ export const getUsersReviews = async function (usersID) {
       },
     ])
     .toArray();
-  console.log(getReviews);
+  return getReviews;
 };
 
 export const getReview = async function (reviewId) {
@@ -169,7 +169,7 @@ export const updateReview = async function (
   const guardiansID = checkId(guardianID);
   const collection = await reviews();
   const updateReview = await collection.findOneAndUpdate(
-    { usersID: new ObjectId(usersId), guardianID: new ObjectId(guardiansID) },
+    { usersID: new ObjectId(usersId), _id: new ObjectId(guardiansID) },
     {
       $set: {
         review,

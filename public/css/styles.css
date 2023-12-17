@@ -656,3 +656,13 @@ button:hover {
 #questionnaire-form input[type="checkbox"] {
   margin-right: 8px;
 }
+
+.edit-review-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+#updateReviewForm {
+  text-align: center;
+  margin-top: 50px;
+}

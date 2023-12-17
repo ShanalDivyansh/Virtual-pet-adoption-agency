@@ -117,7 +117,7 @@ export const addUserShortListedPets = async (userID, shortlistedPetsID) => {
   const existingPetsInfo = await petsCollection.findOne({
     _id: new ObjectId(petID),
   });
-  console.log(existingPetsInfo);
+  // console.log(existingPetsInfo);
   const addUser = petsCollection.findOneAndUpdate(
     { _id: new ObjectId(petID) },
     {
@@ -200,7 +200,7 @@ export const addUserQuizAns = async (
   const collection = await users();
   const existingInfo = await collection.findOne({ _id: new ObjectId(usersID) });
   if (!existingInfo) throw "User not found";
-  console.log(existingInfo);
+  // console.log(existingInfo);
   const updateInfo = await collection.findOneAndUpdate(
     { _id: new ObjectId(usersID) },
     {
