@@ -668,8 +668,13 @@ router.route("/select-guardian").post(async (req, res) => {
   });
   console.log("=======================================");
   console.log(reviews);
-  // const userReviews = await getUsersReviews(req.session.user.id);
-  // console.log(reviews);
+  console.log(req.session.user.id);
+  const userReviews = await getUsersReviews(req.session.user.id);
+  console.log(userReviews);
+  const isReviewExisting = userReviews.find((g) => {
+    return g.guardianID.toString() === req.body.selectedGuardian;
+  });
+  console.log(isReviewExisting);
   // console.log(reviews);
   return res.render("selectedGuardian", {
     title: "Pet Guardians",
@@ -678,7 +683,7 @@ router.route("/select-guardian").post(async (req, res) => {
     guardian: reviews.length === 0 ? "" : reviews[0].guardianInfo[0],
     message: reviews.length === 0 ? "No reviews for this guardian" : "",
     guardianID: req.body.selectedGuardian,
-    zeroReviews: reviews.length === 0 ? true : false,
+    zeroReviews: isReviewExisting ? false : true,
   });
 });
 router.route("/petUpdate").get(async (req, res) => {
