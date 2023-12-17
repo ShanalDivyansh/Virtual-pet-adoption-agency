@@ -97,7 +97,7 @@ router
         .status(400)
         .render("login", { error: "Password Contains Spaces" });
     }
-    var passSchema = new PasswordValidator();
+    let passSchema = new PasswordValidator();
     passSchema
       .is()
       .min(8)
@@ -505,8 +505,8 @@ router
         errorMessages.push("Spayed or Neutered status not provided correctly");
 
       characteristicsList = characteristics.trim().toLowerCase().split(",");
-      for (var i = 0; i < characteristicsList.length; i++) {
-        var char1 = characteristicsList[i];
+      for (let i = 0; i < characteristicsList.length; i++) {
+        let char1 = characteristicsList[i];
         if (/\d/.test(char1)) {
           errorMessages.push(
             "Characterstics can only be comma seperated strings"
@@ -526,8 +526,8 @@ router
 
       specialNeedsList = specialNeeds.trim().toLowerCase().split(",");
       if (specialNeeds.length !== 0) {
-        for (var i = 0; i < specialNeedsList.length; i++) {
-          var char1 = specialNeedsList[i];
+        for (let i = 0; i < specialNeedsList.length; i++) {
+          let char1 = specialNeedsList[i];
           if (/\d/.test(char1)) {
             errorMessages.push(
               "Special Needs can only be comma seperated strings"

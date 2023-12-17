@@ -39,7 +39,7 @@ export const registerUser = async (
   const collection = await users();
   const uniqueEmail = await collection.find({ email }).toArray();
   if (uniqueEmail.length >= 1) throw "User with that email address exists";
-  var passSchema = new PasswordValidator();
+  let passSchema = new PasswordValidator();
   passSchema
     .is()
     .min(8)
@@ -258,7 +258,7 @@ export const loginUser = async (email, password, role) => {
     return char.trim() !== "";
   });
   if (!isPassSpaces) throw "Error: password contains spaces";
-  var passSchema = new PasswordValidator();
+  let passSchema = new PasswordValidator();
   passSchema
     .is()
     .min(8)

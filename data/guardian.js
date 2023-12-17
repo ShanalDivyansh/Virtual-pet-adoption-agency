@@ -78,7 +78,7 @@ export const createGuardian = async function (
   const collection = await guardian();
   const uniqueEmail = await collection.find({ email }).toArray();
   if (uniqueEmail.length >= 1) throw "User with that email address exists";
-  var passSchema = new PasswordValidator();
+  let passSchema = new PasswordValidator();
   passSchema
     .is()
     .min(8)

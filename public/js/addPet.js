@@ -82,8 +82,8 @@ if (addPet_form) {
                 errorMessages.push("House Trained field not provided correctly");
 
             let characteristicsList = characteristics.trim().toLowerCase().split(',')
-            for (var i = 0; i < characteristicsList.length; i++) {
-                var char1 = characteristicsList[i];
+            for (let i = 0; i < characteristicsList.length; i++) {
+                let char1 = characteristicsList[i];
                 if (/\d/.test(char1)) {
                     errorMessages.push("Characterstics can only be comma seperated strings");
                     break;
@@ -98,8 +98,8 @@ if (addPet_form) {
 
             let specialNeedsList = specialNeeds.trim().toLowerCase().split(',')
             if (specialNeeds.length !== 0 ) {
-                for (var i = 0; i < specialNeedsList.length; i++) {
-                    var char1 = specialNeedsList[i];
+                for (let i = 0; i < specialNeedsList.length; i++) {
+                    let char1 = specialNeedsList[i];
                     if (/\d/.test(char1)) {
                         errorMessages.push("Special Needs can only be comma seperated strings");
                         break;

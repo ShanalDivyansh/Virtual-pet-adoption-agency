@@ -104,19 +104,19 @@ $(document).ready(function () {
   $("#petUpdateForm").submit(function (event) {
     event.preventDefault();
 
-    var availability = $('input[name="answer"]:checked').val();
+    let availability = $('input[name="answer"]:checked').val();
     if (availability === "true") {
       $("#textInput").prop("disabled", true);
     } else {
       $("#textInput").prop("disabled", false);
-      var story = $("#textInput").val().trim();
+      let story = $("#textInput").val().trim();
       if (story === "") {
         alert("Please provide a story for the pet.");
         return;
       }
     }
 
-    var formData = {
+    let formData = {
       petID: $("span:first").text(),
       story: $("#textInput").val(),
       availability: availability,
