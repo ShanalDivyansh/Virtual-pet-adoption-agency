@@ -35,6 +35,20 @@ body {
   overflow: hidden;
 }
 
+.navigate {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 4;
+  position: bottom;
+}
+
+.navigate2 {
+  grid-column-start: 11;
+  grid-column-end: 12;
+  grid-row-start: 4;
+  position: bottom;
+}
+
 .nav {
   grid-column-start: 1;
   grid-column-end: 13;
