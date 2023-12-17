@@ -151,8 +151,9 @@ router
 
 router.route("/home").get(async (req, res) => {
   //code here for GET
-  console.log(req.session.user.id);
-  const pets = await getAvailablePets();
+  // console.log(req.session.user.id);
+  // const pets = await getAvailablePets();
+  const pets = await getUserPetRecommendation(req.session.user.id);
   res.render("home", { pets, userId: req.session.user.id });
 });
 router.route("/addToShortList").post(async (req, res) => {
