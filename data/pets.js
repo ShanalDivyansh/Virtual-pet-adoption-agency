@@ -131,7 +131,30 @@ export const getAvailablePets = async function () {
 export const getAvailablePetsByAgency = async function (agencyName) {
   if (!validator.isEmail(agencyName)) throw "Error agency name is invalid";
   const collection = await pets();
-  const availablePets = await collection.find({ agencyName }).toArray();
+  const availablePets = await collection
+    .find({ agencyName, availability: { $eq: false } })
+    .toArray();
+  console.log(availablePets);
   if (!availablePets) throw "No pets failed!";
   return availablePets;
+};
+
+export const changeAvailability = async function (petID, story, availability) {
+  const id = checkId(petID);
+  if (!(`${availability}` === "false" || `${availability}` === "true"))
+    throw "Availabilty must be true or false";
+  const collection = await pets();
+  const update = collection.findOneAndUpdate(
+    { _id: new ObjectId(id) },
+    {
+      $set: {
+        availability: Boolean(availability),
+        successStory: story,
+      },
+    },
+    { returnDocument: "after" }
+  );
+
+  if (!update) throw "Pet not found";
+  return update;
 };

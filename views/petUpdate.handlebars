@@ -1,11 +1,16 @@
 <div class="petUpdate-container">
-  <form action="#" method="post">
-    <label for="petTrueRadio">True</label>
-    <input type="radio" id="petTrueRadio" name="answer" value="true" />
+  <form action="#" method="post" id="petUpdateForm">
+    {{#each collection}}
+      <span style="display: none;">{{_id}}</span>
+      <span>Change availability for: </span>
+      <span>{{name}} - {{type}} - {{breed}}</span>
+      <br />
+      <label for="petTrueRadio">True</label>
+      <input type="radio" id="petTrueRadio" name="answer" value="true" />
 
-    <label for="petFalseRadio">False</label>
-    <input type="radio" id="petFalseRadio" name="answer" value="false" />
-
+      <label for="petFalseRadio">False</label>
+      <input type="radio" id="petFalseRadio" name="answer" value="false" />
+    {{/each}}
     <label for="textInput">Enter your Pet Success story</label>
     <input
       type="text"
@@ -17,3 +22,10 @@
     <input type="submit" value="Submit" />
   </form>
 </div>
+
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"
+></script>
+<script src="/public/js/ajax.js"></script>

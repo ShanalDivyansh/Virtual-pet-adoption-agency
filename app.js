@@ -342,6 +342,12 @@ app.use("/viewPets", async (req, res, next) => {
   }
   next();
 });
+app.use("/petUpdate", async (req, res, next) => {
+  if (!req.session.user) {
+    return res.redirect("/login");
+  }
+  next();
+});
 
 configRoutes(app);
 

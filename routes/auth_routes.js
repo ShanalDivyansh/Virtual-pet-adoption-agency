@@ -9,7 +9,11 @@ import bcrypt, { hash } from "bcrypt";
 import { readFile } from "fs/promises";
 
 import fileUpload from "express-fileupload";
-import { createPets, getAvailablePetsByAgency } from "../data/pets.js";
+import {
+  changeAvailability,
+  createPets,
+  getAvailablePetsByAgency,
+} from "../data/pets.js";
 
 router.use(
   fileUpload({
@@ -601,8 +605,24 @@ router.route("/guardian").get(async (req, res) => {
   return res.render("guardian", { title: "Pet Guardians" });
 });
 router.route("/petUpdate").get(async (req, res) => {
+  console.log(req.session.user.email);
   const collection = await getAvailablePetsByAgency(req.session.user.email);
-  return res.render("petUpdate", { title: "Pet Guardians", collection });
+  return res.render("petUpdate", { title: "Pet Update", collection });
+});
+router.route("/petUpdate").post(async (req, res) => {
+  try {
+    const collection = await changeAvailability(
+      req.body.petID,
+      req.body.story,
+      req.body.availability
+    );
+    return res.status(200).json({ success: true, collection });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ success: false, error: "Internal Server Error" });
+  }
 });
 
 export default router;
