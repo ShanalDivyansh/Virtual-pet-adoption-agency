@@ -180,6 +180,19 @@ app.set("view engine", "handlebars");
 // app.get('/education', (req, res) => {
 //   res.render('education', { title: 'Education Center' });
 // });
+
+const guardiansData = [
+  { email: 'phill.guardian@gmail.com', firstName: 'Patrick', lastName: 'Hill', location: "1 Castle Point Terrace, Hoboken, NJ, 07030" , servicesOffered:["Pet Sitter","Pet Grooming","Pet Walking"]},
+  { email: 'sdivyansh.guardian@gmail.com', firstName: 'Shanal', lastName: 'Divyansh', location: "3629 JFK BLVD, Jersey City, NJ, 07307" , servicesOffered:["Pet Sitter","Pet Walking"]},
+  { email: 'ssingh.guardian@gmail.com', firstName: 'Suraj', lastName: 'Singh', location: "310 Thorne Street, Jersey City, NJ, 07307" , servicesOffered:["Pet Sitter"]},
+  { email: 'papoorva.guardian@gmail.com', firstName: 'Pranjal', lastName: 'Apoorva', location: "107 Charles Street, Jersey City, NJ, 07307" , servicesOffered:["Pet Sitter","Pet Grooming","Pet Walking"]},
+  { email: 'ayadav..guardian@gmail.com', firstName: 'Ansh', lastName: 'Yadav', location: "534 Adams Street, Hoboken, NJ, 07030" , servicesOffered:["Pet Sitter","Pet Grooming"]},
+  ];
+
+app.get('/guardian', (req, res) => {
+  res.render('guardian', { guardians: guardiansData });
+});
+
 app.use("/", (req, res, next) => {
   const reqRoute = req.originalUrl;
   if (reqRoute === "/") {

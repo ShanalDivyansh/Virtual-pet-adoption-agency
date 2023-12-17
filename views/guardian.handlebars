@@ -1,0 +1,25 @@
+<nav class="nav">
+    <a href="/home"><img src="public/Images/logo.jpg" alt="dog logo" class="logo" /></a>
+    <a href="/logout"><button class="login-button">Logout</button></a>
+</nav>
+
+ <div class="container" id="guardiancentre">
+    <div class="background" id="guardianbg">
+<h1>Pet Guardians</h1>
+  <form action="/select-guardian" method="post">
+    <ul>
+      {{#each guardians}}
+        <li>
+          <input type="radio" name="selectedGuardian" value="{{email}}">
+          <strong>Name:</strong> {{firstName}} {{lastName}}<br>
+          <strong>Email:</strong> {{email}}<br>
+          <strong>Location:</strong> {{location}}<br>
+          <strong>Services Offered:</strong> {{servicesOffered}}<br>
+        </li>
+        <br>
+      {{/each}}
+    </ul>
+    <button type="submit">Select Guardian</button>
+  </form>
+  </div>
+  </div>

@@ -536,8 +536,12 @@ router.route("/addpet").get(async (req, res) => {
     return res.render("education", { title: "Education Centre" });
   })
 
-// export 
-export default router;
+  router.route("/guardian")
+  .get(async (req, res) => {
+    return res.render("guardian", { title: "Pet Guardians" });
+  })
+  
+  export default router;
 
 
 

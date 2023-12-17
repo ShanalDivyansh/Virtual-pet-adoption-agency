@@ -167,11 +167,28 @@ body {
   color: #333;
 }
 
-/* Styles for each section */
 
-#educentre section {
-  margin-top: 30px;
+#guardianbg {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+#guardiancentre {
+  text-align: left;
+  margin-top: 50px;
+}
+
+#guardiancentre h1 {
+  color: #333;
+}
+
+#guardiancentre ul {
+  list-style-type: none;
+  padding: 0;
+}
+
 
 .pet-care, .adoption, .responsible-ownership {
   background-color: #fff;
