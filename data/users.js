@@ -11,7 +11,10 @@ export const registerUser = async (
   lastName,
   email,
   password,
-  userType
+  userType,
+  location,
+  servicesOffered,
+  agencyName
 ) => {
   if (
     !(
@@ -115,7 +118,6 @@ export const addUserShortListedPets = async (userID, shortlistedPetsID) => {
   return await updateInfo;
 };
 
-
 export const addUserAdoptedPets = async (userId, adoptedPets) => {
   if (typeof adoptedPets === "undefined" && typeof userId === "undefined") {
     throw "Error All fields need to have valid values";
@@ -152,7 +154,6 @@ export const addUserAdoptedPets = async (userId, adoptedPets) => {
 
   return await updateInfo;
 };
-
 
 // to do check the validation for quiz ans
 export const addUserQuizAns = async (

@@ -80,16 +80,37 @@ import {
 // } catch (error) {
 //   console.log(error);
 // }
+try {
+  await createPets(
+    ["public/Images/Pets/AthenaGreatDane.jpeg"],
+    "athena dog",
+    "Dog",
+    "Great Dane",
+    "Young",
+    "Female",
+    "Extra-Large",
+    ["Playful", "Affectionate", "Energetic"],
+    "High",
+    ["Up-to-date on shots"],
+    "Athena is a playful and affectionate young Great Dane, full of energy and ready to bring joy to an active family.",
+    ["Interactive play", "Regular exercise"],
+    true,
+    true,
+    "abcd"
+  );
+} catch (error) {
+  console.log(error);
+}
 
 // shortlist pet
-// try {
-//   await addUserShortListedPets(
-//     "657c7bf23f89ba9b60fca181",
-//     "657c7c26926d0f64f0b5d48b"
-//   );
-// } catch (error) {
-//   console.log(error);
-// }
+try {
+  await addUserShortListedPets(
+    "657e5557ed7c7293490e25be",
+    "657e87c06bd27b342905c4a0"
+  );
+} catch (error) {
+  console.log(error);
+}
 
 // try {
 //   await getGuardianReviews("657b30102c82a922bcd452bd");
@@ -215,14 +236,20 @@ app.use("/home", async (req, res, next) => {
   if (!req.session.user) {
     return res.redirect("/login");
   }
-  if(req.session.user.userType === 'user'){
-    const user = await getUserDetails(req.session.user.id)
-    console.error(user[0])
-    if(!user[0].quizAnswers.Type) return res.redirect('/questionnaire')
+  if (req.session.user.userType === "user") {
+    const user = await getUserDetails(req.session.user.id);
+    console.error(user[0]);
+    if (!user[0].quizAnswers.Type) return res.redirect("/questionnaire");
   }
   next();
 });
 app.use("/questionnaire", async (req, res, next) => {
+  if (!req.session.user) {
+    return res.redirect("/login");
+  }
+  next();
+});
+app.use("/viewPets", async (req, res, next) => {
   if (!req.session.user) {
     return res.redirect("/login");
   }
