@@ -14,7 +14,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Athena is a playful and affectionate young Great Dane, full of energy and ready to bring joy to an active family.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/BaileyGolden.jpeg"],
@@ -31,7 +31,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Bailey is a calm and loving senior Golden Retriever, seeking a peaceful home to enjoy his golden years.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/BaileyLab.jpeg"],
@@ -48,7 +48,7 @@
     "houseTrained": false,
     "availability": true,
     "description": "Bailey is a sweet and curious Lab puppy, looking for a family to provide love and guidance.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/BellaSiamese.jpeg"],
@@ -65,7 +65,7 @@
     "houseTrained": false,
     "availability": true,
     "description": "I'm Bella, a graceful lady who enjoys quiet mornings, gentle strokes, and sunny windowsills. I'm not much for loud noises but offer endless purrs and companionship to the right person.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/BellaBoxer.jpeg"],
@@ -82,7 +82,7 @@
     "houseTrained": false,
     "availability": true,
     "description": "Bella is a playful and curious Boxer puppy, social and eager to explore the world with a loving family.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/BellaPug.jpeg"],
@@ -99,7 +99,7 @@
     "houseTrained": false,
     "availability": true,
     "description": "Bella is an energetic and curious Pug puppy, known for her sweet nature, looking for a loving family to grow up with.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/BoltGreyhound.jpeg"],
@@ -116,7 +116,7 @@
     "houseTrained": false,
     "availability": true,
     "description": "Bolt is a playful and curious Greyhound puppy",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/BuddyGerman.jpeg"],
@@ -133,7 +133,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Buddy is a friendly and energetic dog, always ready for a game of fetch or a long walk.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/CharlesTabby.jpeg"],
@@ -150,7 +150,7 @@
     "houseTrained": false,
     "availability": true,
     "description": "I'm Charles, a laid-back feline who enjoys a good nap in the sun and endless head scratches. I'm not shy with my purrs and meows, so expect plenty of conversation!",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/CharlieGolden.jpeg"],
@@ -167,7 +167,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Charlie is a playful and smart young Golden Retriever, looking for an active family to share adventures with.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/CharlieLab.jpeg"],
@@ -184,7 +184,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Meet Charlie, a friendly and playful Lab ready for a loving home and outdoor adventures.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/CleoRussian.jpeg"],
@@ -201,7 +201,7 @@
     "houseTrained": false,
     "availability": true,
     "description": "I'm Cleo, a sleek and sophisticated feline with a touch of mystery. I enjoy quiet observation, gentle petting, and exploring my own terms. Come unravel my secrets!",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/CodyBorder.jpeg"],
@@ -218,7 +218,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Cody is a playful and smart young Border Collie, seeking a home with plenty of activities and mental challenges.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/CooperBeagle.jpeg"],
@@ -235,7 +235,7 @@
     "houseTrained": false,
     "availability": true,
     "description": "My nose is always to the ground, sniffing out new adventures. I'm a playful pup who loves to make friends.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/DaisyPug.jpeg"],
@@ -252,7 +252,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Daisy is a social and easygoing adult Pug, loves playtime and cuddles, seeking a home filled with love.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/DaisyBeagle.jpeg"],
@@ -269,7 +269,7 @@
     "houseTrained": false,
     "availability": true,
     "description": "Daisy is a playful and affectionate Beagle puppy, ready to bring joy and energy to her forever home.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/FelixSiamese.png"],
@@ -290,7 +290,7 @@
     "houseTrained": false,
     "availability": true,
     "description": "I have a lot to say, and I'm not afraid to share my opinions! I'm Felix, a chatty Siamese who enjoys quiet companionship, sunny windowsills, and purring on my own terms.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/GraceGreyhound.jpeg"],
@@ -307,7 +307,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Grace is an elegant and gentle Greyhound with an athletic build, looking for a loving home with plenty of space to run.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/HarperBeagle.jpeg"],
@@ -324,7 +324,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "My nose is always on the trail, I love to explore and sniff out new adventures. I'm also a big cuddler!",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/JakeBorder.jpeg"],
@@ -341,7 +341,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Jake is an energetic and intelligent Border Collie, agile and ready for outdoor adventures, seeking an active family.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/KonaDachsund.jpeg"],
@@ -358,7 +358,7 @@
     "houseTrained": false,
     "availability": true,
     "description": "I may be little, but I have a big personality! I love to play, cuddle, and go for walks.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/LucyBoxer.jpeg"],
@@ -375,7 +375,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Lucy is a friendly and intelligent adult Boxer, full of energy and looking for a home with mental challenges and exercise.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/LunaRagdoll.jpeg"],
@@ -392,7 +392,7 @@
     "houseTrained": false,
     "availability": true,
     "description": "My fur is as soft as a cloud and my purr is a lullaby. I'm Luna, a cuddle monster who loves naps in your lap, gentle strokes, and being the queen of pampering.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/LunaBorder.jpeg"],
@@ -409,7 +409,7 @@
     "houseTrained": false,
     "availability": true,
     "description": "Luna is a playful and curious Border Collie puppy, eager to learn and explore the world with a loving family.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/LunaGerman.jpeg"],
@@ -426,7 +426,7 @@
     "houseTrained": false,
     "availability": true,
     "description": "Luna is a playful and affectionate puppy, ready to bring joy to her forever home.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/MaxGerman.jpeg"],
@@ -443,7 +443,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Meet Max, a loyal and intelligent companion who loves outdoor activities and playtime.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/MaximusBoxer.jpeg"],
@@ -460,7 +460,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Maximus is a gentle and loyal senior Boxer, well-mannered and ready to spend his golden years in a loving home.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/MaximusPug.jpeg"],
@@ -477,7 +477,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Maximus is a calm and well-mannered senior Pug, loyal and ready to spend his golden years in a loving home.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/MaxwellGolden.jpeg"],
@@ -494,7 +494,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Maxwell is a friendly and playful Golden Retriever who loves to retrieve and is looking for an active family.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/MiaBorder.jpeg"],
@@ -511,7 +511,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Mia is an agile and intelligent Border Collie, affectionate and ready to bond with an active family.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/MiloRagdoll.jpeg"],
@@ -528,7 +528,7 @@
     "houseTrained": false,
     "availability": true,
     "description": "My purr motor is always on! I'm Milo, a fluffy cuddle bug who loves naps in sunbeams, gentle strokes, and being the king of the lap.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/MiloLab.jpeg"],
@@ -545,7 +545,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Milo is a gentle senior Lab seeking a peaceful home, where he can enjoy a relaxed lifestyle.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/MittensRussian.jpeg"],
@@ -562,7 +562,7 @@
     "houseTrained": false,
     "availability": true,
     "description": "I'm Mittens, a sleek and sophisticated feline with a touch of mystery. I enjoy quiet observation, gentle petting, and exploring my own terms. Come meet me and let's unravel my secrets!",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/MollySiamese.jpeg"],
@@ -583,7 +583,7 @@
     "houseTrained": false,
     "availability": true,
     "description": "I have a lot to say, and I'm not afraid to share my opinions! I'm Molly, a chatty Siamese who enjoys quiet companionship, sunny windowsills, and purring on my own terms.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/MollyBeagle.jpeg"],
@@ -600,7 +600,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Molly is a lively and intelligent young Beagle, looking for an active family to explore the world with.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/MurphyBeagle.jpeg"],
@@ -617,7 +617,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "I'm Murphy, a seasoned adventurer with a gentle soul. I love to explore new places, take leisurely walks, and snuggle on the couch.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/NellaPersian.jpeg"],
@@ -634,7 +634,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "My fur is my pride and joy! I'm Nella, a playful Persian who loves exploring my surroundings, batting at feather toys, and napping in luxurious comfort.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/OlivePersian.png"],
@@ -651,7 +651,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "My name is Olive, and I'm a regal gentleman with a playful side. I love exploring my surroundings and batting at feather toys, but I also appreciate a good nap on a luxurious cushion.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/OliverSphynx.jpeg"],
@@ -668,7 +668,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "I'm a walking, purring hot water bottle! I'm Oliver, a hairless wonder who loves warm cuddles, exploring every nook and cranny, and being the center of attention.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/OliverPug.jpeg"],
@@ -685,7 +685,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Oliver is a playful and curious young Pug, full of energy and enthusiasm, looking for an active family to join.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/OreoBorder.jpeg"],
@@ -702,7 +702,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Oreo is an intelligent and energetic Border Collie, ready for agility training and an active lifestyle.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/OscarMaineCoon.jpeg"],
@@ -719,7 +719,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "I'm Oscar, a furry hurricane of fun! I love chasing toys, climbing curtains, and cuddling with my humans. Be prepared for some playful antics and endless entertainment.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/PhoebeGreyhound.jpeg"],
@@ -736,7 +736,7 @@
     "houseTrained": false,
     "availability": true,
     "description": "I'm a graceful gazelle with a playful spirit! I love to run in open fields, explore new places, and cuddle with my humans.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/RockBoxer.jpeg"],
@@ -753,7 +753,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Rock is an energetic and playful Boxer, full of affection and ready for an active family to join.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/RockyGerman.jpeg"],
@@ -770,7 +770,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Rocky is a wise and gentle senior dog seeking a peaceful home for his golden years.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/RosieDachshund.jpeg"],
@@ -791,7 +791,7 @@
     "houseTrained": false,
     "availability": true,
     "description": "I may be small, but I have a big personality! I love to play fetch, go on adventures, and cuddle with my humans on my own terms.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/RosyDachshund.jpeg"],
@@ -808,7 +808,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Don't let my short legs fool you, I'm full of personality! I love to play fetch, go for walks, and snuggle on the couch.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/SadieGolden.jpeg"],
@@ -825,7 +825,7 @@
     "houseTrained": false,
     "availability": true,
     "description": "Sadie is an energetic and affectionate Golden Retriever puppy, ready to learn and explore with her forever family.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/SashaGerman.jpeg"],
@@ -842,7 +842,7 @@
     "houseTrained": false,
     "availability": true,
     "description": "Sasha is a young and curious dog with high energy, seeking an active family to keep up with her enthusiasm.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/SophiePoodle.jpeg"],
@@ -859,7 +859,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Sophie is an intelligent and elegant Poodle, affectionate and ready to charm her way into your heart with her playful nature.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/SophieGolden.jpeg"],
@@ -876,7 +876,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Sophie is an easygoing and intelligent Golden Retriever who loves positive interactions and playtime.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/TeddyPoodle.jpeg"],
@@ -893,7 +893,7 @@
     "houseTrained": false,
     "availability": true,
     "description": "Teddy is a playful and curious Poodle puppy, a quick learner and eager to explore the world with a loving family.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/WhiskersSphynx.jpeg"],
@@ -910,7 +910,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "I'm a walking, purring hot water bottle! I'm Whiskers, a hairless wonder who loves warm cuddles, exploring every nook and cranny, and being the center of attention.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/ZaraGerman.jpeg"],
@@ -927,7 +927,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Zara is a sociable and obedient companion, looking for an active family to share adventures with.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/ZeusGreatDane.jpeg"],
@@ -944,7 +944,7 @@
     "houseTrained": true,
     "availability": true,
     "description": "Zeus is a regal and gentle adult Great Dane, with a good-natured temperament, seeking a loving home.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   },
   {
     "pictures": ["public/Images/Pets/ZoeBorder.jpeg"],
@@ -961,6 +961,6 @@
     "houseTrained": true,
     "availability": true,
     "description": "Zoe is a smart and social young Border Collie, full of energy and looking for an active family to share her enthusiasm.",
-    "agency": "ABCD@gmail.com"
+    "agency": "petagency@gmail.com"
   }
 ]

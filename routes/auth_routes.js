@@ -604,6 +604,24 @@ router
       res.render("addPetComplete", { title: "Pet Added" });
     }
   });
+router.route("/petStories").get(async (req, res) => {
+  //code here for GET
+  let availablePets = await getUnavailablePets();
+  let petStoryData = [];
+  for (let i = 0; i < availablePets.length; i++) {
+    if (
+      availablePets[i].availability === false &&
+      availablePets[i].hasOwnProperty("successStory")
+    )
+      petStoryData.push(availablePets[i]);
+  }
+  console.log(petStoryData);
+  console.log(availablePets.length);
+  return res.render("petStories", {
+    title: "Sucessful Pet Stories",
+    petStories: petStoryData,
+  });
+});
 
 router.route("/education").get(async (req, res) => {
   return res.render("education", { title: "Education Centre" });
@@ -666,6 +684,8 @@ router.route("/select-guardian").post(async (req, res) => {
 router.route("/petUpdate").get(async (req, res) => {
   // console.log(req.session.user.email);
   const collection = await getAvailablePetsByAgency(req.session.user.email);
+  // const collection = await getAvailablePetsByAgency('petagency@gmail.com');
+  // console.log(collection.length);
   return res.render("petUpdate", { title: "Pet Update", collection });
 });
 router.route("/petUpdate").post(async (req, res) => {
