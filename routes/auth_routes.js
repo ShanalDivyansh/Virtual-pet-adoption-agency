@@ -546,7 +546,7 @@ router
       else health.push("Not Spayed/Neutered");
       let ht = false;
       if (houseTrain === "yes") ht = true;
-      let aname = req.session.user.firstName + " " + req.session.user.lastName;
+      let aname = req.session.user.email;
 
       try {
         let user = await createPets(
