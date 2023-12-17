@@ -25,6 +25,7 @@ import {
   addUserShortListedPets,
   getUserDetails,
   registerUser,
+  getUserPetRecommendation,
 } from "../data/users.js";
 import { loginUser } from "../data/users.js";
 import { getAvailablePets, getPet } from "../data/pets.js";
@@ -339,6 +340,8 @@ router.route("/questionnaire").post(async (req, res) => {
       .render("questionnaire", { title: "error", errors: errors });
   else {
     try {
+      let ht = false;
+      if (houseTrained === "yes") ht = true;
       let user = await addUserQuizAns(
         req.session.user.id,
         petType,
@@ -347,9 +350,9 @@ router.route("/questionnaire").post(async (req, res) => {
         petSize,
         energyLevel,
         specialNeeds,
-        houseTrained
+        ht
       );
-      // console.log("ran");
+      console.log("ran");
       return res.redirect("login");
     } catch (error) {
       // errors.push(error);
@@ -584,4 +587,13 @@ router
       res.render("addPetComplete", { title: "Pet Added" });
     }
   });
+
+router.route("/education").get(async (req, res) => {
+  return res.render("education", { title: "Education Centre" });
+});
+
+router.route("/guardian").get(async (req, res) => {
+  return res.render("guardian", { title: "Pet Guardians" });
+});
+
 export default router;

@@ -198,9 +198,57 @@ app.use(rewriteUnsupportedBrowserMethods);
 app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-// app.get('/education', (req, res) => {
-//   res.render('education', { title: 'Education Center' });
-// });
+// For Guardians and Pet Stories - Suraj (182 - 230 )
+
+const guardiansData = [
+  { email: 'phill.guardian@gmail.com', firstName: 'Patrick', lastName: 'Hill', location: "1 Castle Point Terrace, Hoboken, NJ, 07030" , servicesOffered:["Pet Sitter","Pet Grooming","Pet Walking"]},
+  { email: 'sdivyansh.guardian@gmail.com', firstName: 'Shanal', lastName: 'Divyansh', location: "3629 JFK BLVD, Jersey City, NJ, 07307" , servicesOffered:["Pet Sitter","Pet Walking"]},
+  { email: 'ssingh.guardian@gmail.com', firstName: 'Suraj', lastName: 'Singh', location: "310 Thorne Street, Jersey City, NJ, 07307" , servicesOffered:["Pet Sitter"]},
+  { email: 'papoorva.guardian@gmail.com', firstName: 'Pranjal', lastName: 'Apoorva', location: "107 Charles Street, Jersey City, NJ, 07307" , servicesOffered:["Pet Sitter","Pet Grooming","Pet Walking"]},
+  { email: 'ayadav..guardian@gmail.com', firstName: 'Ansh', lastName: 'Yadav', location: "534 Adams Street, Hoboken, NJ, 07030" , servicesOffered:["Pet Sitter","Pet Grooming"]},
+  ];
+
+  app.get('/guardian', (req, res) => {
+    const selectedGuardian = req.session.selectedGuardian;
+  
+    res.render('guardian', { guardians: guardiansData, selectedGuardian });
+  });
+
+app.post('/select-guardian', (req, res) => {
+  const selectedGuardianEmail = req.body.selectedGuardian;
+
+  const selectedGuardian = guardiansData.find(guardian => guardian.email === selectedGuardianEmail);
+
+  if (selectedGuardian) {
+    req.session.selectedGuardian = selectedGuardian;
+    res.render('selectedGuardian', { guardian: selectedGuardian, message: 'Please Contact Your Selected Guardian And Confirm Thier Validity' });
+  } else {
+    res.render('error', { message: 'Selected guardian not found.' });
+  }
+});
+
+const dummyPetStories = [
+  {
+    title: "Happy Tails: From Shelter to Forever Home",
+    content: "Our beloved furry friend, Max, was adopted from the local shelter. He has brought so much joy and love into our lives. Max enjoys long walks in the park and cuddling on the couch.",
+    author: "Pet Lover 1"
+  },
+  {
+    title: "Rescued and Thriving",
+    content: "Meet Luna, the resilient cat we rescued from a tough situation. Despite her challenging past, Luna has blossomed into a playful and affectionate companion. She is the queen of our household.",
+    author: "Cat Enthusiast"
+  },
+  {
+    title: "A Purrfect Match",
+    content: "We found our perfect match in Whiskers. This charming little kitty stole our hearts from the moment we met. Whiskers loves to entertain us with acrobatic jumps and endless purring.",
+    author: "Happy Cat Parent"
+  }
+];
+
+app.get('/petStories', (req, res) => {
+  res.render('petStories', { petStories: dummyPetStories});
+});
+
 app.use("/", (req, res, next) => {
   const reqRoute = req.originalUrl;
   if (reqRoute === "/") {
