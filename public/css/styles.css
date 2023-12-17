@@ -297,7 +297,7 @@ body {
   font-size: large;
 }
 
-/* #addpet-form {
+#addpet-form {
   max-width: 600px;
   margin: 20px auto;
   background-color: white;
@@ -306,15 +306,15 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-label {
+#addpet-form label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
 }
 
-input,
-select,
-textarea {
+#addpet-form input,
+#addpet-form select,
+#addpet-form textarea {
   width: 100%;
   padding: 8px;
   margin-bottom: 10px;
@@ -322,7 +322,7 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-*/
+
 button {
   background-color: #4caf50;
   color: white;
@@ -633,4 +633,26 @@ button:hover {
   justify-self: center;
   align-self: center;
   font-size: 50px;
+}
+
+/* questionnaire handlebar*/
+#questionnaire-form {
+  max-width: 600px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+}
+#questionnaire-form div[class^="question"] {
+  margin-bottom: 20px;
+}
+#questionnaire-form p {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+#questionnaire-form label {
+  display: block;
+  margin-bottom: 8px;
+}
+#questionnaire-form input[type="radio"],
+#questionnaire-form input[type="checkbox"] {
+  margin-right: 8px;
 }

@@ -144,16 +144,16 @@ import {
 // }
 
 //
-try {
-  await updateReview(
-    "657ea375e1336330c3eb26c6",
-    "657eafe14fe099504f3fd489",
-    "this is an updated review",
-    3.5
-  );
-} catch (error) {
-  console.log(error);
-}
+// try {
+//   await updateReview(
+//     "657ea375e1336330c3eb26c6",
+//     "657eafe14fe099504f3fd489",
+//     "this is an updated review",
+//     3.5
+//   );
+// } catch (error) {
+//   console.log(error);
+// }
 
 import express from "express";
 const app = express();

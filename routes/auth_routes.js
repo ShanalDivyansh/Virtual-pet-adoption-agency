@@ -370,8 +370,10 @@ router.route("/questionnaire").post(async (req, res) => {
 });
 
 router.route("/logout").get(async (req, res) => {
-  //code here for GET
+  req.session.destroy();
+  res.redirect("/login");
 });
+
 
 router.route("/agencyHome").get(async (req, res) => {
   res.render("agencyHome", { title: "Agency Home" });
