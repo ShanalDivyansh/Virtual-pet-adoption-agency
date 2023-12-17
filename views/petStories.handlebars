@@ -5,13 +5,13 @@
 
 <div class="container" id="petstories">
   <div class="background" id="petstoriesbackground">
-    <h1>Pet Stories</h1>
+    <h1>Sucessful Pet Stories</h1>
 
     {{#each petStories}}
     <div class="story" id="petstory">
-      <h2>{{title}}</h2>
-      <p>{{content}}</p>
-      <p class="author" id="petauthor">Author: {{author}}</p>
+      <h2>{{name}}</h2>
+      <p>{{successStory}}</p>
+      {{!-- <p class="author" id="petauthor">Author: {{author}}</p> --}}
     </div>
     {{/each}}
 

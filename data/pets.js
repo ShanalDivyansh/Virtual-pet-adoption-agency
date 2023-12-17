@@ -128,13 +128,22 @@ export const getAvailablePets = async function () {
   if (!availablePets) throw "No pets failed!";
   return availablePets;
 };
+
+export const getUnavailablePets = async function () {
+  const collection = await pets();
+  const availablePets = await collection
+    .find({ availability: { $eq: false } })
+    .toArray();
+  if (!availablePets) throw "No pets failed!";
+  return availablePets;
+};
 export const getAvailablePetsByAgency = async function (agencyName) {
   if (!validator.isEmail(agencyName)) throw "Error agency name is invalid";
   const collection = await pets();
   const availablePets = await collection
-    .find({ agencyName, availability: { $eq: false } })
+    .find({ agencyName, availability: { $eq: true } })
     .toArray();
-  console.log(availablePets);
+  // console.log(availablePets);
   if (!availablePets) throw "No pets failed!";
   return availablePets;
 };
