@@ -2,6 +2,7 @@ import { pets } from "../config/mongoCollections.js";
 import { readFile } from "fs/promises";
 import { checkId, isValidName } from "../helpers.js";
 import { ObjectId } from "mongodb";
+import validator from "validator";
 export const createPets = async function (
   pictures,
   name,
@@ -45,7 +46,7 @@ export const createPets = async function (
   description = description.trim();
   agencyName = agencyName.trim();
   energyLevel = energyLevel.trim();
-  if (!isValidName(agencyName)) throw "Error: Invalid agency name";
+  if (!validator.isEmail(agencyName)) throw "Error: Invalid agency details";
   if (typeof availability !== "boolean")
     throw "Availability needs to be a boolean";
   if (typeof houseTrained !== "boolean")
