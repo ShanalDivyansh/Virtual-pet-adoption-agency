@@ -1,0 +1,25 @@
+<nav class="nav">
+    <a href="/home"><img src="public/Images/logo.jpg" alt="dog logo" class="logo" /></a>
+    <a href="/logout"><button class="login-button">Logout</button></a>
+</nav>
+
+<div class="container" id="guardiancentre">
+    <div class="background" id="guardianbg">
+        <h1>{{title}}</h1>
+
+        {{#if guardian}}
+          <h2>Your Selected Guardian Details Are:</h2>
+          <ul>
+            <li><strong>Name:</strong> {{guardian.firstName}} {{guardian.lastName}}</li>
+            <li><strong>Email:</strong> {{guardian.email}}</li>
+            <li><strong>Location:</strong> {{guardian.location}}</li>
+            <li><strong>Services Offered:</strong> {{guardian.servicesOffered}}</li>
+          </ul>
+
+          {{#if message}}
+          <p class="message">{{message}}</p>
+        {{/if}}
+        
+        {{/if}}
+    </div>
+</div>

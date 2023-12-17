@@ -167,29 +167,6 @@ body {
   color: #333;
 }
 
-
-#guardianbg {
-  background-color: #f4f4f4;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-#guardiancentre {
-  text-align: left;
-  margin-top: 50px;
-}
-
-#guardiancentre h1 {
-  color: #333;
-}
-
-#guardiancentre ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-
 .pet-care, .adoption, .responsible-ownership {
   background-color: #fff;
   padding: 20px;
@@ -224,6 +201,71 @@ body {
 }
 .selector-catShow{
   display: none;
+}
+
+
+#guardianbg {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#guardiancentre {
+  text-align: left;
+  margin-top: 50px;
+}
+
+#guardiancentre h1 {
+  color: #333;
+}
+
+#guardiancentre ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#myguardian {
+  text-align: right;
+  margin-top: 50px;
+  margin-right: 250px;
+}
+
+#myguardian ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#petstories {
+  text-align: center;
+  margin-top: 50px;
+}
+
+#petstoriesbackground {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#petstories h1 {
+  color: #333;
+}
+
+#petstory h2{
+  color: #007bff;
+}
+
+#petstory{
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#petauthor{
+  color: black;
+  font-size: large;
 }
 
 /* #addpet-form {
