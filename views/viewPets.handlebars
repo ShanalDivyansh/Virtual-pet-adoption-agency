@@ -1,3 +1,7 @@
+<nav class="nav">
+  <img src="public/Images/logo.jpg" alt="dog logo" class="logo" />
+  <button class="login-button">Login</button>
+</nav>
 <p class="pets-view-header">Your Short Listed Pets</p>
 <div class="pets-view">
   {{#each pets}}
@@ -10,4 +14,15 @@
   {{#each img}}
     <img src="{{this}}" />
   {{/each}}
+</div>
+<p>Your quiz answers:</p>
+<p>Your prefrence for pet choice: {{quiz.Type}}</p>
+<p>Your prefrence for pet Age Group: {{age}}</p>
+<p>Your prefrence for pet Gender: {{quiz.Gender}}</p>
+<p>Your prefrence for pet Breed Size: {{BreedSize}}</p>
+<p>Your prefrence for pet activity level: {{Activity}}</p>
+<p>Your prefrence for pet Needs: {{quiz.Needs}}</p>
+<p>Your prefrence for if pet should be House Trained: {{quiz.House_Trained}}</p>
+<div>
+
 </div>

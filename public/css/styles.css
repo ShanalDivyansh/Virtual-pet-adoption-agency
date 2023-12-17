@@ -604,3 +604,19 @@ button:hover {
   margin-top: 5%;
   margin-bottom: 5%;
 }
+.arrow-left {
+  grid-column-start: 4;
+  grid-row-start: 2;
+  text-align: center;
+  justify-self: center;
+  align-self: center;
+  font-size: 50px;
+}
+.arrow-right {
+  grid-column-start: 9;
+  grid-row-start: 2;
+  text-align: center;
+  justify-self: center;
+  align-self: center;
+  font-size: 50px;
+}

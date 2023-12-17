@@ -240,11 +240,15 @@ router.route("/viewPets").get(async (req, res) => {
     return p.pictures[0];
   });
 
-  console.log(getDetails[0].shortListedPetsInfo);
+  console.log(getDetails[0]);
   return res.render("viewPets", {
     title: "shortListedPets",
     pets: getDetails[0].shortListedPetsInfo,
     img: pics,
+    quiz: getDetails[0].quizAnswers,
+    age: getDetails[0].quizAnswers.Age_Group.join(","),
+    BreedSize: getDetails[0].quizAnswers.Breed_Size.join(","),
+    Activity: getDetails[0].quizAnswers.activity_level.join(","),
   });
 });
 
