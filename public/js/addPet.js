@@ -36,6 +36,19 @@ if (addPet_form) {
         let petVaccination = document.getElementById("petVaccination").value;
         let spayedNeutered = document.getElementById("spayedNeutered").value;
         let specialNeeds = document.getElementById("specialNeeds").value;
+        // console.log(petName.trim() ,
+        // petType.trim() ,
+        // petGender.trim() ,
+        // dogBreed.trim() ,
+        // catBreed.trim() ,
+        // ageGroup.trim() ,
+        // petSize.trim() ,
+        // energyLevel.trim() ,
+        // houseTrain.trim() ,
+        // characteristics.trim() ,
+        // bio.trim() ,
+        // petVaccination.trim() ,
+        // spayedNeutered.trim());
         if (
             petName.trim() === "" ||
             petType.trim() === "" ||
@@ -63,16 +76,13 @@ if (addPet_form) {
             if (!['male', 'female'].includes(petGender.trim().toLowerCase()))
                 errorMessages.push("Pet Gender not provided correctly");
 
-            // if (!['male', 'female'].includes(dogBreed.trim().toLowerCase()))
-            //     errorMessages.push("Pet Gender not provided correctly");
-            // if (!['male', 'female'].includes(catBreed.trim().toLowerCase()))
-            //     errorMessages.push("Pet Gender not provided correctly");
-            // if (!['low','mediumEnergy','high','very-high'].includes(energyLevel.trim().toLowerCase()))
-            //     errorMessages.push("Pet Energy Level not provided correctly");
-            // if (!['notDone','done'].includes(spayedNeutered.trim().toLowerCase()))
-            //     errorMessages.push("Spayed or Neutered status not provided correctly");
+            if (!['low','mediumenergy','high','very-high'].includes(energyLevel.trim().toLowerCase()))
+                errorMessages.push("Pet Energy Level not provided correctly");
 
-            if (!['puppy', 'young adult', "adult", "senior"].includes(ageGroup.trim().toLowerCase()))
+            if (!['notdone','done'].includes(spayedNeutered.trim().toLowerCase()))
+                errorMessages.push("Spayed or Neutered status not provided correctly");
+
+            if (!['puppy', 'young adult', 'adult', 'senior'].includes(ageGroup.trim().toLowerCase()))
                 errorMessages.push("Pet Age group not provided correctly");
 
             if (!['small', 'medium', 'large', 'giant'].includes(petSize.trim().toLowerCase()))
@@ -81,11 +91,15 @@ if (addPet_form) {
             if (!['yes', 'no'].includes(houseTrain.trim().toLowerCase()))
                 errorMessages.push("House Trained field not provided correctly");
 
-            let characteristicsList = characteristics.trim().toLowerCase().split(',')
+            let characteristicsList = characteristics.trim().toLowerCase().split(',');
             for (let i = 0; i < characteristicsList.length; i++) {
                 let char1 = characteristicsList[i];
+                if (characteristics.trim().length < 5 || characteristics.trim().length > 100){
+                    errorMessages.push("Characteristics can only be be comma seperated strings with a total of 5 to 100 words");
+                    break;
+                }
                 if (/\d/.test(char1)) {
-                    errorMessages.push("Characterstics can only be comma seperated strings");
+                    errorMessages.push("Characteristics can only be be comma seperated strings with a total of 5 to 100 words");
                     break;
                 }
                 if (char1.trim().length < 4) {
@@ -96,12 +110,16 @@ if (addPet_form) {
             if (!["complete", "pending"].includes(petVaccination.trim().toLowerCase()))
                 errorMessages.push("Vaccination status not provided correctly");
 
-            let specialNeedsList = specialNeeds.trim().toLowerCase().split(',')
-            if (specialNeeds.length !== 0 ) {
+            let specialNeedsList = specialNeeds.trim().toLowerCase().split(',');
+            if (specialNeeds.length !== 0) {
                 for (let i = 0; i < specialNeedsList.length; i++) {
                     let char1 = specialNeedsList[i];
+                    if (specialNeeds.trim().length < 5 || specialNeeds.trim().length > 200){
+                        errorMessages.push("Special Needs can only be be comma seperated strings with a total of 5 to 200 words");
+                        break;
+                    }
                     if (/\d/.test(char1)) {
-                        errorMessages.push("Special Needs can only be comma seperated strings");
+                        errorMessages.push("Special Needs can only be be comma seperated strings with a total of 5 to 200 words");
                         break;
                     }
                     if (char1.trim().length < 4) {

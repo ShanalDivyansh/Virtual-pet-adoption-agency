@@ -33,7 +33,8 @@ for(let i=0;i<petDetails.length;i++)
             petDetails[i].needs,
             petDetails[i].houseTrained,
             petDetails[i].availability,
-            petDetails[i].agency)
+            petDetails[i].agency,
+            petDetails[i].successStory?petDetails[i].successStory:null)
     } catch (error) {
         console.log(error);
     }

@@ -18,7 +18,8 @@ export const createPets = async function (
   needs,
   houseTrained,
   availability,
-  agencyName
+  agencyName,
+  successStory
 ) {
   if (
     !(
@@ -87,6 +88,7 @@ export const createPets = async function (
     adoptedBy: null,
     agencyName: agencyName.trim().toLowerCase(),
     intrestedUsers: [],
+    successStory:successStory?successStory:null
   });
   if (!addPet.insertedId) throw "Insert failed!";
   return { insertedUser: true };

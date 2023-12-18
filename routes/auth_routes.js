@@ -67,10 +67,10 @@ router
       );
       if (result) {
         req.session.registered = true;
-        res.redirect("/login");
+        return res.redirect("/login");
       }
     } catch (error) {
-      res.render("login", { error, title:"Login/Register" });
+      return res.render("login", { error, title:"Login/Register" });
       console.log(error);
     }
   });
@@ -79,9 +79,9 @@ router
   .route("/login")
   .get(async (req, res) => {
     if (req.session.registered) {
-      res.render("login", { openLogin: true });
+      return res.render("login", { openLogin: true });
     } else {
-      res.render("login");
+      return res.render("login");
     }
   })
   .post(async (req, res) => {
@@ -152,17 +152,17 @@ router
         };
       }
       if (userLoginAttempt.userType.trim().toLowerCase() === "user") {
-        res.redirect("/home");
+        return res.redirect("/home");
       }
       if (userLoginAttempt.userType.trim().toLowerCase() === "agency") {
-        res.redirect("/agencyHome");
+        return res.redirect("/agencyHome");
       }
       if (userLoginAttempt.userType.trim().toLowerCase() === "guardian") {
-        res.redirect("/guardian");
+        return res.redirect("/guardian");
       }
     } catch (error) {
       console.log(error);
-      res.render("login", { error, title:"Login/Register" });
+      return res.render("login", { error, title:"Login/Register" });
     }
   });
 
@@ -171,7 +171,7 @@ router.route("/home").get(async (req, res) => {
   // console.log(req.session.user.id);
   // const pets = await getAvailablePets();
   const pets = await getUserPetRecommendation(req.session.user.id);
-  res.render("home", { pets, userId: req.session.user.id , title:"Home"});
+  return res.render("home", { pets, userId: req.session.user.id , title:"Home"});
 });
 router.route("/addToShortList").post(async (req, res) => {
   try {
@@ -254,7 +254,7 @@ router.route("/questionnaire").get(async (req, res) => {
 });
 router.route("/viewPets").get(async (req, res) => {
   if (!req.session.user) {
-    res.redirect("/login");
+    return res.redirect("/login");
   }
   const getDetails = await getUserDetails(req.session.user.id);
   // console.log(getDetails[0].shortListedPetsInfo);
@@ -388,11 +388,11 @@ router.route("/questionnaire").post(async (req, res) => {
 
 router.route("/logout").get(async (req, res) => {
   req.session.destroy();
-  res.redirect("/login");
+  return res.redirect("/login");
 });
 
 router.route("/agencyHome").get(async (req, res) => {
-  res.render("agencyHome", { title: "Agency Home" });
+  return res.render("agencyHome", { title: "Agency Home" });
 });
 router
   .route("/addpet")
@@ -401,7 +401,7 @@ router
     const dogBreeds = JSON.parse(dogBreedsList);
     const catBreedsList = await readFile("data/allowedCatBreeds.json", "utf8");
     const catBreeds = JSON.parse(catBreedsList);
-    res.render("addpet", {
+    return res.render("addpet", {
       title: "Add Pet",
       dogBreeds: dogBreeds,
       catBreeds: catBreeds,
@@ -434,6 +434,7 @@ router
     let imgPath = [];
     let specialNeedsList = [];
     let uploadPath = `${__dirname}/public/Images/Pets`;
+    // let uploadPath = '/Users/pranjalapoorva/Desktop/College/3Fall_2023/CS-546(Web)/Project/petcopy2/Virtual-pet-adoption-agency/public/Images/Pets/';
 
     if (
       petName === undefined ||
@@ -522,7 +523,7 @@ router
         errorMessages.push("Pet Size not provided correctly");
 
       if (
-        !["low", "mediumEnergy", "high", "very-high"].includes(
+        !["low", "mediumenergy", "high", "very-high"].includes(
           energyLevel.trim().toLowerCase()
         )
       )
@@ -536,12 +537,16 @@ router
       )
         errorMessages.push("Vaccination status not provided correctly");
 
-      if (!["notDone", "done"].includes(spayedNeutered.trim().toLowerCase()))
+      if (!["notdone", "done"].includes(spayedNeutered.trim().toLowerCase()))
         errorMessages.push("Spayed or Neutered status not provided correctly");
 
       characteristicsList = characteristics.trim().toLowerCase().split(",");
       for (let i = 0; i < characteristicsList.length; i++) {
         let char1 = characteristicsList[i];
+        if (characteristics.trim().length < 5 || characteristics.trim().length > 100) {
+          errorMessages.push("Characteristics can only be be comma seperated strings with a total of 5 to 100 words");
+          break;
+        }
         if (/\d/.test(char1)) {
           errorMessages.push(
             "Characterstics can only be comma seperated strings"
@@ -563,6 +568,10 @@ router
       if (specialNeeds.length !== 0) {
         for (let i = 0; i < specialNeedsList.length; i++) {
           let char1 = specialNeedsList[i];
+          if (specialNeeds.trim().length < 5 || specialNeeds.trim().length > 200) {
+            errorMessages.push("Special Needs can only be be comma seperated strings with a total of 5 to 200 words");
+            break;
+          }
           if (/\d/.test(char1)) {
             errorMessages.push(
               "Special Needs can only be comma seperated strings"
@@ -630,7 +639,7 @@ router
         .status(404)
         .render("addpet", { title: "error", errors: errorMessages });
     else {
-      res.render("addPetComplete", { title: "Pet Added" });
+      return res.render("addPetComplete", { title: "Pet Added" });
     }
   });
 router.route("/petStories").get(async (req, res) => {
@@ -640,7 +649,8 @@ router.route("/petStories").get(async (req, res) => {
   for (let i = 0; i < availablePets.length; i++) {
     if (
       availablePets[i].availability === false &&
-      availablePets[i].hasOwnProperty("successStory")
+      availablePets[i].successStory !== null
+      // availablePets[i].hasOwnProperty("successStory")
     )
       petStoryData.push(availablePets[i]);
   }
@@ -662,7 +672,7 @@ router.route("/guardian").get(async (req, res) => {
   return res.render("guardian", { title: "Pet Guardians", guardian });
 });
 router.route("/select-guardian").get(async (req, res) => {
-  res.redirect("/guardian");
+  return res.redirect("/guardian");
 });
 router.route("/userReviews").get(async (req, res) => {
   const userReviews = await getUsersReviews(req.session.user.id);
@@ -670,7 +680,7 @@ router.route("/userReviews").get(async (req, res) => {
     return u.guardianInfo;
   });
 
-  res.render("userReviews", { userReviews, gInfo: guardian.flat(Infinity), title:"Reviews" });
+  return res.render("userReviews", { userReviews, gInfo: guardian.flat(Infinity), title:"Reviews" });
 });
 router.route("/userReviews").post(async (req, res) => {
   // console.log("ran 1");
@@ -686,15 +696,17 @@ router.route("/userReviews").post(async (req, res) => {
     }
   } catch (error) {
     // return req.redirect("/error");
-    res.status(500).json({ error: "Internal Server Error" });
+    return res.status(500).json({ error: "Internal Server Error" });
 
   }
 
 });
-
+// router.route("/error", (req, res) => {
+//   res.render("error");
+// });
 router.route("/select-guardian").post(async (req, res) => {
+  // console.log(req.body);
   const reviews = await getGuardianReviews(req.body.selectedGuardian);
-
   const userDetails = reviews.map((r) => {
     return r.usersInfo;
   });
@@ -749,6 +761,19 @@ router.route("/petUpdate").post(async (req, res) => {
       .json({ success: false, error: "Internal Server Error" });
   }
 });
+
+// router.route("/updateReview").get(async (req, res) => {
+//   // try {
+//   //   const update = await updateReview(
+//   //     req.session.user.id,
+//   //     req.body.guardianId,
+//   //     req.body.review,
+//   //     parseFloat(req.body.rating)
+//   //   );
+//   // } catch (error) {
+//   //   console.log(error);
+//   // }
+// });
 
 router.route("/updateReview").post(async (req, res) => {
   try {
