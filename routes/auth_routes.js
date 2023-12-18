@@ -11,6 +11,7 @@ import { readFile } from "fs/promises";
 import fileUpload from "express-fileupload";
 import {
   changeAvailability,
+  changeAvailability1,
   createPets,
   getAvailablePetsByAgency,
 } from "../data/pets.js";
@@ -687,20 +688,24 @@ router.route("/select-guardian").post(async (req, res) => {
   });
 });
 router.route("/petUpdate").get(async (req, res) => {
-  // console.log(req.session.user.email);
+  console.log(req.session.user.email);
   const collection = await getAvailablePetsByAgency(req.session.user.email);
-  // const collection = await getAvailablePetsByAgency('petagency@gmail.com');
-  // console.log(collection.length);
   return res.render("petUpdate", { title: "Pet Update", collection });
 });
 router.route("/petUpdate").post(async (req, res) => {
+  // console.log("inside /petupdate post");
+  // console.log(req.body);
+  let records = req.body.formDataArray;
+  // console.log(records.length);
   try {
-    const collection = await changeAvailability(
-      req.body.petID,
-      req.body.story,
-      req.body.availability
-    );
-    return res.status(200).json({ success: true, collection });
+    for (let i = 0; i < records.length; i++) {
+
+      let collection = await changeAvailability1(
+        records[i].petID,
+        records[i].story
+      );
+    }
+    return res.render("petUpdateSuccess", { title: "Cool" });
   } catch (error) {
     console.error(error);
     return res

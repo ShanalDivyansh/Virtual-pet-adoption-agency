@@ -100,32 +100,86 @@
 //     });
 //   });
 
+// $(document).ready(function () {
+//   $("#petUpdateForm").submit(function (event) {
+//     event.preventDefault();
+
+//     let availability = $('input[name="answer"]:checked').val();
+//     if (availability === "true") {
+//       $("#textInput").prop("disabled", true);
+//     } else {
+//       $("#textInput").prop("disabled", false);
+//       let story = $("#textInput").val().trim();
+//       if (story === "") {
+//         alert("Please provide a story for the pet.");
+//         return;
+//       }
+//     }
+
+//     let formData = {
+//       petID: $("span:first").text(),
+//       story: $("#textInput").val(),
+//       availability: availability,
+//     };
+
+//     $.ajax({
+//       type: "POST",
+//       url: "/petUpdate",
+//       data: formData,
+//       success: function (response) {
+//         console.log(response);
+//         window.location.href = "/petUpdateSuccess";
+//       },
+//       error: function (error) {
+//         console.error(error);
+//         $("#result-alert").text("Error updating pet. Please try again.").show();
+//       },
+//     });
+//   });
+// });
+
 $(document).ready(function () {
   $("#petUpdateForm").submit(function (event) {
     event.preventDefault();
+    let checkedCount = 0;
+    let formDataArray = [];
 
-    let availability = $('input[name="answer"]:checked').val();
-    if (availability === "true") {
-      $("#textInput").prop("disabled", true);
-    } else {
-      $("#textInput").prop("disabled", false);
-      let story = $("#textInput").val().trim();
-      if (story === "") {
-        alert("Please provide a story for the pet.");
-        return;
+    $('input[name="checkForFalse"]').each(function () {
+      let checkbox = $(this);
+      let textInput = $(`input[name="textInput_${checkbox.val()}"]`);
+
+      if (checkbox.prop("checked")) {
+        checkedCount++;
+        let story = textInput.val().trim();
+        if (story === "") {
+          alert(`Please fill in the story for each selected pet11.`);
+          return;
+        }
+        formDataArray.push({
+          petID: checkbox.val(),
+          story: story,
+        });
       }
+    });
+
+    if (checkedCount !== formDataArray.length) {
+      alert("Please fill in the story for each selected pet.");
+      return;
     }
 
-    let formData = {
-      petID: $("span:first").text(),
-      story: $("#textInput").val(),
-      availability: availability,
-    };
+    if (formDataArray.length === 0) {
+      return;
+    }
+
+    let availability = $('input[name="answer"]:checked').val();
 
     $.ajax({
       type: "POST",
       url: "/petUpdate",
-      data: formData,
+      data: {
+        formDataArray: formDataArray,
+        // availability: availability,
+      },
       success: function (response) {
         console.log(response);
         window.location.href = "/petUpdateSuccess";
