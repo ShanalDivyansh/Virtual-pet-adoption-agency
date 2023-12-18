@@ -26,8 +26,8 @@
         {{#each guardian}}
           <li>
             <p style="display: none;" id="guardian-id">{{_id}}</p>
-            <input type="radio" name="selectedGuardian" value="{{_id}}" />
-            <strong>Name:</strong>
+            <input type="radio" id={{_id}} name="selectedGuardian" value="{{_id}}" />
+            <label for={{_id}}>Name:</strong>
             {{firstName}}
             {{lastName}}<br />
             <strong>Email:</strong>
