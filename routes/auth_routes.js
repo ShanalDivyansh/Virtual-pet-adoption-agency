@@ -428,7 +428,8 @@ router
     let errorMessages = [];
     let imgPath = [];
     let specialNeedsList = [];
-    let uploadPath = `${__dirname}/public/Images/Pets`;
+    // let uploadPath = `${__dirname}/public/Images/Pets`;
+    let uploadPath = '/Users/pranjalapoorva/Desktop/College/3Fall_2023/CS-546(Web)/Project/petcopy1/Virtual-pet-adoption-agency/public/Images/Pets';
 
     if (
       petName === undefined ||
@@ -531,8 +532,8 @@ router
       )
         errorMessages.push("Vaccination status not provided correctly");
 
-      if (!["notDone", "done"].includes(spayedNeutered.trim().toLowerCase()))
-        errorMessages.push("Spayed or Neutered status not provided correctly");
+      // if (!["notDone", "done"].includes(spayedNeutered.trim().toLowerCase()))
+      //   errorMessages.push("Spayed or Neutered status not provided correctly");
 
       characteristicsList = characteristics.trim().toLowerCase().split(",");
       for (let i = 0; i < characteristicsList.length; i++) {
