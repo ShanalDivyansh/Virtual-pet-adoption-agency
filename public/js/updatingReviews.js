@@ -26,7 +26,7 @@ editButtons.forEach(function (button) {
         return;
       }
     
-      if (uReviewValue.length < 5 || uRatingValue.length < 5) {
+      if (uReviewValue.length < 5) {
         alert("Review and Rating should be at least 5 characters long");
         return;
       }

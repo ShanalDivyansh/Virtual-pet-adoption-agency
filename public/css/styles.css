@@ -14,7 +14,10 @@ body {
 }
 
 .logo {
-  height: 100%;
+  height: 100px;
+  object-fit: contain;
+
+  
 }
 
 .login-button {
@@ -705,4 +708,11 @@ button:hover {
 
 .petUpdate-container input[type="submit"]:hover {
   background-color: #45a049;
+}
+
+
+
+
+.updated-logo{
+  height: 50px;
 }

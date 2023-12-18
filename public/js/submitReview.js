@@ -12,7 +12,7 @@ form?.addEventListener("submit", async (e) => {
     return;
   }
 
-  if (reviewValue.length < 5 || ratingValue.length < 5) {
+  if (reviewValue.length < 5) {
     alert("Review and Rating should be at least 5 characters long");
     return;
   }
