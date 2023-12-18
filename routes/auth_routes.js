@@ -745,7 +745,7 @@ router.route("/select-guardian").post(async (req, res) => {
 router.route("/petUpdate").get(async (req, res) => {
   // console.log(req.session.user.email);
   const collection = await getAvailablePetsByAgency(req.session.user.email);
-  return res.render("petUpdate", { title: "Pet Update", collection });
+  return res.render("petUpdate", { title: "Pet Update", collection,petExists:collection.length===0?false:true });
 });
 router.route("/petUpdate").post(async (req, res) => {
   // console.log("inside /petupdate post");
