@@ -7,14 +7,15 @@ import { guardian, pets, users } from "../config/mongoCollections.js";
 import PasswordValidator from "password-validator";
 import bcrypt, { hash } from "bcrypt";
 import { readFile } from "fs/promises";
-
 import fileUpload from "express-fileupload";
 import {
   changeAvailability,
   createPets,
   getAvailablePetsByAgency,
+  getUnavailablePets,
 } from "../data/pets.js";
-
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 router.use(
   fileUpload({
     limits: {
@@ -181,27 +182,27 @@ router.route("/addToShortList").post(async (req, res) => {
     return res.status(400).json({ status: "bad request" });
   }
 });
-router.route("/getUserDetails").post(async (req, res) => {
-  try {
-    // console.log(req.session.user.id);
-    const result = await getUserDetails(req.session.user.id);
-    if (result) {
-      return res.status(200).json({ status: "success", data: result });
-    }
-  } catch (error) {
-    return res.status(400).json({ status: "bad request" });
-  }
-});
-router.route("/getPetDetails").post(async (req, res) => {
-  try {
-    const result = await getPet(req.body.petId);
-    if (result) {
-      return res.status(200).json({ status: "success", data: result });
-    }
-  } catch (error) {
-    return res.status(400).json({ status: "bad request" });
-  }
-});
+// router.route("/getUserDetails").post(async (req, res) => {
+//   try {
+//     // console.log(req.session.user.id);
+//     const result = await getUserDetails(req.session.user.id);
+//     if (result) {
+//       return res.status(200).json({ status: "success", data: result });
+//     }
+//   } catch (error) {
+//     return res.status(400).json({ status: "bad request" });
+//   }
+// });
+// router.route("/getPetDetails").post(async (req, res) => {
+//   try {
+//     const result = await getPet(req.body.petId);
+//     if (result) {
+//       return res.status(200).json({ status: "success", data: result });
+//     }
+//   } catch (error) {
+//     return res.status(400).json({ status: "bad request" });
+//   }
+// });
 
 router.route("/addToShortList").post(async (req, res) => {
   try {
@@ -416,12 +417,14 @@ router
       specialNeeds,
     } = req.body;
     // console.log(req.body);
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
+
     let characteristicsList = [];
     let errorMessages = [];
     let imgPath = [];
     let specialNeedsList = [];
-    let uploadPath =
-      "/Users/pranjalapoorva/Desktop/College/3Fall_2023/CS-546(Web)/Another copy/Virtual-pet-adoption-agency/public/Images/Pets";
+    let uploadPath = `${__dirname}/public/Images/Pets`;
 
     if (
       petName === undefined ||
@@ -657,9 +660,9 @@ router.route("/userReviews").post(async (req, res) => {
   }
   return res.render("userReviews");
 });
-router.route("/error", (req, res) => {
-  res.render("error");
-});
+// router.route("/error", (req, res) => {
+//   res.render("error");
+// });
 router.route("/select-guardian").post(async (req, res) => {
   // console.log(req.body);
   const reviews = await getGuardianReviews(req.body.selectedGuardian);

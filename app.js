@@ -303,7 +303,7 @@ app.use("/login", (req, res, next) => {
   } else if (req.session.user && req.session.user.userType === "guardian") {
     return res.redirect("/guardian");
   } else if (req.session.user && req.session.user.userType === "agency") {
-    return res.redirect("/agency");
+    return res.redirect("/agencyHome");
   } else if (!req.session.user && req.originalUrl !== "/login") {
     return res.redirect("/login");
   }
@@ -315,7 +315,7 @@ app.use("/register", (req, res, next) => {
   } else if (req.session.user && req.session.user.userType === "guardian") {
     return res.redirect("/guardian");
   } else if (req.session.user && req.session.user.userType === "agency") {
-    return res.redirect("/agency");
+    return res.redirect("/agencyHome");
   }
   next();
 });
@@ -328,17 +328,41 @@ app.use("/home", async (req, res, next) => {
     console.error(user[0]);
     if (!user[0].quizAnswers.Type) return res.redirect("/questionnaire");
   }
+  if (req.session.user.userType === "agency") {
+    res.redirect("/agencyHome");
+  }
+
   next();
 });
 app.use("/questionnaire", async (req, res, next) => {
   if (!req.session.user) {
     return res.redirect("/login");
   }
+  if (req.session.user.userType === "agency") {
+    return res.redirect("/agencyHome");
+  }
+  const user = await getUserDetails(req.session.user.id);
+  if (user[0].quizAnswers.Type) {
+    return res.redirect("/home");
+  }
+
   next();
 });
 app.use("/viewPets", async (req, res, next) => {
   if (!req.session.user) {
     return res.redirect("/login");
+  }
+  if (req.session.user.userType === "agency") {
+    req.redirect("/agencyHome");
+  }
+  next();
+});
+app.use("/agencyHome", async (req, res, next) => {
+  if (!req.session.user) {
+    return res.redirect("/login");
+  }
+  if (req.session.user.userType === "user") {
+    return res.redirect("/home");
   }
   next();
 });
@@ -346,6 +370,54 @@ app.use("/petUpdate", async (req, res, next) => {
   if (!req.session.user) {
     return res.redirect("/login");
   }
+  next();
+});
+// app.use("/getUserDetails", async (req, res, next) => {
+//   if (!req.session.user) {
+//     return res.redirect("/login");
+//   }
+//   next();
+// });
+app.use("/guardian", async (req, res, next) => {
+  if (!req.session.user) return res.redirect("/login");
+  if (req.session.user.userType === "agency")
+    return res.redirect("/agencyHome");
+  next();
+});
+app.use("/select-guardian", async (req, res, next) => {
+  if (!req.session.user) return res.redirect("/login");
+  if (req.session.user.userType === "agency")
+    return res.redirect("/agencyHome");
+  next();
+});
+app.use("/userReviews", async (req, res, next) => {
+  if (!req.session.user) return res.redirect("/login");
+  if (req.session.user.userType === "agency")
+    return res.redirect("/agencyHome");
+  next();
+});
+app.use("/petUpdate", async (req, res, next) => {
+  if (!req.session.user) return res.redirect("/login");
+  console.log("I was hit ");
+  if (req.session.user.userType === "user") return res.redirect("/home");
+  next();
+});
+app.use("/addPet", async (req, res, next) => {
+  if (!req.session.user) return res.redirect("/login");
+  console.log("I was hit ");
+  if (req.session.user.userType === "user") return res.redirect("/home");
+  next();
+});
+app.use("/addPetComplete", async (req, res, next) => {
+  if (!req.session.user) return res.redirect("/login");
+  console.log("I was hit ");
+  if (req.session.user.userType === "user") return res.redirect("/home");
+  next();
+});
+app.use("/petUpdateSuccess", async (req, res, next) => {
+  if (!req.session.user) return res.redirect("/login");
+  if (req.session.user.userType === "user") return res.redirect("/home");
+  return res.redirect("/addPetComplete");
   next();
 });
 
