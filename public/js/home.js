@@ -19,15 +19,23 @@ let liked = null;
 const leftArrow = document.querySelector(".arrow-left");
 const rightArrow = document.querySelector(".arrow-right");
 console.log(leftArrow);
+if(index===0) leftArrow.style = 'display:none'
+if(index!==0) leftArrow.style = 'display:block'
 leftArrow.addEventListener("click", () => {
   if (index > 0) {
     index--;
     updatePetInfo();
-  }
+    if(index!==0) leftArrow.style = 'display:block'
+
+  } 
+  
+  if(index===0) leftArrow.style = 'display:none'
 });
 rightArrow.addEventListener("click", () => {
   if (index < pets.children.length - 1) {
     index++;
+    if(index!==0) leftArrow.style = 'display:block'
+
     updatePetInfo();
   }
 });
