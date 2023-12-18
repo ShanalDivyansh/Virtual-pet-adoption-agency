@@ -738,3 +738,7 @@ button:hover {
 #registerBtn{
   margin-top: 15px;
 }
+
+.backgroundPetStories{
+  overflow: auto;
+}
