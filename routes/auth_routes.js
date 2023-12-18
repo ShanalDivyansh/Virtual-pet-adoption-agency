@@ -160,7 +160,7 @@ router
       }
     } catch (error) {
       console.log(error);
-      res.render("login", { error });
+      res.render("login", { error, title:"Login/Register" });
     }
   });
 
@@ -169,7 +169,7 @@ router.route("/home").get(async (req, res) => {
   // console.log(req.session.user.id);
   // const pets = await getAvailablePets();
   const pets = await getUserPetRecommendation(req.session.user.id);
-  res.render("home", { pets, userId: req.session.user.id });
+  res.render("home", { pets, userId: req.session.user.id , title:"Home"});
 });
 router.route("/addToShortList").post(async (req, res) => {
   try {
@@ -244,7 +244,7 @@ router.route("/getPetDetails").post(async (req, res) => {
 });
 
 router.route("/questionnaire").get(async (req, res) => {
-  return res.render("questionnaire", { title: "done" });
+  return res.render("questionnaire", { title: "questionnaire" });
 });
 router.route("/viewPets").get(async (req, res) => {
   if (!req.session.user) {
@@ -664,7 +664,7 @@ router.route("/userReviews").get(async (req, res) => {
     return u.guardianInfo;
   });
 
-  res.render("userReviews", { userReviews, gInfo: guardian.flat(Infinity) });
+  res.render("userReviews", { userReviews, gInfo: guardian.flat(Infinity), title:"Reviews" });
 });
 router.route("/userReviews").post(async (req, res) => {
   // console.log("ran 1");
@@ -678,7 +678,7 @@ router.route("/userReviews").post(async (req, res) => {
   } catch (error) {
     // return req.redirect("/error");
   }
-  return res.render("userReviews");
+  return res.render("userReviews",{title:"Reviews"});
 });
 // router.route("/error", (req, res) => {
 //   res.render("error");
@@ -707,6 +707,7 @@ router.route("/select-guardian").post(async (req, res) => {
     message: reviews.length === 0 ? "No reviews for this guardian" : "",
     guardianID: req.body.selectedGuardian,
     zeroReviews: isReviewExisting ? false : true,
+    title:"Select Guardian"
   });
 });
 router.route("/petUpdate").get(async (req, res) => {
