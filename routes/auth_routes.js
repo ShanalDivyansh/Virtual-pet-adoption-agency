@@ -450,8 +450,25 @@ router
         return res.status(400).send("Invalid file type");
 
       let imgName = petName;
-      if (animalType === "dog") imgName = imgName + dogBreed + ".jpg";
-      else imgName = imgName + catBreed + ".jpg";
+      let cbreedName = ""
+      for(let i of catBreed){
+        if(i.trim()===''){
+          continue
+        } else {
+          cbreedName+=i.trim()
+        }
+      }
+
+      let dbreedName = ""
+      for(let i of catBreed){
+        if(i.trim()===''){
+          continue
+        } else {
+          dbreedName+=i.trim()
+        }
+      }
+      if (animalType === "dog") imgName = imgName + dbreedName + ".jpg";
+      else imgName = imgName + cbreedName + ".jpg";
       uploadPath = uploadPath + imgName;
       imgPath[0] = "public/Images/Pets/" + imgName;
 

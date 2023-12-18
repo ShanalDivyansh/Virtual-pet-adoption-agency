@@ -353,7 +353,7 @@ app.use("/viewPets", async (req, res, next) => {
     return res.redirect("/login");
   }
   if (req.session.user.userType === "agency") {
-    req.redirect("/agencyHome");
+    return res.redirect("/agencyHome");
   }
   next();
 });

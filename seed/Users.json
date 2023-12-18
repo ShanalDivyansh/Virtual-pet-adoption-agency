@@ -1,0 +1,68 @@
+[
+    {
+       "firstName":"Peter",
+        "lastName":"Parker",
+        "email":"pparker.user@gmail.com",
+        "password":"Password@123",
+        "shortlistedPets":[],
+        "adoptedPets":[],
+        "quizAnswers":{"Type":"Dog","Breed":"German Shepard","Age_Group":"Young","Gender":"Male","Breed_Size":"Large","Activity_level":"High","Needs":"None","House_Trained":true},
+        "userType":"user",
+        "reviews":[]
+    },
+    {
+        "firstName":"Bruce",
+         "lastName":"Banner",
+         "email":"bbanner.user@gmail.com",
+         "password":"Password@123",
+         "shortlistedPets":[],
+         "adoptedPets":[],
+         "quizAnswers":{"Type":"Cat","Breed":"Sphynx","Age_Group":"Adult","Gender":"Male","Breed_Size":"Small","Activity_level":"Medium","Needs":"None","House_Trained":false},
+         "userType":"user",
+         "reviews":[]
+     },
+     {
+        "firstName":"Reed",
+         "lastName":"Richards",
+         "email":"rrichards.user@gmail.com",
+         "password":"Password@123",
+         "shortlistedPets":[],
+         "adoptedPets":[],
+         "quizAnswers":{"Type":"Dog","Breed":"Golden Retriever ","Age_Group":"Young","Gender":"Male","Breed_Size":"Large","Activity_level":"High","Needs":"None","House_Trained":true},
+         "userType":"user",
+         "reviews":[]
+     },
+     {
+        "firstName":"Matt",
+         "lastName":"Murdock",
+         "email":"mmurdock.user@gmail.com",
+         "password":"Password@123",
+         "shortlistedPets":[],
+         "adoptedPets":[],
+         "quizAnswers":{"Type":"Dog","Breed":"German Shepard","Age_Group":"Adult","Gender":"Male","Breed_Size":"Large","Activity_level":"Medium","Needs":"None","House_Trained":true},
+         "userType":"user",
+         "reviews":[]
+     },
+     {
+         "firstName":"Stephen",
+          "lastName":"Strange",
+          "email":"sstrange.user@gmail.com",
+          "password":"Password@123",
+          "shortlistedPets":[],
+          "adoptedPets":[],
+          "quizAnswers":{"Type":"Cat","Breed":"Maine Coon","Age_Group":"Adult","Gender":"Male","Breed_Size":"Small","Activity_level":"Medium","Needs":"None","House_Trained":false},
+          "userType":"user",
+          "reviews":[]
+      },
+      {
+         "firstName":"Doctor",
+          "lastName":"Doom",
+          "email":"ddoom.user@gmail.com",
+          "password":"Password@123",
+          "shortlistedPets":[],
+          "adoptedPets":[],
+          "quizAnswers":{"Type":"Dog","Breed":"Greyhound","Age_Group":"Adult","Gender":"Male","Breed_Size":"Large","Activity_level":"Very High","Needs":"None","House_Trained":true},
+          "userType":"user",
+          "reviews":[]
+      }
+]
