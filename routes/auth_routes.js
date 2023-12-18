@@ -129,6 +129,8 @@ router
     const collection = await users();
     const userInfo = await collection.findOne({ email });
     if (!userInfo) {
+      console.log("I am here");
+
       return res.status(400).render("login", {
         error: "Either the Email, Password or UserType is invalid",
       });
@@ -158,7 +160,7 @@ router
       }
     } catch (error) {
       console.log(error);
-      res.render("login");
+      res.render("login", { error });
     }
   });
 
@@ -702,7 +704,6 @@ router.route("/petUpdate").post(async (req, res) => {
   // console.log(records.length);
   try {
     for (let i = 0; i < records.length; i++) {
-
       let collection = await changeAvailability1(
         records[i].petID,
         records[i].story
