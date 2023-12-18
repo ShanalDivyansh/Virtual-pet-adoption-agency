@@ -79,9 +79,9 @@ router
   .route("/login")
   .get(async (req, res) => {
     if (req.session.registered) {
-      return res.render("login", { openLogin: true });
+      return res.render("login", { openLogin: true, title:"Login/Register" });
     } else {
-      return res.render("login");
+      return res.render("login", {title:"Login/Register"});
     }
   })
   .post(async (req, res) => {
@@ -93,12 +93,12 @@ router
     if (!(typeof email !== "undefined" && typeof password !== "undefined")) {
       return res
         .status(400)
-        .render("login", { error: "Invalid Email and/or Password" });
+        .render("login", { error: "Invalid Email and/or Password", title:"Login/Register" });
     }
     email = email.trim().toLowerCase();
     password = password.trim();
     if (!validator.isEmail(email)) {
-      return res.status(400).render("login", { error: "Invalid Email Format" });
+      return res.status(400).render("login", { error: "Invalid Email Format", title:"Login/Register" });
     }
     const isPassSpaces = [...password].every((char) => {
       return char.trim() !== "";
@@ -106,7 +106,7 @@ router
     if (!isPassSpaces) {
       return res
         .status(400)
-        .render("login", { error: "Password Contains Spaces" });
+        .render("login", { error: "Password Contains Spaces", title:"Login/Register" });
     }
     let passSchema = new PasswordValidator();
     passSchema
@@ -126,6 +126,7 @@ router
       return res.status(400).render("login", {
         error:
           "Password needs to be at least one uppercase character, there has to be at least one number and there has to be at least one special character",
+          title:"Login/Register"
       });
     }
     const collection = await users();
@@ -135,12 +136,14 @@ router
 
       return res.status(400).render("login", {
         error: "Either the Email, Password or UserType is invalid",
+        title:"Login/Register"
       });
     }
     const comparePass = await bcrypt.compare(password, userInfo.password);
     if (!comparePass) {
       return res.status(400).render("login", {
         error: "Either the Email, Password or UserType is invalid",
+        title:"Login/Register"
       });
     }
     try {
@@ -250,7 +253,7 @@ router.route("/getPetDetails").post(async (req, res) => {
 });
 
 router.route("/questionnaire").get(async (req, res) => {
-  return res.render("questionnaire", { title: "questionnaire" });
+  return res.render("questionnaire", { title: "Questionnaire" });
 });
 router.route("/viewPets").get(async (req, res) => {
   if (!req.session.user) {
@@ -264,7 +267,7 @@ router.route("/viewPets").get(async (req, res) => {
 
   // console.log(getDetails[0]);
   return res.render("viewPets", {
-    title: "shortListedPets",
+    title: "Shortlisted Pets",
     pets: getDetails[0].shortListedPetsInfo,
     img: pics,
     quiz: getDetails[0].quizAnswers,
