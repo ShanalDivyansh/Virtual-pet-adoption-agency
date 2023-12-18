@@ -94,7 +94,7 @@ const fname = document.getElementById("firstName");
 const lname = document.getElementById("lastName");
 const email = document.getElementById("email");
 const pass = document.getElementById("password");
-// const passConformInp = document.getElementById("confirmPasswordInput");
+const passConformInp = document.getElementById("passwordConfirm");
 const role = document.getElementById("userTypeRegister");
 
 // // error displays
@@ -108,8 +108,10 @@ const role = document.getElementById("userTypeRegister");
 // const roleUserErr = document.querySelector(".roleErrorAdmin");
 
 registerForm?.addEventListener("submit", (e) => {
-  let errors = "";
   e.preventDefault();
+  let errors = "";
+  console.log(passConformInp)
+
   const firstName = fname.value.trim();
   const lastName = lname.value.trim();
   const emailAddress = email.value.trim();
@@ -143,14 +145,23 @@ registerForm?.addEventListener("submit", (e) => {
   if (!passCheck(pass)) {
     errors += "Password not valid.";
   }
+  if (!passCheck(passConformInp)) {
+    errors += "Password not valid.";
+  }
+  // console.log(pass.value)
+  // console.log(passConformInp.value)
+  if(passConformInp.value.trim()!==pass.value.trim()){
+    errors += "Password do not match.";
+
+  }
 
   if (
     isValidName(firstName) &&
     isValidName(lastName) &&
     emailAddress.match(emailRegex) &&
-    passCheck(pass)
+    passCheck(pass) &&
     // passCheck(passConformInp) &&
-    // pass.value.trim() === passConformInp.value.trim()
+    pass.value.trim() === passConformInp.value.trim()
   ) {
     registerForm.submit();
   } else {

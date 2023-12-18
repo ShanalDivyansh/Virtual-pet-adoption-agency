@@ -70,6 +70,7 @@ router
         res.redirect("/login");
       }
     } catch (error) {
+      res.render("login", { error, title:"Login/Register" });
       console.log(error);
     }
   });
@@ -130,7 +131,7 @@ router
     const collection = await users();
     const userInfo = await collection.findOne({ email });
     if (!userInfo) {
-      console.log("I am here");
+      // console.log("I am here");
 
       return res.status(400).render("login", {
         error: "Either the Email, Password or UserType is invalid",
@@ -183,6 +184,10 @@ router.route("/addToShortList").post(async (req, res) => {
       return res.status(200).json({ status: "success" });
     }
   } catch (error) {
+    console.log(error)
+    if(error === 'Pet already exists in your short listed pets.'){
+      return res.status(200).json({ status: "Already liked" });
+    }
     return res.status(400).json({ status: "bad request" });
   }
 });
@@ -639,8 +644,8 @@ router.route("/petStories").get(async (req, res) => {
     )
       petStoryData.push(availablePets[i]);
   }
-  console.log(petStoryData);
-  console.log(availablePets.length);
+  // console.log(petStoryData);
+  // console.log(availablePets.length);
   return res.render("petStories", {
     title: "Sucessful Pet Stories",
     petStories: petStoryData,
@@ -676,29 +681,37 @@ router.route("/userReviews").post(async (req, res) => {
       req.body.guardianId,
       parseFloat(req.body.rating)
     );
+    if(postReview){
+      return res.render("userReviews",{title:"Reviews"});
+    }
   } catch (error) {
     // return req.redirect("/error");
+    res.status(500).json({ error: "Internal Server Error" });
+
   }
-  return res.render("userReviews",{title:"Reviews"});
+
 });
-// router.route("/error", (req, res) => {
-//   res.render("error");
-// });
+
 router.route("/select-guardian").post(async (req, res) => {
-  // console.log(req.body);
   const reviews = await getGuardianReviews(req.body.selectedGuardian);
+
   const userDetails = reviews.map((r) => {
     return r.usersInfo;
   });
-  console.log("=======================================");
-  console.log(reviews);
-  console.log(req.session.user.id);
-  const userReviews = await getUsersReviews(req.session.user.id);
-  console.log(userReviews);
-  const isReviewExisting = userReviews.find((g) => {
-    return g.guardianID.toString() === req.body.selectedGuardian;
-  });
-  console.log(isReviewExisting);
+
+  // const userReviews = await getUsersReviews(req.session.user.id);
+  
+  // console.log(userReviews);
+  const userWhoWroteReviewForGuardian = reviews.map((r)=>{
+    return r.usersID.toString()
+  })
+  console.log(userWhoWroteReviewForGuardian)
+  console.log(userWhoWroteReviewForGuardian.includes(req.session.user.id.toString()))
+
+  // const isReviewExisting = userReviews.find((g) => {
+  //   return g.guardianID.toString() === req.body.selectedGuardian;
+  // });
+  // console.log(isReviewExisting);
   // console.log(reviews);
   return res.render("selectedGuardian", {
     title: "Pet Guardians",
@@ -707,12 +720,12 @@ router.route("/select-guardian").post(async (req, res) => {
     guardian: reviews.length === 0 ? "" : reviews[0].guardianInfo[0],
     message: reviews.length === 0 ? "No reviews for this guardian" : "",
     guardianID: req.body.selectedGuardian,
-    zeroReviews: isReviewExisting ? false : true,
+    zeroReviews: !userWhoWroteReviewForGuardian.includes(req.session.user.id) ,
     title:"Select Guardian"
   });
 });
 router.route("/petUpdate").get(async (req, res) => {
-  console.log(req.session.user.email);
+  // console.log(req.session.user.email);
   const collection = await getAvailablePetsByAgency(req.session.user.email);
   return res.render("petUpdate", { title: "Pet Update", collection });
 });
@@ -737,19 +750,6 @@ router.route("/petUpdate").post(async (req, res) => {
   }
 });
 
-// router.route("/updateReview").get(async (req, res) => {
-//   // try {
-//   //   const update = await updateReview(
-//   //     req.session.user.id,
-//   //     req.body.guardianId,
-//   //     req.body.review,
-//   //     parseFloat(req.body.rating)
-//   //   );
-//   // } catch (error) {
-//   //   console.log(error);
-//   // }
-// });
-
 router.route("/updateReview").post(async (req, res) => {
   try {
     const update = await updateReview(
@@ -758,10 +758,12 @@ router.route("/updateReview").post(async (req, res) => {
       req.body.review,
       parseFloat(req.body.rating)
     );
+    if(update){
+      return res.json({ redirect: "/guardian" });
+    }
   } catch (error) {
     console.log(error);
   }
-  return res.redirect("/guardian");
 });
 
 export default router;

@@ -85,11 +85,19 @@ async function handleHeartClick() {
 
       const data = await response.json();
       console.log(data);
+      if(data.status==="Already liked"){
+        alert("Already liked")
+      }
+      // if(data.status==="success"){
+      //   alert("Liked")
+      // }
     } catch (error) {
       console.log("Error:", error);
     }
   } else {
-    console.log("Already liked");
+    // heartElement.style='display:none'
+    
+    alert("Already liked");
   }
 
   // fetch("/getUserDetails", {

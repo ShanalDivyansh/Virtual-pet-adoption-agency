@@ -45,10 +45,18 @@ editButtons.forEach(function (button) {
         if (!data.ok) {
           throw new Error("Network response was not ok");
         }
+        
+  const responseData = await data.json();
+
+  if (responseData.redirect) {
+    window.location.href = responseData.redirect;
+  } else {
+    form.style.display = "none";
+    alert("Success");
+  }
 
         form.style.display = "none";
         alert("Success");
-        window.location.href = "/guardian";
       } catch (error) {
         console.log(error);
       }

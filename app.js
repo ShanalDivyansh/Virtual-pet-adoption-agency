@@ -288,6 +288,22 @@ app.set("view engine", "handlebars");
 //   res.render("petStories", { petStories: dummyPetStories });
 // });
 
+
+import helmet from 'helmet';
+
+const cspConfig = {
+  directives: {
+    defaultSrc: ["'self'"],
+    scriptSrc: ["'self'", "'unsafe-inline'", 'https://trusted-scripts.com'],
+    scriptSrc: ["'self'", "'unsafe-inline'", 'https://trusted-scripts.com', 'https://code.jquery.com','http://localhost:3000','https://cdn.jsdelivr.net'],
+    styleSrc: ["'self'", 'http://localhost:3000', "'unsafe-inline'"],
+
+
+  },
+};
+
+app.use(helmet.contentSecurityPolicy(cspConfig));
+
 app.use("/", (req, res, next) => {
   const reqRoute = req.originalUrl;
   if (reqRoute === "/") {
@@ -325,7 +341,7 @@ app.use("/home", async (req, res, next) => {
   }
   if (req.session.user.userType === "user") {
     const user = await getUserDetails(req.session.user.id);
-    console.error(user[0]);
+    // console.error(user[0]);
     if (!user[0].quizAnswers.Type) return res.redirect("/questionnaire");
   }
   if (req.session.user.userType === "agency") {
@@ -398,19 +414,19 @@ app.use("/userReviews", async (req, res, next) => {
 });
 app.use("/petUpdate", async (req, res, next) => {
   if (!req.session.user) return res.redirect("/login");
-  console.log("I was hit ");
+  // console.log("I was hit ");
   if (req.session.user.userType === "user") return res.redirect("/home");
   next();
 });
 app.use("/addPet", async (req, res, next) => {
   if (!req.session.user) return res.redirect("/login");
-  console.log("I was hit ");
+  // console.log("I was hit ");
   if (req.session.user.userType === "user") return res.redirect("/home");
   next();
 });
 app.use("/addPetComplete", async (req, res, next) => {
   if (!req.session.user) return res.redirect("/login");
-  console.log("I was hit ");
+  // console.log("I was hit ");
   if (req.session.user.userType === "user") return res.redirect("/home");
   next();
 });

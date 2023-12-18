@@ -716,3 +716,24 @@ button:hover {
 .updated-logo{
   height: 50px;
 }
+
+#registerForm{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#registerForm input{
+  margin-bottom: 10px;
+}
+.login-popup h1{
+  text-align: center;
+}
+.register-popup h1{
+  text-align: center;
+
+}
+#registerBtn{
+  margin-top: 15px;
+}

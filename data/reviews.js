@@ -179,4 +179,5 @@ export const updateReview = async function (
     { returnDocument: "after" }
   );
   if (!updateReview) throw "Error: Update failed";
+  return updateReview
 };
