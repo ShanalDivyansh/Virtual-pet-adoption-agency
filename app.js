@@ -310,9 +310,6 @@ app.use("/login", (req, res, next) => {
   next();
 });
 app.use("/register", (req, res, next) => {
-  if (!req.session.user) {
-    return res.redirect("/login");
-  }
   if (req.session.user && req.session.user.userType === "user") {
     return res.redirect("/home");
   } else if (req.session.user && req.session.user.userType === "guardian") {

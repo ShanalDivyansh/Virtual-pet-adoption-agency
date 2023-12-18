@@ -50,6 +50,7 @@ router
   .route("/register")
   .get(async (req, res) => {
     //code here for GET
+    if(!req.session.user && req.route!="/login") return res.redirect("/login")
     return res.render("questionnaire", { title: "Questionnaire" });
   })
   .post(async (req, res) => {
