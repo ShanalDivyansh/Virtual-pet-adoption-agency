@@ -1,0 +1,52 @@
+[
+    {
+       "firstName":"Patrick",
+        "lastName":"Hill",
+        "email":"phill.guardian@gmail.com",
+        "password":"Password@123",
+        "userType":"guardian",
+        "location":{"streetAddress":"1 Castle Point Terrace", "city":"Hoboken", "state":"NJ", "zip":"07030"},
+        "servicesOffered":["Pet Sitter","Pet Grooming","Pet Walking"],
+        "reviews":[]
+    },
+    {
+        "firstName":"Shanal",
+         "lastName":"Divyansh",
+         "email":"sdivyansh.guardian@gmail.com",
+         "password":"Password@123",
+         "userType":"guardian",
+         "location":{"streetAddress":"3629 JFK BLVD", "city":"Jersey City", "state":"NJ", "zip":"07307"},
+         "servicesOffered":["Pet Sitter","Pet Grooming","Pet Walking"],
+         "reviews":[]
+     },
+     {
+        "firstName":"Suraj",
+         "lastName":"Singh",
+         "email":"ssingh.guardian@gmail.com",
+         "password":"Password@123",
+         "userType":"guardian",
+         "location":{"streetAddress":"310 Thorne Street", "city":"Jersey City", "state":"NJ", "zip":"07307"},
+         "servicesOffered":["Pet Sitter","Pet Grooming","Pet Walking"],
+         "reviews":[]
+     },
+     {
+        "firstName":"Pranjal",
+         "lastName":"Apoorva",
+         "email":"papoorva.guardian@gmail.com",
+         "password":"Password@123",
+         "userType":"guardian",
+         "location":{"streetAddress":"107 Charles Street", "city":"Jersey City", "state":"NJ", "zip":"07307"},
+         "servicesOffered":["Pet Sitter","Pet Grooming","Pet Walking"],
+         "reviews":[]
+     },
+     {
+        "firstName":"Ansh",
+         "lastName":"Yadav",
+         "email":"ayadav.guardian@gmail.com",
+         "password":"Password@123",
+         "userType":"guardian",
+         "location":{"streetAddress":"534 Adams Street", "city":"Hoboken", "state":"NJ", "zip":"07030"},
+         "servicesOffered":["Pet Sitter","Pet Grooming","Pet Walking"],
+         "reviews":[]
+     }
+]

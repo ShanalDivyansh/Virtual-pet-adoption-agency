@@ -1,0 +1,35 @@
+[
+    {
+       "firstName":"Hoboken's Pets",
+        "lastName":"agency",
+        "email":"hpets.agency@gmail.com",
+        "password":"Password@123",
+        "shortlistedPets":[],
+        "adoptedPets":[],
+        "quizAnswers":"",
+        "userType":"agency",
+        "reviews":[]
+    },
+    {
+        "firstName":"Animal Haven",
+         "lastName":"agency",
+         "email":"ahaven.agency@gmail.com",
+         "password":"Password@123",
+         "shortlistedPets":[],
+         "adoptedPets":[],
+         "quizAnswers":"",
+         "userType":"agency",
+         "reviews":[]
+     },
+     {
+        "firstName":"Rescue Me",
+         "lastName":"agency",
+         "email":"rescueme.agency@gmail.com",
+         "password":"Password@123",
+         "shortlistedPets":[],
+         "adoptedPets":[],
+         "quizAnswers":"",
+         "userType":"agency",
+         "reviews":[]
+     }
+]
