@@ -16,7 +16,7 @@ import {
   getUnavailablePets,
 } from "../data/pets.js";
 import { fileURLToPath } from "url";
-import { dirname } from "path";
+import { dirname, join } from "path";
 router.use(
   fileUpload({
     limits: {
@@ -433,7 +433,10 @@ router
     let errorMessages = [];
     let imgPath = [];
     let specialNeedsList = [];
-    let uploadPath = `${__dirname}/public/Images/Pets`;
+    // let uploadPath = `${__dirname}/public/Images/Pets`;
+    let uploadPath = join(__dirname, '..', 'public', 'Images', 'Pets/');
+    console.log(__dirname)
+    console.log(uploadPath)
     // let uploadPath = '/Users/pranjalapoorva/Desktop/College/3Fall_2023/CS-546(Web)/Project/petcopy2/Virtual-pet-adoption-agency/public/Images/Pets/';
 
     if (
