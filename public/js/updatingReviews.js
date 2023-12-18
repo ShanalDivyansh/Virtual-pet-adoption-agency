@@ -18,6 +18,18 @@ editButtons.forEach(function (button) {
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      const uReviewValue = updateReview.value.trim();
+      const uRatingValue = updateRating.value.trim();
+    
+      if (uReviewValue.length === 0 || uRatingValue.length === 0) {
+        alert("Review and Rating cannot be empty");
+        return;
+      }
+    
+      if (uReviewValue.length < 5 || uRatingValue.length < 5) {
+        alert("Review and Rating should be at least 5 characters long");
+        return;
+      }
       try {
         const data = await fetch("/updateReview", {
           method: "POST",

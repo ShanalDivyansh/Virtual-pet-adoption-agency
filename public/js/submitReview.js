@@ -4,6 +4,19 @@ const rating = document.querySelector("#guardian-rating");
 const guardianId = document.querySelector("#guardian-review-id");
 form?.addEventListener("submit", async (e) => {
   e.preventDefault();
+  const reviewValue = review.value.trim();
+  const ratingValue = rating.value.trim();
+
+  if (reviewValue.length === 0 || ratingValue.length === 0) {
+    alert("Review and Rating cannot be empty");
+    return;
+  }
+
+  if (reviewValue.length < 5 || ratingValue.length < 5) {
+    alert("Review and Rating should be at least 5 characters long");
+    return;
+  }
+
   try {
     const data = await fetch("/userReviews", {
       method: "POST",
