@@ -167,3 +167,22 @@ export const changeAvailability = async function (petID, story, availability) {
   if (!update) throw "Pet not found";
   return update;
 };
+export const changeAvailability1 = async function (petID, story) {
+  const id = checkId(petID);
+  // if (!(`${availability}` === "false" || `${availability}` === "true"))
+  //   throw "Availabilty must be true or false";
+  const collection = await pets();
+  const update = collection.findOneAndUpdate(
+    { _id: new ObjectId(id) },
+    {
+      $set: {
+        availability: false,
+        successStory: story,
+      },
+    },
+    { returnDocument: "after" }
+  );
+
+  if (!update) throw "Pet not found";
+  return update;
+};

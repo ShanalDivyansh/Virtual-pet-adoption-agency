@@ -1,31 +1,33 @@
+<nav class="nav">
+  <a href="/home"><img src="public/Images/logo.jpg" alt="dog logo" class="logo" /></a>
+  <a href="/logout"><button class="login-button">Logout</button></a>
+</nav>
 <div class="petUpdate-container">
-  <form action="#" method="post" id="petUpdateForm">
+  <form action="/petUpdate" method="post" id="petUpdateForm">
     {{#each collection}}
-      <span style="display: none;">{{_id}}</span>
-      <span>Change availability for: </span>
-      <span>{{name}} - {{type}} - {{breed}}</span>
-      <br />
-      <label for="petTrueRadio">True</label>
-      <input type="radio" id="petTrueRadio" name="answer" value="true" />
+    <span style="display: none;">{{_id}}</span>
+    {{!-- <span>Change availability for: </span>
+    <span>{{name}} - {{type}} - {{breed}}</span> --}}
+    <br />
+    <br />
+    {{!-- <label for="petTrueRadio">True</label>
+    <input type="radio" id="petTrueRadio" name="answer" value="true" />
 
-      <label for="petFalseRadio">False</label>
-      <input type="radio" id="petFalseRadio" name="answer" value="false" />
+    <label for="petFalseRadio">False</label>
+    <input type="radio" id="petFalseRadio" name="answer" value="false" /> --}}
+    <label for={{_id}}>
+      <input type="checkbox" name="checkForFalse" id={{_id}} value={{_id}}> Mark {{name}} the {{breed}}-{{type}} as
+      Adopted
+    </label>
+    <br />
+    <input type="text" name="textInput_{{_id}}" placeholder="Enter the success story">
     {{/each}}
-    <label for="textInput">Enter your Pet Success story</label>
-    <input
-      type="text"
-      id="textInput"
-      name="comments"
-      placeholder="Enter your comments"
-    />
-
+    {{!-- <label for="textInput">Enter your Pet Success story</label>
+    <input type="text" id="textInput" name="comments" placeholder="Enter your comments" /> --}}
     <input type="submit" value="Submit" />
   </form>
 </div>
 
-<script
-  src="https://code.jquery.com/jquery-2.2.4.min.js"
-  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-  crossorigin="anonymous"
-></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script src="/public/js/ajax.js"></script>
