@@ -1,7 +1,7 @@
 <nav class="nav">
   <a href="/home"><img src="public/Images/logo.jpg" alt="dog logo" class="updated-logo"/></a>
   <div>
-  <a href="/logout"><button class="login-button">Logout</button></a>
+  <a href="/logout" class="login-button"> Logout </a>
   </div>
 </nav>
 
@@ -25,9 +25,10 @@
       <ul>
         {{#each guardian}}
           <li>
-            <p style="display: none;" id="guardian-id">{{_id}}</p>
+            {{!-- <p style="display: none;" id="guardian-id">{{_id}}</p> --}}
+            <p style="display: none;" id="guardian-id-{{_id}}">{{_id}}</p>
             <input type="radio" id={{_id}} name="selectedGuardian" value="{{_id}}" />
-            <label for={{_id}}>Name:</strong>
+            <label for={{_id}}><strong>Name:</strong>
             {{firstName}}
             {{lastName}}<br />
             <strong>Email:</strong>
@@ -39,8 +40,8 @@
             {{location.zip}}<br />
             <strong>Services Offered:</strong>
             {{servicesOffered}}<br />
+            </label><br />
           </li>
-          <br />
         {{/each}}
       </ul>
       <button type="submit" id="submitBtn" style="display: none;">Select

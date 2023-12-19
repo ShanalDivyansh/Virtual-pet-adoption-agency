@@ -1,7 +1,11 @@
 <nav class="nav">
     <a href="/agencyHome"><img src="public/Images/logo.jpg" alt="dog logo" class="updated-logo" /></a>
     <div>
+    {{!-- <button class="login-button"><a href="/logout">Logout</a></button> --}}
     <a href="/logout" class="login-button"> Logout </a>
     </div>
 </nav>
-<p>Pet added!!!</p>
+{{#each userDetails}}
+<p>{{this}}</p>
+{{!-- <p>hi</p> --}}
+{{/each}}
