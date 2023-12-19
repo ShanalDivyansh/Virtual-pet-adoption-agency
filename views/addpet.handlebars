@@ -6,7 +6,8 @@
     </div>
 </nav>
 <form id='addpet-form' action="/addPet" method="post" enctype="multipart/form-data">
-    <label for="image">Image:</label>
+    {{!-- <label for="image">Image:</label> --}}
+    <p>Image:</p>
     <input type="file" name="image" accept="image/*" required>
 
     <label for="petName">Name:</label>
@@ -24,13 +25,16 @@
         <option value="cat">Cat</option>
     </select>
 
-    <label for="breed">Breed:</label>
-    <select name="dogBreed" id="dogBreed" class="dog-selector">
+    {{!-- <label for="breed">Breed:</label> --}}
+    <p>Breed:</p>
+    <select multiple name="dogBreed" id="dogBreed" class="dog-selector">
+        <option value="nonedog" selected>NONE</option>
         {{#each dogBreeds}}
         <option value="{{this}}" selected>{{this}}</option>
         {{/each}}
     </select>
-    <select name="catBreed" id="catBreed" class="cat-selector selector-catShow">
+    <select multiple name="catBreed" id="catBreed" class="cat-selector selector-catShow">
+        <option value="nonecat" selected>NONE</option>
         {{#each catBreeds}}
         <option value="{{this}}" selected>{{this}}</option>
         {{/each}}

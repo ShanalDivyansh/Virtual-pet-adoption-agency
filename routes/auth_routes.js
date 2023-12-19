@@ -8,6 +8,7 @@ import PasswordValidator from "password-validator";
 import bcrypt, { hash } from "bcrypt";
 import { readFile } from "fs/promises";
 import fileUpload from "express-fileupload";
+import { ObjectId } from "mongodb";
 import {
   changeAvailability,
   changeAvailability1,
@@ -439,8 +440,8 @@ router
     let specialNeedsList = [];
     // let uploadPath = `${__dirname}/public/Images/Pets`;
     let uploadPath = join(__dirname, '..', 'public', 'Images', 'Pets/');
-    console.log(__dirname)
-    console.log(uploadPath)
+    // console.log(__dirname)
+    // console.log(uploadPath)
     // let uploadPath = '/Users/pranjalapoorva/Desktop/College/3Fall_2023/CS-546(Web)/Project/petcopy2/Virtual-pet-adoption-agency/public/Images/Pets/';
 
     if (
@@ -465,26 +466,27 @@ router
       if (!/^image/.test(image.mimetype))
         return res.status(400).send("Invalid file type");
 
-      let imgName = petName;
-      let cbreedName = ""
-      for(let i of catBreed){
-        if(i.trim()===''){
-          continue
-        } else {
-          cbreedName+=i.trim()
-        }
-      }
+      // let imgName = petName;
+      let imgName = new ObjectId().toString()+".jpg";
+      // let cbreedName = ""
+      // for(let i of catBreed){
+      //   if(i.trim()===''){
+      //     continue
+      //   } else {
+      //     cbreedName+=i.trim()
+      //   }
+      // }
 
-      let dbreedName = ""
-      for(let i of catBreed){
-        if(i.trim()===''){
-          continue
-        } else {
-          dbreedName+=i.trim()
-        }
-      }
-      if (animalType === "dog") imgName = imgName + dbreedName + ".jpg";
-      else imgName = imgName + cbreedName + ".jpg";
+      // let dbreedName = ""
+      // for(let i of catBreed){
+      //   if(i.trim()===''){
+      //     continue
+      //   } else {
+      //     dbreedName+=i.trim()
+      //   }
+      // }
+      // if (animalType === "dog") imgName = imgName + dbreedName + ".jpg";
+      // else imgName = imgName + cbreedName + ".jpg";
       uploadPath = uploadPath + imgName;
       imgPath[0] = "public/Images/Pets/" + imgName;
 
@@ -799,7 +801,10 @@ router.route("/contactUsers").get(async (req, res) => {
         }
       }
     }
-    return res.render("contactUsers",{userDetails})
+    if(userDetails.length===0){
+    return res.render("contactUsers",{error:true,title:'User Contact'})
+    }
+    return res.render("contactUsers",{userDetails,title:'User Contact'})
 
 } catch(error) {
   console.log(error)

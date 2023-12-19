@@ -49,6 +49,8 @@ if (addPet_form) {
         // bio.trim() ,
         // petVaccination.trim() ,
         // spayedNeutered.trim());
+        console.log(dogBreed);
+        console.log(catBreed);
         if (
             petName.trim() === "" ||
             petType.trim() === "" ||
@@ -72,9 +74,19 @@ if (addPet_form) {
 
             if (!['dog', 'cat'].includes(petType.trim().toLowerCase()))
                 errorMessages.push("Pet Type not provided correctly");
+            if (petType.length === 0) {
+                alert('Please select at least one dog breed.');
+                return;
+            }
 
             if (!['male', 'female'].includes(petGender.trim().toLowerCase()))
                 errorMessages.push("Pet Gender not provided correctly");
+            if(dogBreed.trim().toLowerCase() === 'nonedog' && catBreed.trim().toLowerCase() === 'nonecat')
+                errorMessages.push("Breed not selected");
+            // if (!['nonedog', 'nonecat'].includes(dogBreed.trim().toLowerCase()))
+            //     errorMessages.push("Pet Gender not provided correctly");
+            // if (!['nonedog', 'nonecat'].includes(catBreed.trim().toLowerCase()))
+                // errorMessages.push("Pet Gender not provided correctly");
 
             if (!['low','mediumenergy','high','very-high'].includes(energyLevel.trim().toLowerCase()))
                 errorMessages.push("Pet Energy Level not provided correctly");
