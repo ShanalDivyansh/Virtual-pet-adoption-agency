@@ -4,7 +4,7 @@
       alt="dog logo"
       class="updated-logo"
     /></a>
-  <a href="/logout"><button class="login-button">Logout</button></a>
+  <a href="/logout" class="login-button">Logout</a>
 </nav>
 
 <p>Your reviews:</p>
@@ -16,7 +16,8 @@
   {{/each}}
 
   {{#each userReviews}}
-    <span class="editReview-rating" rating>
+    {{!-- <span class="editReview-rating" rating> --}}
+      <span class="editReview-rating">
       Rating:
       {{rating}}
       | Review:

@@ -4,9 +4,9 @@
       alt="dog logo"
       class="updated-logo"
     /></a>
-  <a href="/logout"><button class="login-button">Logout</button></a>
+  <a href="/logout" class="login-button">Logout</a>
 </nav>
-<p class="pets-view-header">Your Short Listed Pets</p>
+<p class="pets-view-header">Hey !! Your Short Listed Pets Are:</p>
 <div class="pets-view">
   {{#each pets}}
     <div class="pets-view-container">
@@ -16,10 +16,10 @@
 
   {{/each}}
   {{#each img}}
-    <img src="{{this}}" />
+    <img alt="pets" src="{{this}}" />
   {{/each}}
 </div>
-<p>Your quiz answers:</p>
+<h2>Your quiz answers:</h2>
 <p>Your prefrence for pet choice: {{quiz.Type}}</p>
 <p>Your prefrence for pet Age Group: {{age}}</p>
 <p>Your prefrence for pet Gender: {{quiz.Gender}}</p>
