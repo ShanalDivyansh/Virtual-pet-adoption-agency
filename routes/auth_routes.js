@@ -793,11 +793,16 @@ router.route("/contactUsers").get(async (req, res) => {
     const userDetails = []
     for(let u of users){
       for(let all of u.intrestedUsers){
+        console.log(all);
         const info = await getUserDetails(all.toString())
         for(let pet of info[0].shortListedPetsInfo){
-          if(!userDetails.includes(`${pet.name} - ${pet.breed} was liked by ${info[0].firstName} ${info[0].lastName} email: ${info[0].email} `)){
-            userDetails.push(`${pet.name} - ${pet.breed} was liked by ${info[0].firstName} ${info[0].lastName} email: ${info[0].email} `)
+          // console.log(pet);
+          if(pet.agencyName ===req.session.user.email){
+            if(!userDetails.includes(`${pet.name} - ${pet.breed} was liked by ${info[0].firstName} ${info[0].lastName} email: ${info[0].email} `)){
+              userDetails.push(`${pet.name} - ${pet.breed} was liked by ${info[0].firstName} ${info[0].lastName} email: ${info[0].email} `)
+            }
           }
+          
         }
       }
     }
