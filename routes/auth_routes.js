@@ -14,6 +14,7 @@ import {
   createPets,
   getAvailablePetsByAgency,
   getUnavailablePets,
+  intrestedUsers,
 } from "../data/pets.js";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
@@ -781,6 +782,29 @@ router.route("/petUpdate").post(async (req, res) => {
 //   // }
 // });
 
+
+
+router.route("/contactUsers").get(async (req, res) => {
+  try{
+    const users = (await intrestedUsers(req.session.user.email))
+    // const users = (await intrestedUsers('shanaldivyansh@gmail.com'))
+    const userDetails = []
+    for(let u of users){
+      for(let all of u.intrestedUsers){
+        const info = await getUserDetails(all.toString())
+        for(let pet of info[0].shortListedPetsInfo){
+          if(!userDetails.includes(`${pet.name} - ${pet.breed} was liked by ${info[0].firstName} ${info[0].lastName} email: ${info[0].email} `)){
+            userDetails.push(`${pet.name} - ${pet.breed} was liked by ${info[0].firstName} ${info[0].lastName} email: ${info[0].email} `)
+          }
+        }
+      }
+    }
+    return res.render("contactUsers",{userDetails})
+
+} catch(error) {
+  console.log(error)
+}
+})
 router.route("/updateReview").post(async (req, res) => {
   try {
     const update = await updateReview(
@@ -796,5 +820,7 @@ router.route("/updateReview").post(async (req, res) => {
     console.log(error);
   }
 });
+
+
 
 export default router;

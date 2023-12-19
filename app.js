@@ -1,7 +1,7 @@
 // Setup server, session and middleware here.
 import { guardian, reviews } from "./config/mongoCollections.js";
 import { createGuardian } from "./data/guardian.js";
-import { createPets, getPet } from "./data/pets.js";
+import { createPets, getPet, intrestedUsers } from "./data/pets.js";
 import {
   createReview,
   getUsersReviews,
@@ -15,6 +15,9 @@ import {
   getUserDetails,
   loginUser,
 } from "./data/users.js";
+
+
+
 
 // User;
 // try {
@@ -434,6 +437,11 @@ app.use("/petUpdateSuccess", async (req, res, next) => {
   if (!req.session.user) return res.redirect("/login");
   if (req.session.user.userType === "user") return res.redirect("/home");
   return res.redirect("/addPetComplete");
+  next();
+});
+app.use("/contactUsers", async (req, res, next) => {
+  if (!req.session.user) return res.redirect("/login");
+  if (req.session.user.userType === "user") return res.redirect("/home");
   next();
 });
 

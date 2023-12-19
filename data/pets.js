@@ -188,3 +188,18 @@ export const changeAvailability1 = async function (petID, story) {
   if (!update) throw "Pet not found";
   return update;
 };
+
+
+
+export const intrestedUsers =  async function(agency){
+  const collection = await pets()
+  const intrestedUsers = await collection.find({ "intrestedUsers": { $exists: true, $not: { $size: 0 } } }).toArray();
+  const agencySpecificIntrestedUsers = []
+  intrestedUsers.forEach((p)=>{
+    if( p.agencyName === agency){
+      agencySpecificIntrestedUsers.push(p)
+    }
+  })
+  return agencySpecificIntrestedUsers
+
+}
